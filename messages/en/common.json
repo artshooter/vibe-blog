@@ -13,5 +13,11 @@
   },
   "language": {
     "switch": "Switch Language"
+  },
+  "world-war-one": {
+    "metadata": {
+      "title": "World War I",
+      "description": "From a gunshot in Sarajevo to a four-year war that changed the world. Explore how a local conflict escalated into a global catastrophe."
+    }
   }
 }

@@ -1,7 +1,9 @@
 import { Article } from './types'
+import { worldWarOneArticle } from '@/app/components/world-war-one'
 
 // 文章注册表 - 新文章在此添加
 const articles: Record<string, Article> = {
+  'world-war-one': worldWarOneArticle,
   // 示例：
   // resume: resumeArticle,
   // tasks: tasksArticle,

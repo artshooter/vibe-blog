@@ -1,24 +1,35 @@
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import LanguageSwitch from '@/app/components/common/LanguageSwitch'
+import { getPublishedArticles } from '@/app/components/articles'
 
 export default function HomePage() {
   const t = useTranslations()
+  const articles = getPublishedArticles()
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
+    <main className="min-h-screen bg-black text-white">
       <LanguageSwitch />
 
-      <h1 className="text-6xl font-bold mb-4">{t('home.welcome')}</h1>
-      <p className="text-xl text-gray-400 mb-8">{t('home.subtitle')}</p>
+      {/* Header */}
+      <div className="flex flex-col items-center justify-center py-20">
+        <h1 className="text-6xl font-bold mb-4">{t('home.welcome')}</h1>
+        <p className="text-xl text-gray-400 mb-8">{t('home.subtitle')}</p>
+      </div>
 
-      <div className="flex gap-4">
-        <Link
-          href="/resume"
-          className="px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 transition"
-        >
-          Resume
-        </Link>
+      {/* Articles Grid */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+        <h2 className="text-3xl font-bold mb-8 text-gray-300">文章</h2>
+        <div className="grid grid-cols-1 gap-8">
+          {articles.map((article) => {
+            const { Hero } = article
+            return (
+              <div key={article.meta.slug}>
+                <Hero inHome={true} />
+              </div>
+            )
+          })}
+        </div>
       </div>
     </main>
   )
