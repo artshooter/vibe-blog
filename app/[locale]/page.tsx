@@ -13,13 +13,12 @@ export default function HomePage() {
 
       {/* Header */}
       <div className="flex flex-col items-center justify-center py-20">
-        <h1 className="text-6xl font-bold mb-4">{t('home.welcome')}</h1>
-        <p className="text-xl text-gray-400 mb-8">{t('home.subtitle')}</p>
+        <h1 className="text-2xl md:text-3xl text-gray-400">{t('home.subtitle')}</h1>
       </div>
 
       {/* Articles Grid */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
-        <h2 className="text-3xl font-bold mb-8 text-gray-300">文章</h2>
+        <h2 className="text-3xl font-bold mb-8 text-gray-300">{t('nav.articles')}</h2>
         <div className="grid grid-cols-1 gap-8">
           {articles.map((article) => {
             const { Hero } = article

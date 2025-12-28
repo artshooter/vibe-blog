@@ -2,8 +2,10 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function DataVisualization() {
+  const t = useTranslations('world-war-one')
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   const [count, setCount] = useState(0)
@@ -45,9 +47,9 @@ export default function DataVisualization() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
         >
           <h3 className="text-3xl md:text-4xl font-bold text-[#d4c5a9] mb-4">
-            战争的规模
+            {t('scale.title')}
           </h3>
-          <p className="text-gray-400">一场席卷全球的灾难</p>
+          <p className="text-gray-400">{t('scale.subtitle')}</p>
         </motion.div>
 
         {/* 可视化 */}
@@ -62,13 +64,13 @@ export default function DataVisualization() {
             >
               {count}00万
             </motion.div>
-            <p className="text-xl md:text-2xl text-gray-400">参战人数</p>
+            <p className="text-xl md:text-2xl text-gray-400">{t('scale.mobilized')}</p>
           </div>
 
           {/* 比例可视化 */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-500">占世界人口比例</span>
+              <span className="text-sm text-gray-500">{t('scale.percentage')}</span>
               <span className="text-lg font-bold text-[#d4c5a9]">
                 {percentage.toFixed(1)}%
               </span>
@@ -100,30 +102,30 @@ export default function DataVisualization() {
 
             <div className="flex justify-between mt-2 text-xs text-gray-600">
               <span>0</span>
-              <span>世界人口 17亿</span>
+              <span>{t('scale.worldPopulation')}</span>
             </div>
           </div>
 
           {/* 统计信息 */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <StatCard
-              number="2"
-              label="主要阵营"
-              sublabel="协约国 vs 同盟国"
+              number={t('scale.stat1.number')}
+              label={t('scale.stat1.label')}
+              sublabel={t('scale.stat1.sublabel')}
               delay={0.2}
               isInView={isInView}
             />
             <StatCard
-              number="4"
-              label="战争年份"
-              sublabel="1914 - 1918"
+              number={t('scale.stat2.number')}
+              label={t('scale.stat2.label')}
+              sublabel={t('scale.stat2.sublabel')}
               delay={0.4}
               isInView={isInView}
             />
             <StatCard
-              number="100万+"
-              label="单场伤亡"
-              sublabel="凡尔登战役"
+              number={t('scale.stat3.number')}
+              label={t('scale.stat3.label')}
+              sublabel={t('scale.stat3.sublabel')}
               delay={0.6}
               isInView={isInView}
             />
@@ -137,9 +139,9 @@ export default function DataVisualization() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 1 }}
         >
-          当时世界人口总数约为17亿，参战人数达到6700万，
+          {t('scale.note')}
           <br className="hidden md:block" />
-          相当于每25个人中就有1人参与这场战争
+          {t('scale.noteBreak')}
         </motion.p>
       </div>
     </div>

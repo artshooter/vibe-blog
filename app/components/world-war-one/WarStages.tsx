@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useTranslations } from 'next-intl'
 
 interface Stage {
   year: string
@@ -12,42 +13,39 @@ interface Stage {
   icon: string
 }
 
-const stages: Stage[] = [
-  {
-    year: '1914',
-    title: '战火初燃',
-    subtitle: 'Initial Outbreak',
-    description:
-      '战争爆发初期，各国怀揣速决战的幻想。西线在马恩河战役后陷入僵局，双方开始挖掘战壕。',
-    icon: '🔥',
-  },
-  {
-    year: '1915-1916',
-    title: '僵持',
-    subtitle: 'Stalemate',
-    description:
-      '西线进入全面堑壕战。凡尔登战役、索姆河战役带来巨大伤亡，但进展甚微。这是残酷的消耗战。',
-    icon: '⚔️',
-  },
-  {
-    year: '1917',
-    title: '变局',
-    subtitle: 'Turning Point',
-    description:
-      '沙俄退出协约国，美国参战。两大决定性事件对战争格局产生根本性改变。',
-    icon: '🔄',
-  },
-  {
-    year: '1918',
-    title: '溃败',
-    subtitle: 'Collapse',
-    description:
-      '同盟国在协约国反攻下节节败退。11月11日签署停战协定，第一次世界大战正式结束。',
-    icon: '🏳️',
-  },
-]
-
 export default function WarStages() {
+  const t = useTranslations('world-war-one')
+
+  const stages: Stage[] = [
+    {
+      year: t('phases.stage1.year'),
+      title: t('phases.stage1.title'),
+      subtitle: t('phases.stage1.subtitle'),
+      description: t('phases.stage1.description'),
+      icon: '🔥',
+    },
+    {
+      year: t('phases.stage2.year'),
+      title: t('phases.stage2.title'),
+      subtitle: t('phases.stage2.subtitle'),
+      description: t('phases.stage2.description'),
+      icon: '⚔️',
+    },
+    {
+      year: t('phases.stage3.year'),
+      title: t('phases.stage3.title'),
+      subtitle: t('phases.stage3.subtitle'),
+      description: t('phases.stage3.description'),
+      icon: '🔄',
+    },
+    {
+      year: t('phases.stage4.year'),
+      title: t('phases.stage4.title'),
+      subtitle: t('phases.stage4.subtitle'),
+      description: t('phases.stage4.description'),
+      icon: '🏳️',
+    },
+  ]
   return (
     <div className="w-full py-16 px-4 md:px-8 bg-black/30">
       <div className="max-w-4xl mx-auto">
@@ -59,9 +57,9 @@ export default function WarStages() {
           viewport={{ once: true }}
         >
           <h3 className="text-3xl md:text-4xl font-bold text-[#d4c5a9] mb-4">
-            战争进程
+            {t('phases.title')}
           </h3>
-          <p className="text-gray-400">四年战争的演变历程</p>
+          <p className="text-gray-400">{t('phases.subtitle')}</p>
         </motion.div>
 
         {/* 时间线 */}

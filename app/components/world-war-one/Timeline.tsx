@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 interface TimelineEvent {
   date: string
@@ -10,58 +11,59 @@ interface TimelineEvent {
   country?: string
 }
 
-const events: TimelineEvent[] = [
-  {
-    date: '6月28日',
-    title: '萨拉热窝事件',
-    description: '奥匈帝国皇储斐迪南大公在萨拉热窝被刺杀身亡',
-    country: '波黑',
-  },
-  {
-    date: '7月5日',
-    title: '德国空白支票',
-    description: '德国向奥匈帝国表示无条件支持',
-    country: '德国',
-  },
-  {
-    date: '7月23日',
-    title: '最后通牒',
-    description: '奥匈帝国向塞尔维亚发出包含十项条件的最后通牒',
-    country: '奥匈',
-  },
-  {
-    date: '7月28日',
-    title: '局部冲突开始',
-    description: '奥匈帝国对塞尔维亚宣战',
-    country: '奥匈',
-  },
-  {
-    date: '7月29-30日',
-    title: '连锁反应开始',
-    description: '俄国开始战争动员，作为斯拉夫人的保护者介入',
-    country: '俄国',
-  },
-  {
-    date: '8月1日',
-    title: '德国参战',
-    description: '德国对俄国宣战，法国开始军事动员',
-    country: '德国',
-  },
-  {
-    date: '8月3日',
-    title: '入侵比利时',
-    description: '德国对法国宣战，并入侵中立国比利时',
-    country: '德国',
-  },
-  {
-    date: '8月4日',
-    title: '全球战争爆发',
-    description: '英国对德国宣战，战争升级为全球冲突',
-    country: '英国',
-  },
-]
-
 export default function Timeline() {
+  const t = useTranslations('world-war-one')
+
+  const events: TimelineEvent[] = [
+    {
+      date: t('timeline.events.event1.date'),
+      title: t('timeline.events.event1.title'),
+      description: t('timeline.events.event1.description'),
+      country: t('timeline.events.event1.country'),
+    },
+    {
+      date: t('timeline.events.event2.date'),
+      title: t('timeline.events.event2.title'),
+      description: t('timeline.events.event2.description'),
+      country: t('timeline.events.event2.country'),
+    },
+    {
+      date: t('timeline.events.event3.date'),
+      title: t('timeline.events.event3.title'),
+      description: t('timeline.events.event3.description'),
+      country: t('timeline.events.event3.country'),
+    },
+    {
+      date: t('timeline.events.event4.date'),
+      title: t('timeline.events.event4.title'),
+      description: t('timeline.events.event4.description'),
+      country: t('timeline.events.event4.country'),
+    },
+    {
+      date: t('timeline.events.event5.date'),
+      title: t('timeline.events.event5.title'),
+      description: t('timeline.events.event5.description'),
+      country: t('timeline.events.event5.country'),
+    },
+    {
+      date: t('timeline.events.event6.date'),
+      title: t('timeline.events.event6.title'),
+      description: t('timeline.events.event6.description'),
+      country: t('timeline.events.event6.country'),
+    },
+    {
+      date: t('timeline.events.event7.date'),
+      title: t('timeline.events.event7.title'),
+      description: t('timeline.events.event7.description'),
+      country: t('timeline.events.event7.country'),
+    },
+    {
+      date: t('timeline.events.event8.date'),
+      title: t('timeline.events.event8.title'),
+      description: t('timeline.events.event8.description'),
+      country: t('timeline.events.event8.country'),
+    },
+  ]
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [hasStarted, setHasStarted] = useState(false)
 
@@ -89,10 +91,10 @@ export default function Timeline() {
           viewport={{ once: true }}
         >
           <h3 className="text-3xl md:text-4xl font-bold text-[#d4c5a9] mb-4">
-            连锁反应：7天引爆全球
+            {t('timeline.title')}
           </h3>
           <p className="text-gray-400 text-lg">
-            点击时间线节点，查看战争如何一步步失控
+            {t('timeline.subtitle')}
           </p>
         </motion.div>
 
@@ -103,7 +105,7 @@ export default function Timeline() {
               onClick={handleStart}
               className="px-8 py-3 bg-[#8b2020] text-white font-bold rounded hover:bg-[#a02525] transition-colors"
             >
-              观看连锁反应 →
+              {t('timeline.startButton')}
             </button>
           </div>
         )}

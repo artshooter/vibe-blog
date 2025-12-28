@@ -154,6 +154,8 @@ export default function Cover({ meta }: CoverProps) {
 - 遵循 design.md 的设计方案
 - 考虑桌面端和移动端响应式
 - 交互应该帮助理解内容，不是炫技
+- **所有文本内容使用 `useTranslations('[slug]')` 获取，禁止硬编码**
+- **组件顶部添加 `'use client'` 指令（如果使用 useTranslations）**
 
 ---
 
@@ -176,37 +178,137 @@ export const articles = [
 
 ---
 
-## Step 7: 添加翻译
+## Step 7: 创建翻译文件并配置 i18n
 
-在 `messages/zh/common.json` 和 `messages/en/common.json` 中添加文章相关的翻译：
+### 7.1 创建翻译文件
+
+为文章创建独立的翻译文件：
+
+1. 创建 `messages/zh/[slug].json`（中文翻译）
+2. 创建 `messages/en/[slug].json`（英文翻译，AI自动翻译）
+
+**翻译文件结构规范**：
+- ✅ 使用命名对象（`event1`, `event2`, `stage1`）
+- ❌ 不使用数组索引（`events.0`, `stages.1`）
+- 确保中英文 JSON 结构完全一致
+
+**示例**：
 
 ```json
 {
-  "[slug]": {
-    "metadata": {
-      "title": "...",
-      "description": "..."
+  "metadata": {
+    "title": "文章标题",
+    "description": "文章描述"
+  },
+  "hero": {
+    "title": "主标题",
+    "subtitle": "副标题"
+  },
+  "sections": {
+    "section1": {
+      "title": "第一部分",
+      "content": "内容"
+    },
+    "section2": {
+      "title": "第二部分",
+      "content": "内容"
     }
   }
 }
 ```
 
-**注意**：
-- 中文是原文
-- 英文由 AI 自动翻译
+### 7.2 更新 i18n 配置
+
+**关键步骤**：编辑 `i18n/request.ts`，添加新文章的翻译加载：
+
+```typescript
+export default getRequestConfig(async ({ requestLocale }) => {
+  let locale = await requestLocale
+
+  if (!locale || !routing.locales.includes(locale as Locale)) {
+    locale = routing.defaultLocale
+  }
+
+  const commonMessages = (await import(`@/messages/${locale}/common.json`)).default
+  const [slug]Messages = (await import(`@/messages/${locale}/[slug].json`)).default  // 添加这行
+
+  return {
+    locale,
+    messages: {
+      ...commonMessages,
+      '[slug]': [slug]Messages,  // 添加这行
+    },
+  }
+})
+```
+
+**检查清单**：
+- [ ] 创建了 messages/zh/[slug].json
+- [ ] 创建了 messages/en/[slug].json
+- [ ] 在 i18n/request.ts 中导入新翻译文件
+- [ ] 在 messages 对象中添加了新的 namespace
+
+### 7.3 组件中使用翻译
+
+确保所有组件使用翻译而非硬编码文本：
+
+```tsx
+'use client'
+import { useTranslations } from 'next-intl'
+
+export default function Component() {
+  const t = useTranslations('[slug]')
+
+  return <h1>{t('hero.title')}</h1>  // 不要硬编码中文
+}
+```
 
 ---
 
-## Step 8: 测试和迭代
+## Step 8: 验收测试
 
-提醒用户：
+AI 自动执行以下验收流程：
 
-1. 运行 `pnpm dev` 启动开发服务器
-2. 访问 `/zh/[slug]` 查看文章详情页
-3. 访问 `/zh` 查看首页的文章封面
-4. 测试桌面端和移动端的显示效果
+### 8.1 启动开发服务器
 
-根据测试结果进行调整优化。
+使用 Bash 工具启动服务器（如果未启动）：
+
+```bash
+pnpm dev
+```
+
+等待服务器启动完成（显示 "Ready in XXXms"）。
+
+### 8.2 验证编译无错误
+
+监听服务器日志，确认：
+- [ ] 无编译错误（compile 成功）
+- [ ] 无 `MISSING_MESSAGE` 错误
+- [ ] 无 `Could not resolve` 错误
+
+### 8.3 访问页面验证
+
+分别访问中英文版本，检查翻译是否生效：
+
+1. **中文版本**：访问 `http://localhost:3000/zh/[slug]`
+   - 所有文本显示中文
+   - 无硬编码英文
+
+2. **英文版本**：访问 `http://localhost:3000/en/[slug]`
+   - 所有文本显示英文
+   - 无硬编码中文
+
+3. **首页检查**：访问 `/zh` 和 `/en`
+   - 文章卡片正常显示
+   - 标题和描述使用了翻译
+
+### 8.4 报告验收结果
+
+向用户报告：
+- ✅ 所有检查通过，文章创建完成
+- ⚠️ 发现问题：[具体错误]，需要修复
+
+**如果有错误**：立即修复后重新验收，不要让用户手动检查。
 
 ---
 
