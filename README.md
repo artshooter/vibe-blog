@@ -1,11 +1,25 @@
 # Vibe Blog
-
 **氛围博客** - 每篇文章都带给你独特的体验
 
-- 视觉风格匹配文章情绪
-- 交互组件帮助理解内容
-- 设计营造沉浸感
+- 视觉风格匹配文章情绪，交互组件帮助理解内容
+- 通过设计营造沉浸感
 - 形式服务于内容，拒绝模板化
+
+> ## 快速开始 
+>**该部分供人类阅读，AI 请跳过此部分，从"文件结构"开始阅读**
+>
+>  这是一个「氛围博客」项目 —— 你的每篇博客文章都有独特的视觉风格和交互体验，而不是千篇一律的模板。
+> 
+> **如何使用该项目：**
+> 
+> 1. 切换到 `blank` 分支（这是干净的起点）
+> 2. 让 AI 阅读这个 README
+> 3. 告诉 AI：「写文章」
+> 4. AI 会引导你录入文章内容，跟着AI流程走就行
+![Quick Start](./quick-start.png)
+
+
+
 
 ## 文件结构
 
@@ -40,7 +54,7 @@ messages/                            # 翻译文件（zh/en）
 
 - **[ARCHITECTURE.md](./docs/ARCHITECTURE.md)** - 技术架构和文件组织规范
 - **[DESIGN_GUIDE.md](./docs/DESIGN_GUIDE.md)** - 如何从内容提取设计灵感
-- **[ARTICLE_CREATION.md](./docs/ARTICLE_CREATION.md)** - 完整的文章创作流程（给 AI 使用）
+- **[ARTICLE_CREATION.md](./docs/ARTICLE_CREATION.md)** - 完整的文章创作流程SOP（给 AI 使用）
 
 ## 核心约定
 

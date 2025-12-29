@@ -17,7 +17,7 @@ export default function HomePage() {
       </div>
 
       {/* Articles Grid */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
         <h2 className="text-3xl font-bold mb-8 text-gray-300">{t('nav.articles')}</h2>
         <div className="grid grid-cols-1 gap-8">
           {articles.map((article) => {
@@ -29,6 +29,11 @@ export default function HomePage() {
             )
           })}
         </div>
+      </div>
+
+      {/* Footer */}
+      <div className="pb-12 text-center text-gray-500 text-sm">
+        {t('home.endOfList', { count: articles.length })}
       </div>
     </main>
   )

@@ -9,7 +9,13 @@
   },
   "home": {
     "welcome": "欢迎",
-    "subtitle": "每篇文章都提供独特的阅读体验"
+    "subtitle": "「为每篇文章提供独特的阅读体验」",
+    "endOfList": "— 滑到底啦（目前只有 {count} 篇文章）—"
+  },
+  "back": {
+    "war": "返回",
+    "terminal": "cd ..",
+    "nature": "返回"
   },
   "language": {
     "switch": "切换语言"

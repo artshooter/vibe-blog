@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { ReactNode, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import 'katex/dist/katex.min.css'
 
 interface TerminalDetailsProps {
@@ -16,6 +17,7 @@ export default function TerminalDetails({
   defaultExpanded = false
 }: TerminalDetailsProps) {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded)
+  const t = useTranslations('mnist-neural-network')
 
   return (
     <div className="my-8">
@@ -35,7 +37,7 @@ export default function TerminalDetails({
                 {command}
               </span>
               <span className="ml-2 text-[#6272a4] text-xs">
-                [点击展开详细推导]
+                [{t('terminal.clickToExpand')}]
               </span>
             </div>
           </div>
@@ -80,7 +82,7 @@ export default function TerminalDetails({
                   exit
                 </span>
                 <span className="ml-2 text-[#6272a4] text-xs">
-                  [点击收起]
+                  [{t('terminal.clickToCollapse')}]
                 </span>
               </motion.div>
             </div>

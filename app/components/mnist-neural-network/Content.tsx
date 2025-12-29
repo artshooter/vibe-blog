@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import BackButton from '@/app/components/common/BackButton'
 import Hero from './Hero'
 import ConvolutionVisualizer from './ConvolutionVisualizer'
 import TerminalSection from './TerminalSection'
@@ -13,6 +14,7 @@ export default function Content() {
 
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-[#e5e7eb] font-mono">
+      <BackButton variant="terminal" />
       {/* Hero */}
       <Hero />
 

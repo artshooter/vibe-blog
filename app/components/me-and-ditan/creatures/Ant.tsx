@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useAnimation } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 interface AntProps {
   className?: string
@@ -12,54 +12,52 @@ interface AntProps {
 export default function Ant({ className = '', size = 20, direction = 'right' }: AntProps) {
   const controls = useAnimation()
   const [isThinking, setIsThinking] = useState(true)
+  const [isAnimating, setIsAnimating] = useState(false)
 
-  useEffect(() => {
-    const animate = async () => {
-      // 摇头晃脑捋触须
-      await controls.start({
-        rotate: [0, -5, 5, -3, 3, 0],
-        transition: { duration: 2, ease: 'easeInOut' },
-      })
+  const handleInteraction = async () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+    setIsThinking(true)
 
-      // 猛然间想透了什么
-      await controls.start({
-        scale: [1, 1.1, 1],
-        transition: { duration: 0.3 },
-      })
+    // 摇头晃脑捋触须
+    await controls.start({
+      rotate: [0, -5, 5, -3, 3, 0],
+      transition: { duration: 1.5, ease: 'easeInOut' },
+    })
 
-      setIsThinking(false)
+    // 猛然间想透了什么
+    await controls.start({
+      scale: [1, 1.15, 1],
+      transition: { duration: 0.3 },
+    })
 
-      // 转身疾行而去
-      await controls.start({
-        x: direction === 'right' ? 200 : -200,
-        transition: { duration: 2, ease: 'easeIn' },
-      })
+    setIsThinking(false)
 
-      // 重置
-      await controls.start({
-        x: 0,
-        opacity: 0,
-        transition: { duration: 0 },
-      })
+    // 转身疾行而去
+    await controls.start({
+      x: direction === 'right' ? 80 : -80,
+      opacity: 0,
+      transition: { duration: 1, ease: 'easeIn' },
+    })
 
-      await new Promise(resolve => setTimeout(resolve, 3000))
+    // 重置
+    await controls.start({
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0 },
+    })
 
-      setIsThinking(true)
-      await controls.start({
-        opacity: 1,
-        transition: { duration: 0.5 },
-      })
-    }
-
-    animate()
-    const interval = setInterval(animate, 10000)
-    return () => clearInterval(interval)
-  }, [controls, direction])
+    setIsThinking(true)
+    setIsAnimating(false)
+  }
 
   return (
     <motion.div
-      className={`inline-block ${className}`}
+      className={`inline-block cursor-pointer ${className}`}
       animate={controls}
+      onClick={handleInteraction}
+      onHoverStart={handleInteraction}
+      whileHover={{ scale: 1.1 }}
       style={{ transformOrigin: 'center' }}
     >
       <svg

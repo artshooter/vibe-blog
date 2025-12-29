@@ -6,9 +6,9 @@
   "hero": {
     "loginBanner": "Last login: Sat Dec 28 2025 on ttys001",
     "subtitle": "Neural Network from Scratch",
-    "initializing": "Initializing tutorial...",
+    "initializing": "Initializing...",
     "ready": "Ready.",
-    "helpText": "Scroll down to start learning how neural networks work",
+    "helpText": "Scroll down to learn about CNN neural networks",
     "scrollHint": "Scroll down",
     "clickToRead": "Click to read →"
   },
@@ -85,34 +85,34 @@
         "step4": "When reaching right edge, kernel moves down one row and starts from left",
         "step5": "After traversing all positions, we get the complete feature matrix"
       },
-      "calculation": "Calculating the first position:\\n\\n1×1 + 1×1 + 1×1 = 3 (first row)\\n0×0 + 0×0 + 0×0 = 0 (second row)\\n0×(-1) + 0×(-1) + 1×(-1) = -1 (third row)\\n\\nSum: 3 + 0 - 1 = 2",
-      "insight": "How horizontal feature detector works:\\n• When encountering horizontal strokes (like top of digit 7), outputs large positive values\\n• When encountering vertical strokes (like digit 1), outputs small values\\n• This way, different kernels can extract different directional features",
-      "comparison": "Comparing results:\\nDigit 7 feature matrix: First row has larger values (3, 2, 1) due to horizontal stroke at top\\nDigit 1 feature matrix: All values are small and uniform (all 1s) due to mainly vertical strokes"
+      "calculation": "Calculating the first position:\n\n1×1 + 1×1 + 1×1 = 3 (first row)\n0×0 + 0×0 + 0×0 = 0 (second row)\n0×(-1) + 0×(-1) + 1×(-1) = -1 (third row)\n\nSum: 3 + 0 - 1 = 2",
+      "insight": "How horizontal feature detector works:\n• When encountering horizontal strokes (like top of digit 7), outputs large positive values\n• When encountering vertical strokes (like digit 1), outputs small values\n• This way, different kernels can extract different directional features",
+      "comparison": "Comparing results:\nDigit 7 feature matrix: First row has larger values (3, 2, 1) due to horizontal stroke at top\nDigit 1 feature matrix: All values are small and uniform (all 1s) due to mainly vertical strokes"
     },
     "activation": {
       "command": "cat activation_function.txt",
       "title": "Detailed Activation Function",
       "intro": "ReLU (Rectified Linear Unit) is the most commonly used activation function with formula: f(x) = max(0, x)",
-      "example": "Input matrix A:\\n[  3   2   1  ]\\n[  1   1   1  ]\\n[ -1  -1  -1 ]\\n\\nAfter applying ReLU:\\n[  3   2   1  ]\\n[  1   1   1  ]\\n[  0   0   0  ]",
+      "example": "Input matrix A:\n[  3   2   1  ]\n[  1   1   1  ]\n[ -1  -1  -1 ]\n\nAfter applying ReLU:\n[  3   2   1  ]\n[  1   1   1  ]\n[  0   0   0  ]",
       "explanation": "Why use activation functions?",
       "reasons": {
         "linearity": "Limitations of linear transformations: If neural networks only perform matrix multiplication (linear transformation), no matter how many layers, the final effect equals a single matrix multiplication. Such networks cannot learn complex nonlinear patterns.",
         "nonlinearity": "Introducing nonlinearity: Activation functions enable neural networks to learn complex, nonlinear relationships. For example, features like edges and shapes in images are often not simple linear combinations.",
         "selectivity": "Selective enhancement: ReLU suppresses negative values (possibly noise or irrelevant features) while preserving positive values (possibly useful features), improving the model's expressive power."
       },
-      "otherFunctions": "Common activation functions:\\n• Sigmoid: f(x) = 1 / (1 + e^(-x)) - Output range in (0,1)\\n• Tanh: f(x) = (e^x - e^(-x)) / (e^x + e^(-x)) - Output range in (-1,1)\\n• ReLU: f(x) = max(0, x) - Most common, simple calculation\\n• Leaky ReLU: f(x) = max(0.01x, x) - Solves ReLU's \\\"dying neuron\\\" problem"
+      "otherFunctions": "Common activation functions:\n• Sigmoid: f(x) = 1 / (1 + e^(-x)) - Output range in (0,1)\n• Tanh: f(x) = (e^x - e^(-x)) / (e^x + e^(-x)) - Output range in (-1,1)\n• ReLU: f(x) = max(0, x) - Most common, simple calculation\n• Leaky ReLU: f(x) = max(0.01x, x) - Solves ReLU's \"dying neuron\" problem"
     },
     "fullyConnected": {
       "command": "cat fully_connected_math.txt",
       "title": "Detailed Fully Connected Layer",
       "intro": "The fully connected layer flattens the feature matrix, then multiplies with weight matrix to get score for each digit.",
       "process": {
-        "flatten": "Step 1: Flatten feature matrix\\n\\nInput: 3×3 feature matrix\\n[ 3  2  1 ]\\n[ 1  1  1 ]\\n[ 0  0  0 ]\\n\\nFlattened: [3, 2, 1, 1, 1, 1, 0, 0, 0]",
-        "weights": "Step 2: Prepare weight matrix\\n\\nEach digit (0-9) has its own weight vector\\nE.g. digit 0 weights: [0.01, 0.01, 0.01, 0.01, 0.02, 0, 0, 0, 0.02]\\nE.g. digit 7 weights: [0.15, 0.12, 0.08, 0.03, 0.03, 0.03, 0, 0, 0]",
-        "calculation": "Step 3: Calculate scores\\n\\nDigit 0 score:\\n3×0.01 + 2×0.01 + 1×0.01 + 1×0.01 + 1×0.02 + 1×0 + 0×0 + 0×0 + 0×0.02\\n= 0.03 + 0.02 + 0.01 + 0.01 + 0.02\\n= 0.09\\n\\nDigit 7 score:\\n3×0.15 + 2×0.12 + 1×0.08 + 1×0.03 + 1×0.03 + 1×0.03 + 0×0 + 0×0 + 0×0\\n= 0.45 + 0.24 + 0.08 + 0.03 + 0.03 + 0.03\\n= 0.86"
+        "flatten": "Step 1: Flatten feature matrix\n\nInput: 3×3 feature matrix\n[ 3  2  1 ]\n[ 1  1  1 ]\n[ 0  0  0 ]\n\nFlattened: [3, 2, 1, 1, 1, 1, 0, 0, 0]",
+        "weights": "Step 2: Prepare weight matrix\n\nEach digit (0-9) has its own weight vector\nE.g. digit 0 weights: [0.01, 0.01, 0.01, 0.01, 0.02, 0, 0, 0, 0.02]\nE.g. digit 7 weights: [0.15, 0.12, 0.08, 0.03, 0.03, 0.03, 0, 0, 0]",
+        "calculation": "Step 3: Calculate scores\n\nDigit 0 score:\n3×0.01 + 2×0.01 + 1×0.01 + 1×0.01 + 1×0.02 + 1×0 + 0×0 + 0×0 + 0×0.02\n= 0.03 + 0.02 + 0.01 + 0.01 + 0.02\n= 0.09\n\nDigit 7 score:\n3×0.15 + 2×0.12 + 1×0.08 + 1×0.03 + 1×0.03 + 1×0.03 + 0×0 + 0×0 + 0×0\n= 0.45 + 0.24 + 0.08 + 0.03 + 0.03 + 0.03\n= 0.86"
       },
-      "output": "Final output (scores for 10 digits):\\n[0.09, 0.02, 0.05, 0.09, 0.12, 0.04, 0.05, 0.86, 0.06, 0.08]\\n        ↑\\n   Digit 7 has highest score",
-      "insight": "Key understanding:\\n• Each output dimension (digit) is calculated independently\\n• Weights are learned during training\\n• Score magnitude reflects model's \\\"confidence\\\" for that digit\\n• Final prediction = argmax(score vector)"
+      "output": "Final output (scores for 10 digits):\n[0.09, 0.02, 0.05, 0.09, 0.12, 0.04, 0.05, 0.86, 0.06, 0.08]\n        ↑\n   Digit 7 has highest score",
+      "insight": "Key understanding:\n• Each output dimension (digit) is calculated independently\n• Weights are learned during training\n• Score magnitude reflects model's \"confidence\" for that digit\n• Final prediction = argmax(score vector)"
     },
     "training": {
       "command": "cat training_process.txt",
@@ -120,21 +120,25 @@
       "lossFunction": {
         "title": "Loss Function (Mean Squared Error)",
         "formula": "Loss = Σ(T_i - P_i)²",
-        "example": "Predicted result P = [0.09, 0.02, 0.05, 0.09, 0.12, 0.04, 0.05, 0.91, 0.06, 0.08]\\nTrue label T = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]\\n\\nLoss calculation:\\n(0-0.09)² + (0-0.02)² + ... + (1-0.91)² + ... + (0-0.08)²\\n= 0.0081 + 0.0004 + ... + 0.0081 + ... + 0.0064\\n≈ 0.0523",
+        "example": "Predicted result P = [0.09, 0.02, 0.05, 0.09, 0.12, 0.04, 0.05, 0.91, 0.06, 0.08]\nTrue label T = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]\n\nLoss calculation:\n(0-0.09)² + (0-0.02)² + ... + (1-0.91)² + ... + (0-0.08)²\n= 0.0081 + 0.0004 + ... + 0.0081 + ... + 0.0064\n≈ 0.0523",
         "meaning": "Lower loss value means more accurate prediction. Our goal is to reduce loss through training."
       },
       "gradient": {
         "title": "Gradient Calculation",
         "intro": "Gradients tell us how to adjust parameters to reduce loss.",
-        "calculation": "Initial gradient (derivative of loss w.r.t. output):\\ngradient = P - T\\n= [0.09, 0.02, 0.05, 0.09, 0.12, 0.04, 0.05, 0.91, 0.06, 0.08] - [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]\\n= [0.09, 0.02, 0.05, 0.09, 0.12, 0.04, 0.05, -0.09, 0.06, 0.08]\\n\\nNote: Gradient for digit 7 is negative (-0.09), indicating we need to increase this weight",
-        "backprop": "Backpropagation:\\n1. Start from output layer, calculate gradients\\n2. Use chain rule to propagate gradients to previous layer\\n3. Each layer updates its own weights\\n4. Propagate all the way to first layer"
+        "calculation": "Initial gradient (derivative of loss w.r.t. output):\ngradient = P - T\n= [0.09, 0.02, 0.05, 0.09, 0.12, 0.04, 0.05, 0.91, 0.06, 0.08] - [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]\n= [0.09, 0.02, 0.05, 0.09, 0.12, 0.04, 0.05, -0.09, 0.06, 0.08]\n\nNote: Gradient for digit 7 is negative (-0.09), indicating we need to increase this weight",
+        "backprop": "Backpropagation:\n1. Start from output layer, calculate gradients\n2. Use chain rule to propagate gradients to previous layer\n3. Each layer updates its own weights\n4. Propagate all the way to first layer"
       },
       "optimization": {
         "title": "Weight Update (Gradient Descent)",
         "formula": "New weight = Old weight - Learning rate × Gradient",
-        "example": "Assuming learning rate = 0.01\\n\\nFully connected layer weight update:\\nW_new(i,j) = W_old(i,j) - 0.01 × gradient[i] × input[j]\\n\\nFor example, first weight of digit 0:\\nW_new(0,0) = W_old(0,0) - 0.01 × 0.09 × 3\\n         = W_old(0,0) - 0.0027",
-        "iterations": "Training iterations:\\n• Forward pass: Input → Conv → Activation → FC → Output\\n• Calculate loss: Compare prediction with true label\\n• Backward pass: Calculate gradients for each layer\\n• Update weights: Adjust parameters based on gradients\\n• Repeat above steps thousands or tens of thousands of times"
+        "example": "Assuming learning rate = 0.01\n\nFully connected layer weight update:\nW_new(i,j) = W_old(i,j) - 0.01 × gradient[i] × input[j]\n\nFor example, first weight of digit 0:\nW_new(0,0) = W_old(0,0) - 0.01 × 0.09 × 3\n         = W_old(0,0) - 0.0027",
+        "iterations": "Training iterations:\n• Forward pass: Input → Conv → Activation → FC → Output\n• Calculate loss: Compare prediction with true label\n• Backward pass: Calculate gradients for each layer\n• Update weights: Adjust parameters based on gradients\n• Repeat above steps thousands or tens of thousands of times"
       }
     }
+  },
+  "terminal": {
+    "clickToExpand": "Click to expand",
+    "clickToCollapse": "Click to collapse"
   }
 }

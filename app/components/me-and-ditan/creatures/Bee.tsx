@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
+import { useState } from 'react'
 
 interface BeeProps {
   className?: string
@@ -8,23 +9,31 @@ interface BeeProps {
 }
 
 export default function Bee({ className = '', size = 24 }: BeeProps) {
+  const controls = useAnimation()
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  const handleInteraction = async () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+
+    // 蜂儿如一朵小雾稳稳地停在半空 - 悬停飞舞
+    await controls.start({
+      y: [0, -15, -10, -18, -5, 0],
+      x: [0, 10, -8, 12, -5, 0],
+      rotate: [0, 5, -5, 3, -3, 0],
+      transition: { duration: 2, ease: 'easeInOut' },
+    })
+
+    setIsAnimating(false)
+  }
+
   return (
     <motion.div
       className={`inline-block cursor-pointer ${className}`}
-      animate={{
-        y: [0, -4, 0, -2, 0],
-        x: [0, 1, 0, -1, 0],
-      }}
-      transition={{
-        duration: 3,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }}
-      whileHover={{
-        scale: 1.2,
-        x: [0, 5, -5, 3, 0],
-        transition: { duration: 0.5 },
-      }}
+      animate={controls}
+      onClick={handleInteraction}
+      onHoverStart={handleInteraction}
+      whileHover={{ scale: 1.1 }}
     >
       <svg
         width={size}

@@ -9,7 +9,13 @@
   },
   "home": {
     "welcome": "Welcome",
-    "subtitle": "Every article offers a unique reading experience"
+    "subtitle": "Every article offers a unique reading experience",
+    "endOfList": "— You've reached the end (only {count} articles for now) —"
+  },
+  "back": {
+    "war": "Back",
+    "terminal": "cd ..",
+    "nature": "Back"
   },
   "language": {
     "switch": "Switch Language"

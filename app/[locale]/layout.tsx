@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import { Locale } from '@/i18n/config'
 import NavigationProgress from '@/app/components/common/NavigationProgress'
+import SwipeBack from '@/app/components/common/SwipeBack'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
@@ -30,7 +31,9 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale}>
       <body>
         <NavigationProgress />
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <SwipeBack>
+          <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        </SwipeBack>
       </body>
     </html>
   )

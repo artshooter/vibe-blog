@@ -6,9 +6,9 @@
   "hero": {
     "loginBanner": "Last login: Sat Dec 28 2025 on ttys001",
     "subtitle": "从零手撸神经网络",
-    "initializing": "正在初始化教程...",
+    "initializing": "正在初始化...",
     "ready": "准备就绪。",
-    "helpText": "向下滚动开始学习神经网络的工作原理",
+    "helpText": "向下滚动开始了解CNN神经网络",
     "scrollHint": "向下滚动",
     "clickToRead": "点击阅读 →"
   },
@@ -136,5 +136,9 @@
         "iterations": "训练迭代：\n• 前向传播：输入 → 卷积 → 激活 → 全连接 → 输出\n• 计算损失：对比预测与真实标签\n• 反向传播：计算每层的梯度\n• 更新权重：根据梯度调整参数\n• 重复以上步骤数千或数万次"
       }
     }
+  },
+  "terminal": {
+    "clickToExpand": "点击展开详细推导",
+    "clickToCollapse": "点击收起"
   }
 }

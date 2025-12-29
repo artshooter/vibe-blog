@@ -2,7 +2,7 @@
 
 ## 核心理念
 
-**一切皆文章** - 每篇文章都是独立的 Web 体验，拥有独特的设计和交互。
+**有氛围的阅读** - 每篇文章都是独立的 Web 体验，拥有独特的设计和交互。
 
 ---
 
@@ -21,19 +21,26 @@
 
 ```
 app/
-├── [locale]/                        # 多语言路由
+├── [locale]/                        # 多语言路由（zh/en）
 │   ├── page.tsx                    # 首页
 │   └── [article-name]/
 │       ├── page.tsx                # 文章详情页
-│       └── Cover.tsx               # 封面组件
+│       ├── Cover.tsx               # 封面组件
+│       └── design.md               # 设计文档
 │
 ├── components/
 │   ├── common/                     # 通用组件
 │   └── [article-name]/             # 文章内部组件
-│       ├── design.md               # 设计文档
+│       ├── content.md              # 文章内容
 │       └── *.tsx                   # 自定义组件
 │
-└── globals.css
+└── data/
+    └── articles.ts                 # 文章元数据列表
+
+docs/                                # 项目文档
+├── ARCHITECTURE.md                 # 技术架构
+├── DESIGN_GUIDE.md                 # 设计规范
+└── ARTICLE_CREATION.md             # 创作流程
 
 i18n/                                # 多语言配置
 messages/                            # 翻译文件（zh/en）

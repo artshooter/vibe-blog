@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { motion } from 'framer-motion'
+import BackButton from '@/app/components/common/BackButton'
 import Hero from './Hero'
 import SeasonScenes from './SeasonScenes'
 import GardenMap from './GardenMap'
@@ -13,6 +14,7 @@ export default function Content() {
 
   return (
     <main className="bg-[#f5f2eb] min-h-screen">
+      <BackButton variant="nature" />
       {/* 斑驳光影背景 - 固定 */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
@@ -72,37 +74,37 @@ export default function Content() {
                 {/* 蜂儿 */}
                 <div className="flex flex-col items-center gap-2">
                   <Bee size={32} />
-                  <span className="text-xs text-[#6b7c5e]/60">蜂儿</span>
+                  <span className="text-xs text-[#6b7c5e]/60">{t('creatures.bee')}</span>
                 </div>
 
                 {/* 蚂蚁 */}
                 <div className="flex flex-col items-center gap-2">
                   <Ant size={28} direction="right" />
-                  <span className="text-xs text-[#6b7c5e]/60">蚂蚁</span>
+                  <span className="text-xs text-[#6b7c5e]/60">{t('creatures.ant')}</span>
                 </div>
 
                 {/* 瓢虫 */}
                 <div className="flex flex-col items-center gap-2">
                   <Ladybug size={30} />
-                  <span className="text-xs text-[#6b7c5e]/60">瓢虫</span>
+                  <span className="text-xs text-[#6b7c5e]/60">{t('creatures.ladybug')}</span>
                 </div>
 
                 {/* 蝉蜕 */}
                 <div className="flex flex-col items-center gap-2">
                   <CicadaShell size={28} />
-                  <span className="text-xs text-[#6b7c5e]/60">蝉蜕</span>
+                  <span className="text-xs text-[#6b7c5e]/60">{t('creatures.cicadaShell')}</span>
                 </div>
 
                 {/* 露水 */}
                 <div className="flex flex-col items-center gap-2">
                   <Dewdrop size={50} />
-                  <span className="text-xs text-[#6b7c5e]/60">露水</span>
+                  <span className="text-xs text-[#6b7c5e]/60">{t('creatures.dewdrop')}</span>
                 </div>
               </div>
 
               {/* 提示 */}
               <p className="text-center text-xs text-[#6b7c5e]/50 mt-4">
-                悬停或点击观察它们
+                {t('creatures.hint')}
               </p>
             </div>
           </div>

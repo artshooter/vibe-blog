@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import BackButton from '@/app/components/common/BackButton'
 import Hero from './Hero'
 import Timeline from './Timeline'
 import WarStages from './WarStages'
@@ -12,6 +13,7 @@ export default function Content() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-[#1a1a1a] to-black text-white">
+      <BackButton variant="war" />
       {/* Hero */}
       <Hero />
 

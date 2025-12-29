@@ -81,7 +81,13 @@
     "line4": "Death is a festival that will inevitably arrive."
   },
   "creatures": {
-    "title": "Garden Creatures"
+    "title": "Garden Creatures",
+    "bee": "Bee",
+    "ant": "Ant",
+    "ladybug": "Ladybug",
+    "cicadaShell": "Cicada Shell",
+    "dewdrop": "Dewdrop",
+    "hint": "Hover or click to observe them"
   },
   "footer": {
     "author": "Excerpt from \"Me and the Temple of Earth\" by Shi Tiesheng",

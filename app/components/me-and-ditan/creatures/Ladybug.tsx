@@ -45,13 +45,18 @@ export default function Ladybug({ className = '', size = 24 }: LadybugProps) {
     setHasFlown(false)
   }
 
+  const handleInteraction = async () => {
+    if (hasFlown) return
+    await handleClick()
+  }
+
   return (
     <motion.div
       className={`inline-block cursor-pointer ${className}`}
       animate={controls}
-      onClick={handleClick}
+      onClick={handleInteraction}
+      onHoverStart={handleInteraction}
       whileHover={!hasFlown ? { scale: 1.1 } : {}}
-      title="点击让瓢虫飞走"
     >
       <svg
         width={size}

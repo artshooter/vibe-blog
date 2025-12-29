@@ -1,9 +1,7 @@
 'use client'
 
 import { motion, useAnimation } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useState } from 'react'
 
 interface DewdropProps {
   className?: string
@@ -12,69 +10,77 @@ interface DewdropProps {
 
 export default function Dewdrop({ className = '', size = 60 }: DewdropProps) {
   const controls = useAnimation()
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, margin: '-100px' })
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number }>>([])
+  const [isAnimating, setIsAnimating] = useState(false)
 
-  useEffect(() => {
-    if (!isInView) return
+  const handleInteraction = async () => {
+    if (isAnimating) return
+    setIsAnimating(true)
 
-    const animate = async () => {
-      // 重置
-      setParticles([])
-      await controls.start({
-        y: 0,
-        x: 0,
-        scale: 0.6,
-        opacity: 1,
-        transition: { duration: 0 },
-      })
+    // 重置
+    setParticles([])
+    await controls.start({
+      y: 0,
+      x: 0,
+      scale: 0.6,
+      opacity: 1,
+      transition: { duration: 0 },
+    })
 
-      // 在草叶上滚动
-      await controls.start({
-        x: [0, 5, 10, 15],
-        y: [0, 2, 5, 8],
-        scale: [0.6, 0.7, 0.85, 1],
-        transition: { duration: 2, ease: 'easeOut' },
-      })
+    // 在草叶上滚动
+    await controls.start({
+      x: [0, 5, 10, 15],
+      y: [0, 2, 5, 8],
+      scale: [0.6, 0.7, 0.85, 1],
+      transition: { duration: 1.5, ease: 'easeOut' },
+    })
 
-      // 聚集，压弯草叶
-      await controls.start({
-        scale: 1.2,
-        y: 12,
-        transition: { duration: 0.8, ease: 'easeIn' },
-      })
+    // 聚集，压弯草叶
+    await controls.start({
+      scale: 1.2,
+      y: 12,
+      transition: { duration: 0.5, ease: 'easeIn' },
+    })
 
-      // 轰然坠地
-      await controls.start({
-        y: 40,
-        scale: 0.5,
-        opacity: 0,
-        transition: { duration: 0.3, ease: 'easeIn' },
-      })
+    // 轰然坠地
+    await controls.start({
+      y: 40,
+      scale: 0.5,
+      opacity: 0,
+      transition: { duration: 0.3, ease: 'easeIn' },
+    })
 
-      // 摔开万道金光
-      setParticles(
-        Array.from({ length: 8 }, (_, i) => ({
-          id: i,
-          x: Math.cos((i * Math.PI * 2) / 8) * 20,
-          y: Math.sin((i * Math.PI * 2) / 8) * 15 + 40,
-        }))
-      )
+    // 摔开万道金光
+    setParticles(
+      Array.from({ length: 8 }, (_, i) => ({
+        id: i,
+        x: Math.cos((i * Math.PI * 2) / 8) * 20,
+        y: Math.sin((i * Math.PI * 2) / 8) * 15 + 40,
+      }))
+    )
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      setParticles([])
+    await new Promise(resolve => setTimeout(resolve, 800))
+    setParticles([])
 
-      await new Promise(resolve => setTimeout(resolve, 2000))
-    }
+    // 重置回初始状态
+    await controls.start({
+      y: 0,
+      x: 0,
+      scale: 0.8,
+      opacity: 1,
+      transition: { duration: 0.3 },
+    })
 
-    animate()
-    const interval = setInterval(animate, 8000)
-    return () => clearInterval(interval)
-  }, [controls, isInView])
+    setIsAnimating(false)
+  }
 
   return (
-    <div ref={ref} className={`relative inline-block ${className}`} style={{ width: size, height: size + 20 }}>
+    <div
+      className={`relative inline-block cursor-pointer ${className}`}
+      style={{ width: size, height: size + 20 }}
+      onClick={handleInteraction}
+      onMouseEnter={handleInteraction}
+    >
       {/* 草叶 */}
       <svg
         width={size}
@@ -89,14 +95,14 @@ export default function Dewdrop({ className = '', size = 60 }: DewdropProps) {
           strokeWidth="3"
           fill="none"
           strokeLinecap="round"
-          animate={isInView ? {
+          animate={isAnimating ? {
             d: [
               'M30 75 Q25 50 35 30 Q40 20 35 10',
               'M30 75 Q25 50 35 35 Q38 25 33 15',
               'M30 75 Q25 50 35 30 Q40 20 35 10',
             ],
           } : {}}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 2.5, ease: 'easeInOut' }}
         />
       </svg>
 

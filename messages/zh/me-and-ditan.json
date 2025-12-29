@@ -81,7 +81,13 @@
     "line4": "死是一个必然会降临的节日。"
   },
   "creatures": {
-    "title": "园中生灵"
+    "title": "园中生灵",
+    "bee": "蜂儿",
+    "ant": "蚂蚁",
+    "ladybug": "瓢虫",
+    "cicadaShell": "蝉蜕",
+    "dewdrop": "露水",
+    "hint": "悬停或点击观察它们"
   },
   "footer": {
     "author": "史铁生《我与地坛》节选",

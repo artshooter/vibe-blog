@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
+import { useState } from 'react'
 
 interface CicadaShellProps {
   className?: string
@@ -8,14 +9,32 @@ interface CicadaShellProps {
 }
 
 export default function CicadaShell({ className = '', size = 28 }: CicadaShellProps) {
+  const controls = useAnimation()
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  const handleInteraction = async () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+
+    // 寂寞如一间空屋 - 轻微晃动，透明度变化，像风吹过
+    await controls.start({
+      opacity: [0.5, 0.8, 0.9, 0.7, 0.5],
+      rotate: [0, 2, -1, 1, 0],
+      scale: [1, 1.02, 1],
+      transition: { duration: 2, ease: 'easeInOut' },
+    })
+
+    setIsAnimating(false)
+  }
+
   return (
     <motion.div
-      className={`inline-block ${className}`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 0.5 }}
-      transition={{ duration: 1 }}
-      whileHover={{ opacity: 0.8 }}
-      title="寂寞如一间空屋"
+      className={`inline-block cursor-pointer ${className}`}
+      initial={{ opacity: 0.5 }}
+      animate={controls}
+      onClick={handleInteraction}
+      onHoverStart={handleInteraction}
+      whileHover={{ scale: 1.05 }}
     >
       <svg
         width={size}
