@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "title": "Kong Yiji",
+    "description": "The only long-gowned customer who drank his wine standing"
+  },
+  "hero": {
+    "title": "Kong Yiji",
+    "subtitle": "The only long-gowned customer who drank his wine standing",
+    "author": "Lu Xun",
+    "clickToRead": "Click to read"
+  },
+  "content": {
+    "intro": "The Xianheng Tavern in Luzhen was a place where one could witness all the warmth and coldness of human nature.",
+    "part1": {
+      "p1": "The layout of taverns in Luzhen was different from elsewhere. Facing the street was a large L-shaped counter with hot water kept ready to warm wine at any time. Workers who had finished their shifts would spend four copper coins for a bowl of wine and drink standing by the counter; only by spending over a dozen coins could one buy a meat dish.",
+      "p2": "Short-coated workers drank standing, long-gowned scholars drank seated. This was the unwritten rule in Luzhen's taverns.",
+      "p3": "I started working at the Xianheng Tavern when I was twelve. The shopkeeper had a fierce face, and the customers were never pleasant, leaving no room for liveliness. Only when Kong Yiji came could one have a few laughs."
+    },
+    "part2": {
+      "p1": "Kong Yiji was the only long-gowned customer who drank his wine standing. He was tall, with a pale face often marked with scars between the wrinkles, and an unkempt graying beard. Though he wore a long gown, it was filthy and tattered.",
+      "p2": "When he spoke, he was always full of classical phrases that were half-understood. Because his surname was Kong, people took his nickname from the practice copybook phrase \"Shang Da Ren Kong Yi Ji.\""
+    },
+    "part3": {
+      "p1": "Whenever Kong Yiji arrived, everyone drinking would watch him and laugh. Someone would deliberately shout: \"You must have stolen something again!\"",
+      "p2": "Kong Yiji's face would flush red, the veins on his forehead bulging, as he argued: \"Taking books cannot be considered stealing... Taking books! Can a scholar's affairs be called stealing?\" Then came incomprehensible phrases that made everyone roar with laughter. Inside and outside the tavern was filled with a cheerful atmosphere."
+    },
+    "part4": {
+      "p1": "Kong Yiji knew he couldn't chat with them, so he would only talk to children. Once he asked me: \"Have you studied? How do you write the 'hui' in fennel beans?\""
+    },
+    "transition": "Kong Yiji brought such merriment, but without him, life went on just the same.",
+    "part5": {
+      "p1": "One day, the shopkeeper was slowly settling accounts when he suddenly said: \"Kong Yiji hasn't come for a long time. He still owes nineteen coins!\" A drinker said: \"How could he come? His legs were broken.\"",
+      "p2": "After the Mid-Autumn Festival, the autumn wind grew colder day by day. One afternoon, suddenly came a voice: \"Warm a bowl of wine.\" Though the voice was very low, it sounded familiar. Standing up to look outside, there was Kong Yiji sitting below the counter against the threshold."
+    },
+    "ending": {
+      "p1": "After that, Kong Yiji was not seen again for a long time. At year's end, the shopkeeper took down the chalk board and said: \"Kong Yiji still owes nineteen coins!\" At the Dragon Boat Festival the next year, he said it again. By Mid-Autumn he said nothing, and by year's end he was still not seen.",
+      "final": "To this day I have never seen him again — Kong Yiji must indeed be dead."
+    }
+  },
+  "scenes": {
+    "scene1": {
+      "label": "First Appearance",
+      "dialogue": "Warm two bowls of wine, and a dish of fennel beans.",
+      "caption": "He laid out nine large coins"
+    },
+    "scene2": {
+      "label": "Teaching the Character",
+      "dialogue": "There are four ways to write 'hui', do you know?",
+      "caption": "He dipped his nail in wine, wanting to write on the counter",
+      "showFourWays": "View four ways",
+      "hideFourWays": "Hide",
+      "charName1": "Common",
+      "charName2": "Archaic",
+      "charName3": "Variant",
+      "charName4": "Variant"
+    },
+    "scene3": {
+      "label": "Sharing Fennel Beans",
+      "dialogue1": "Not many left, I don't have many left.",
+      "dialogue2": "Many indeed? Not many.",
+      "caption": "And so the children dispersed amid laughter"
+    },
+    "scene4": {
+      "label": "The Last Time",
+      "dialogue1": "Warm a bowl of wine.",
+      "dialogue2": "Fell and broke, fell, fell...",
+      "caption": "He slowly walked away using his hands"
+    }
+  },
+  "footer": {
+    "author": "Lu Xun",
+    "date": "April 1919"
+  }
+}
