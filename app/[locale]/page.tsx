@@ -12,18 +12,23 @@ export default function HomePage() {
       <LanguageSwitch />
 
       {/* Header */}
-      <div className="flex flex-col items-center justify-center py-20">
-        <p className="text-2xl md:text-3xl text-gray-400 italic">{t('home.subtitle')}</p>
+      <div className="flex flex-col items-center justify-center py-32">
+        <h1 className="text-2xl md:text-3xl font-extralight tracking-[0.3em] text-white/60">氛围博客</h1>
       </div>
 
       {/* Articles Grid */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-        <h2 className="text-3xl font-bold mb-8 text-gray-300">{t('nav.articles')}</h2>
-        <div className="grid grid-cols-1 gap-8">
-          {articles.map((article) => {
+        <div className="grid grid-cols-1 gap-24">
+          {articles.map((article, index) => {
             const { Hero } = article
             return (
-              <div key={article.meta.slug}>
+              <div key={article.meta.slug} className="relative">
+                {index > 0 && (
+                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                )}
+                <div className="absolute -left-20 top-4 font-extralight text-lg text-white/40 tracking-widest italic hidden md:block">
+                  {article.meta.date.slice(5)}
+                </div>
                 <Hero inHome={true} />
               </div>
             )

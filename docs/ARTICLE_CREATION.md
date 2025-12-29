@@ -14,13 +14,13 @@
 3. 根据内容生成 slug（文章的 URL 名称）：
    - 如果内容有明确标题 → 使用标题的英文版（kebab-case）
    - 如果没有标题 → 根据主题自行拟定英文名称
-4. 创建 `app/components/[slug]/content.md`
+4. 创建 `app/[locale]/[slug]/content.md`
 5. 将读取的内容写入 content.md
 
 ### 方式 B：用户直接提供内容
 1. 提示用户直接粘贴文章内容
 2. 用户粘贴后，根据内容生成 slug（同上规则）
-3. 创建 `app/components/[slug]/content.md`
+3. 创建 `app/[locale]/[slug]/content.md`
 4. 将用户提供的内容写入 content.md
 
 **slug 规则**：小写英文字母 + 连字符，例如 `atomic-habits`、`my-resume`
@@ -29,7 +29,7 @@
 
 ## Step 2: 分析文章内容
 
-读取 `app/components/[slug]/content.md`，分析以下内容：
+读取 `app/[locale]/[slug]/content.md`，分析以下内容：
 
 - **核心主题**：文章讲什么？
 - **情绪基调**：给人什么感受？
@@ -90,6 +90,25 @@
 ---
 
 ## Step 5: 创建文件并实现组件
+
+**⚠️ 文件位置约束（必须严格遵守）**：
+
+```
+app/[locale]/[slug]/           ← 路由层（路由 + 内容源文件）
+    ├── page.tsx               # 路由入口，组织页面结构
+    ├── content.md             # 文章原始内容
+    └── design.md              # 设计文档
+
+app/components/[slug]/         ← 组件层（所有业务组件）
+    ├── index.tsx              # 文章注册导出
+    ├── Hero.tsx               # 首页卡片 & 详情页头图
+    ├── HeroCompact.tsx        # 紧凑版头图（可选）
+    ├── Content.tsx            # 文章主体内容
+    └── *.tsx                  # 其他自定义组件
+```
+
+**禁止**：在 `app/[locale]/[slug]/` 下创建业务组件（Hero、Content 等）
+**禁止**：在 `app/components/[slug]/` 下创建 page.tsx
 
 ### 5.1 创建路由文件
 
@@ -339,7 +358,19 @@ pnpm dev
    - 无硬编码中文
    - 交互组件正常工作
 
-### 8.4 报告验收结果
+### 8.4 完整性与规范检查（必须 100% 遵守）
+
+在提交前，AI 必须对照以下列表进行最后自检：
+
+- [ ] **首页卡片高度**：`inHome={true}` 模式下的 Hero 组件容器是否使用了 `h-[400px]`？（严禁使用 `h-full` 或其他数值）
+- [ ] **首页链接包裹**：`inHome={true}` 时，是否使用 `<Link>` 包裹了整个 Hero 内容？
+- [ ] **多语言命名空间**：`useTranslations('[slug]')` 中的 `[slug]` 是否与文件名及 i18n 配置一致？
+- [ ] **硬编码检查**：组件内是否存在未通过 `t()` 函数加载的中文/英文文本？
+- [ ] **Client 指令**：使用 `useTranslations` 的组件顶部是否有 `'use client'`？
+- [ ] **返回按钮**：文章详情页是否有返回首页的按钮或链接？
+- [ ] **文件位置**：业务组件（Hero、Content 等）是否都在 `app/components/[slug]/` 下？路由层是否只有 page.tsx 和 design.md？
+
+### 8.5 报告验收结果
 
 向用户报告：
 - ✅ 所有检查通过，文章创建完成

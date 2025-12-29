@@ -25,13 +25,12 @@ app/
 │   ├── page.tsx                    # 首页
 │   └── [article-name]/
 │       ├── page.tsx                # 文章详情页
-│       ├── Cover.tsx               # 封面组件
+│       ├── content.md              # 文章原始内容
 │       └── design.md               # 设计文档
 │
 ├── components/
 │   ├── common/                     # 通用组件
 │   └── [article-name]/             # 文章内部组件
-│       ├── content.md              # 文章内容
 │       └── *.tsx                   # 自定义组件
 │
 └── data/
