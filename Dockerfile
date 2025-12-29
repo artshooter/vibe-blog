@@ -38,6 +38,9 @@ RUN echo "📁 复制源代码..." && \
     echo "当前工作目录: $(pwd)"
 COPY . .
 
+# 确保 public 目录存在（即使项目中没有）
+RUN mkdir -p public
+
 RUN echo "📊 项目文件统计:" && \
     echo "  总文件数: $(find . -type f | wc -l)" && \
     echo "  源代码文件: $(find ./app -name "*.ts" -o -name "*.tsx" | wc -l 2>/dev/null || echo 0)"
