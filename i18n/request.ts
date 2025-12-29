@@ -12,6 +12,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const commonMessages = (await import(`@/messages/${locale}/common.json`)).default
   const worldWarOneMessages = (await import(`@/messages/${locale}/world-war-one.json`)).default
   const mnistMessages = (await import(`@/messages/${locale}/mnist-neural-network.json`)).default
+  const meAndDitanMessages = (await import(`@/messages/${locale}/me-and-ditan.json`)).default
 
   return {
     locale,
@@ -19,6 +20,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...commonMessages,
       'world-war-one': worldWarOneMessages,
       'mnist-neural-network': mnistMessages,
+      'me-and-ditan': meAndDitanMessages,
     },
   }
 })

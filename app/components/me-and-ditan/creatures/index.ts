@@ -1,0 +1,5 @@
+export { default as Bee } from './Bee'
+export { default as Ant } from './Ant'
+export { default as Ladybug } from './Ladybug'
+export { default as CicadaShell } from './CicadaShell'
+export { default as Dewdrop } from './Dewdrop'

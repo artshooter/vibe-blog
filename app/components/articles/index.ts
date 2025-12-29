@@ -1,14 +1,13 @@
 import { Article } from './types'
 import { worldWarOneArticle } from '@/app/components/world-war-one'
 import { mnistArticle } from '@/app/components/mnist-neural-network'
+import { meAndDitanArticle } from '@/app/components/me-and-ditan'
 
 // 文章注册表 - 新文章在此添加
 const articles: Record<string, Article> = {
   'world-war-one': worldWarOneArticle,
   'mnist-neural-network': mnistArticle,
-  // 示例：
-  // resume: resumeArticle,
-  // tasks: tasksArticle,
+  'me-and-ditan': meAndDitanArticle,
 }
 
 export function getArticleBySlug(slug: string): Article | undefined {
