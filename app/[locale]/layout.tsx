@@ -9,7 +9,7 @@ import SwipeBack from '@/app/components/common/SwipeBack'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
-  title: 'Vibe Read',
+  title: 'Vibe Blog',
   description: 'Everything is an article',
 }
 

@@ -65,6 +65,9 @@ WORKDIR /app
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# 安装 curl 用于健康检查
+RUN apk add --no-cache curl
+
 # 创建 nextjs 用户
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
