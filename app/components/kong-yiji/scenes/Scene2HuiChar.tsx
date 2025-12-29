@@ -3,7 +3,14 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { Ma_Shan_Zheng } from 'next/font/google'
 import DialogueLine from '../DialogueLine'
+
+const brushFont = Ma_Shan_Zheng({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export default function Scene2HuiChar() {
   const t = useTranslations('kong-yiji')
@@ -21,104 +28,119 @@ export default function Scene2HuiChar() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-[120vh] bg-[#F8F4E8] flex items-center justify-center py-20"
+      className="relative w-full"
     >
-      <div className="max-w-4xl mx-auto px-4 w-full">
-        {/* 场景标题 */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <span className="text-sm text-[#8B7355] tracking-widest">
-            {t('scenes.scene2.label')}
-          </span>
-        </motion.div>
+      <div className="w-full">
 
         {/* 插画区域 */}
         <div className="relative aspect-[4/3] max-w-2xl mx-auto">
-          <svg viewBox="0 0 400 300" className="w-full h-full">
-            {/* 柜台一角 */}
-            <g stroke="#1A1A1A" strokeWidth="1.5" fill="none">
+          <svg viewBox="0 0 400 300" className="w-full h-full overflow-visible">
+            {/* 柜台一角 - 应用笔触 */}
+            <g stroke="#1A1A1A" strokeWidth="1.2" fill="none" style={{ filter: 'url(#ink-brush)' }}>
               <path d="M 0 220 L 400 220" />
               <path d="M 0 280 L 400 280" />
-              {/* 柜台纹理 */}
-              <line x1="100" y1="220" x2="100" y2="280" opacity="0.2" />
-              <line x1="200" y1="220" x2="200" y2="280" opacity="0.2" />
-              <line x1="300" y1="220" x2="300" y2="280" opacity="0.2" />
+              {/* 柜台纹理 - 极简 */}
+              <line x1="150" y1="220" x2="150" y2="280" opacity="0.15" />
             </g>
 
-            {/* 孔乙己 - 敲柜台姿态 */}
-            <g stroke="#1A1A1A" strokeWidth="1.5" fill="none" strokeLinecap="round">
+            {/* 孔乙己 - 敲柜台姿态 - 应用笔触 */}
+            <g stroke="#1A1A1A" strokeWidth="1.5" fill="none" strokeLinecap="round" style={{ filter: 'url(#ink-brush)' }}>
               {/* 头 */}
-              <ellipse cx="150" cy="70" rx="18" ry="22" />
+              <path d="M 135 60 Q 150 45, 165 60 Q 170 85, 150 90 Q 130 85, 135 60" />
               {/* 胡子 */}
-              <path d="M 138 82 Q 135 95 138 100" />
-              <path d="M 145 84 Q 144 98 146 102" />
-              <path d="M 155 84 Q 156 98 154 102" />
-              <path d="M 162 82 Q 165 95 162 100" />
+              <path d="M 142 86 Q 140 98, 143 105" />
+              <path d="M 158 86 Q 160 98, 157 105" />
               {/* 眼睛 - 略带得意 */}
-              <path d="M 142 66 Q 146 64 150 66" />
-              <path d="M 150 66 Q 154 64 158 66" />
-              <circle cx="146" cy="67" r="1.5" fill="#1A1A1A" />
-              <circle cx="154" cy="67" r="1.5" fill="#1A1A1A" />
+              <path d="M 142 66 Q 146 63, 150 66" opacity="0.8" />
+              <path d="M 150 66 Q 154 63, 158 66" opacity="0.8" />
+              <circle cx="146" cy="67" r="1" fill="#1A1A1A" stroke="none" />
+              <circle cx="154" cy="67" r="1" fill="#1A1A1A" stroke="none" />
+
               {/* 身体 */}
-              <path d="M 132 92 L 120 200" />
-              <path d="M 168 92 L 180 200" />
-              <path d="M 120 200 Q 150 205 180 200" />
-              {/* 长衫点彩 */}
+              <path d="M 135 90 L 120 200" />
+              <path d="M 165 90 L 180 200" />
+              <path d="M 120 200 Q 150 205, 180 200" />
+
+              {/* 长衫填充 */}
               <path
-                d="M 132 92 L 120 200 Q 150 205 180 200 L 168 92"
+                d="M 135 90 L 120 200 Q 150 205, 180 200 L 165 90 Z"
                 fill="#4A5568"
-                fillOpacity="0.12"
+                fillOpacity="0.08"
                 stroke="none"
               />
+
               {/* 右手 - 敲柜台 */}
-              <path d="M 168 110 Q 200 130 220 200" />
-              {/* 手指 - 长指甲 */}
-              <path d="M 220 200 L 225 210" />
-              <path d="M 222 198 L 228 206" />
+              <path d="M 168 110 Q 195 130, 215 200" />
+              {/* 手指 - 长指甲，丰子恺风格的夸张 */}
+              <path d="M 215 200 L 222 215" strokeWidth="0.8" />
+              <path d="M 218 198 L 226 212" strokeWidth="0.8" />
             </g>
 
-            {/* 小伙计 - 背对/侧身 */}
-            <g stroke="#1A1A1A" strokeWidth="1.5" fill="none" strokeLinecap="round">
-              {/* 头 - 侧面 */}
-              <ellipse cx="320" cy="100" rx="15" ry="18" />
+            {/* 小伙计 - 背对/侧身 - 应用笔触 */}
+            <g stroke="#1A1A1A" strokeWidth="1.2" fill="none" strokeLinecap="round" style={{ filter: 'url(#ink-brush)' }}>
+              {/* 头 - 侧面，寥寥几笔 */}
+              <path d="M 310 90 Q 320 75, 335 90 Q 340 110, 320 115 Q 305 110, 310 90" />
               {/* 身体 - 短衣 */}
-              <path d="M 305 118 L 300 200" />
-              <path d="M 335 118 L 340 200" />
+              <path d="M 305 118 L 300 210" />
+              <path d="M 335 118 L 345 210" />
               {/* 短衣填充 */}
               <path
-                d="M 305 118 L 300 200 L 340 200 L 335 118"
+                d="M 305 118 L 300 210 L 345 210 L 335 118 Z"
                 fill="#1A1A1A"
                 fillOpacity="0.05"
                 stroke="none"
               />
               {/* 表情线 - 不耐烦 */}
-              <path d="M 310 95 L 315 98" />
+              <path d="M 312 95 L 318 97" opacity="0.6" />
             </g>
 
-            {/* 柜台上写的"回"字 - 酒渍效果 */}
+            {/* 柜台上写的"回"字 - 应用晕染滤镜 */}
             <motion.g style={{ opacity: writeProgress }}>
+              {/* 第一种写法：始终显示 */}
               <text
-                x="240"
-                y="215"
-                fontSize="28"
+                x="180"
+                y="255"
+                fontSize="24"
                 fill="#D4A84B"
-                fillOpacity="0.6"
-                style={{ fontFamily: 'serif' }}
+                fillOpacity="0.8"
+                className={brushFont.className}
+                style={{ filter: 'url(#ink-bleed)' }}
               >
                 回
               </text>
-              {/* 酒渍晕开效果 */}
-              <circle cx="254" cy="205" r="20" fill="#D4A84B" fillOpacity="0.1" />
+
+              {/* 其余三种写法：点击后显示 */}
+              {showFourWays && (
+                <motion.g
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, staggerChildren: 0.3 }}
+                >
+                  {['囘', '囬', '廻'].map((char, i) => (
+                    <motion.text
+                      key={i}
+                      x={215 + i * 35}
+                      y="255"
+                      fontSize="24"
+                      fill="#D4A84B"
+                      fillOpacity="0.8"
+                      className={brushFont.className}
+                      style={{ filter: 'url(#ink-bleed)' }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: i * 0.2 }}
+                    >
+                      {char}
+                    </motion.text>
+                  ))}
+                </motion.g>
+              )}
             </motion.g>
           </svg>
 
           {/* 对话 */}
           <motion.div
-            className="absolute top-8 left-8"
+            className="absolute top-0 left-12"
             style={{ opacity: dialogueOpacity }}
           >
             <DialogueLine
@@ -128,9 +150,9 @@ export default function Scene2HuiChar() {
           </motion.div>
         </div>
 
-        {/* 可点击查看四种写法 */}
+        {/* 交互按钮 */}
         <motion.div
-          className="text-center mt-8"
+          className="text-center mt-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -141,25 +163,6 @@ export default function Scene2HuiChar() {
           >
             {showFourWays ? t('scenes.scene2.hideFourWays') : t('scenes.scene2.showFourWays')}
           </button>
-
-          {showFourWays && (
-            <motion.div
-              className="mt-6 flex justify-center gap-8"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              {['回', '囘', '囬', '廻'].map((char, i) => (
-                <div key={i} className="text-center">
-                  <span className="text-4xl text-[#1A1A1A]" style={{ fontFamily: 'serif' }}>
-                    {char}
-                  </span>
-                  <p className="text-xs text-[#8B7355] mt-2">
-                    {t(`scenes.scene2.charName${i + 1}`)}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-          )}
         </motion.div>
 
         {/* 场景说明 */}

@@ -21,123 +21,106 @@ export default function Scene3Beans() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-[140vh] bg-[#F8F4E8] flex items-center justify-center py-20"
+      className="relative w-full py-8"
     >
-      <div className="max-w-4xl mx-auto px-4 w-full">
-        {/* 场景标题 */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <span className="text-sm text-[#8B7355] tracking-widest">
-            {t('scenes.scene3.label')}
-          </span>
-        </motion.div>
+      <div className="w-full">
 
         {/* 插画区域 */}
-        <div className="relative aspect-[4/3] max-w-2xl mx-auto">
-          <svg viewBox="0 0 400 300" className="w-full h-full">
-            {/* 孔乙己 - 弯腰罩碟子 */}
-            <g stroke="#1A1A1A" strokeWidth="1.5" fill="none" strokeLinecap="round">
+        <div className="relative w-full">
+          <svg viewBox="0 0 400 300" className="w-full h-full overflow-visible">
+            {/* 孔乙己 - 弯腰罩碟子 - 应用笔触 */}
+            <g stroke="#1A1A1A" strokeWidth="1.5" fill="none" strokeLinecap="round" style={{ filter: 'url(#ink-brush)' }}>
               {/* 头 */}
-              <ellipse cx="200" cy="60" rx="18" ry="22" />
+              <path d="M 185 65 Q 200 50, 215 65 Q 220 85, 200 90 Q 180 85, 185 65" />
               {/* 胡子 */}
-              <path d="M 188 72 Q 185 85 188 90" />
-              <path d="M 195 74 Q 194 88 196 92" />
-              <path d="M 205 74 Q 206 88 204 92" />
-              <path d="M 212 72 Q 215 85 212 90" />
-              {/* 眼睛 - 着慌 */}
-              <circle cx="194" cy="56" r="2" fill="#1A1A1A" />
-              <circle cx="206" cy="56" r="2" fill="#1A1A1A" />
-              {/* 眉毛 - 紧皱 */}
-              <path d="M 190 50 L 198 52" />
-              <path d="M 210 50 L 202 52" />
-              {/* 身体 - 弯腰 */}
-              <path d="M 182 82 Q 160 120 155 180" />
-              <path d="M 218 82 Q 240 120 245 180" />
-              <path d="M 155 180 Q 200 190 245 180" />
-              {/* 长衫点彩 */}
+              <path d="M 192 88 Q 190 100, 193 108" />
+              <path d="M 208 88 Q 210 100, 207 108" />
+              {/* 眼睛 - 点两下 */}
+              <circle cx="194" cy="72" r="1.2" fill="#1A1A1A" stroke="none" />
+              <circle cx="206" cy="72" r="1.2" fill="#1A1A1A" stroke="none" />
+              {/* 眉毛 - 八字眉，表现着慌 */}
+              <path d="M 188 64 Q 195 68, 198 68" />
+              <path d="M 212 64 Q 205 68, 202 68" />
+
+              {/* 身体 - 佝偻 */}
+              <path d="M 185 90 Q 155 130, 150 190" />
+              <path d="M 215 90 Q 245 130, 250 190" />
+              <path d="M 150 190 Q 200 200, 250 190" />
+
+              {/* 长衫填充 */}
               <path
-                d="M 182 82 Q 160 120 155 180 Q 200 190 245 180 Q 240 120 218 82"
+                d="M 185 90 Q 155 130, 150 190 Q 200 200, 250 190 Q 245 130, 215 90 Z"
                 fill="#4A5568"
-                fillOpacity="0.12"
+                fillOpacity="0.08"
                 stroke="none"
               />
-              {/* 双手 - 五指罩住碟子 */}
-              <path d="M 170 130 Q 180 160 200 180" />
-              <path d="M 230 130 Q 220 160 200 180" />
-              {/* 手指展开 */}
-              <path d="M 185 175 L 180 185" />
-              <path d="M 192 178 L 190 190" />
-              <path d="M 200 180 L 200 195" />
-              <path d="M 208 178 L 210 190" />
-              <path d="M 215 175 L 220 185" />
+
+              {/* 双手 - 罩住碟子，线条极简且富有张力 */}
+              <path d="M 165 140 Q 185 170, 200 185" />
+              <path d="M 235 140 Q 215 170, 200 185" />
+              {/* 手指 - 像爪子一样罩住 */}
+              <path d="M 185 180 L 175 192" strokeWidth="0.8" />
+              <path d="M 192 185 L 188 200" strokeWidth="0.8" />
+              <path d="M 200 185 L 200 205" strokeWidth="0.8" />
+              <path d="M 208 185 L 212 200" strokeWidth="0.8" />
+              <path d="M 215 180 L 225 192" strokeWidth="0.8" />
             </g>
 
             {/* 茴香豆碟子 */}
-            <g stroke="#1A1A1A" strokeWidth="1" fill="none">
-              <ellipse cx="200" cy="200" rx="35" ry="10" />
-              {/* 茴香豆 - 会减少 */}
-              <motion.g style={{ scale: beansScale, transformOrigin: '200px 195px' }}>
-                <ellipse cx="185" cy="195" rx="5" ry="4" fill="#C4A35A" fillOpacity="0.8" stroke="#1A1A1A" strokeWidth="0.5" />
-                <ellipse cx="195" cy="193" rx="5" ry="4" fill="#C4A35A" fillOpacity="0.8" stroke="#1A1A1A" strokeWidth="0.5" />
-                <ellipse cx="205" cy="193" rx="5" ry="4" fill="#C4A35A" fillOpacity="0.8" stroke="#1A1A1A" strokeWidth="0.5" />
-                <ellipse cx="215" cy="195" rx="5" ry="4" fill="#C4A35A" fillOpacity="0.8" stroke="#1A1A1A" strokeWidth="0.5" />
-                <ellipse cx="200" cy="197" rx="5" ry="4" fill="#C4A35A" fillOpacity="0.7" stroke="#1A1A1A" strokeWidth="0.5" />
+            <g stroke="#1A1A1A" strokeWidth="1" fill="none" style={{ filter: 'url(#fine-brush)' }}>
+              <ellipse cx="200" cy="205" rx="38" ry="10" />
+              {/* 茴香豆 - 点彩渲染 */}
+              <motion.g style={{ scale: beansScale, transformOrigin: '200px 200px' }}>
+                <circle cx="185" cy="200" r="4" fill="#C4A35A" fillOpacity="0.7" stroke="none" />
+                <circle cx="195" cy="198" r="4" fill="#C4A35A" fillOpacity="0.7" stroke="none" />
+                <circle cx="205" cy="198" r="4" fill="#C4A35A" fillOpacity="0.7" stroke="none" />
+                <circle cx="215" cy="200" r="4" fill="#C4A35A" fillOpacity="0.7" stroke="none" />
+                <circle cx="200" cy="203" r="4" fill="#C4A35A" fillOpacity="0.6" stroke="none" />
               </motion.g>
             </g>
 
-            {/* 孩子们 - 围着 */}
-            {/* 孩子1 - 左边 */}
-            <g stroke="#1A1A1A" strokeWidth="1.2" fill="none" strokeLinecap="round">
-              <circle cx="100" cy="160" r="12" />
-              {/* 眼睛望着碟子 */}
-              <circle cx="104" cy="158" r="1.5" fill="#1A1A1A" />
-              <circle cx="108" cy="160" r="1.5" fill="#1A1A1A" />
-              <path d="M 88 172 L 85 230" />
-              <path d="M 112 172 L 115 230" />
-            </g>
+            {/* 孩子们 - 寥寥几笔，生动传神 - 应用笔触 */}
+            <g style={{ filter: 'url(#ink-brush)' }}>
+              {/* 孩子1 - 左边 */}
+              <g stroke="#1A1A1A" strokeWidth="1.2" fill="none" strokeLinecap="round">
+                <path d="M 90 145 Q 105 130, 115 145 Q 120 160, 105 165 Q 90 160, 90 145" />
+                <circle cx="108" cy="152" r="0.8" fill="#1A1A1A" stroke="none" />
+                <path d="M 100 165 L 95 230" />
+                <path d="M 115 165 L 120 230" />
+              </g>
 
-            {/* 孩子2 - 右边 */}
-            <g stroke="#1A1A1A" strokeWidth="1.2" fill="none" strokeLinecap="round">
-              <circle cx="300" cy="160" r="12" />
-              <circle cx="292" cy="158" r="1.5" fill="#1A1A1A" />
-              <circle cx="296" cy="160" r="1.5" fill="#1A1A1A" />
-              <path d="M 288 172 L 285 230" />
-              <path d="M 312 172 L 315 230" />
-            </g>
-
-            {/* 孩子3 - 后面 */}
-            <g stroke="#1A1A1A" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.6">
-              <circle cx="150" cy="140" r="10" />
-              <circle cx="250" cy="140" r="10" />
+              {/* 孩子2 - 右边 */}
+              <g stroke="#1A1A1A" strokeWidth="1.2" fill="none" strokeLinecap="round">
+                <path d="M 290 145 Q 300 130, 315 145 Q 320 160, 305 165 Q 290 160, 290 145" />
+                <circle cx="298" cy="152" r="0.8" fill="#1A1A1A" stroke="none" />
+                <path d="M 300 165 L 295 230" />
+                <path d="M 315 165 L 320 230" />
+              </g>
             </g>
           </svg>
 
-          {/* 对话1 */}
-          <motion.div
-            className="absolute top-0 left-1/2 -translate-x-1/2"
-            style={{ opacity: dialogue1Opacity }}
-          >
-            <DialogueLine
-              text={t('scenes.scene3.dialogue1')}
-              direction="down"
-            />
-          </motion.div>
+          {/* 对话 */}
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div
+              className="absolute top-0 left-1/2 -translate-x-1/2"
+              style={{ opacity: dialogue1Opacity }}
+            >
+              <DialogueLine
+                text={t('scenes.scene3.dialogue1')}
+                direction="down"
+              />
+            </motion.div>
 
-          {/* 对话2 - 经典台词 */}
-          <motion.div
-            className="absolute bottom-16 left-1/2 -translate-x-1/2"
-            style={{ opacity: dialogue2Opacity }}
-          >
-            <DialogueLine
-              text={t('scenes.scene3.dialogue2')}
-              direction="down"
-              className="text-xl"
-            />
-          </motion.div>
+            <motion.div
+              className="absolute bottom-24 left-1/2 -translate-x-1/2"
+              style={{ opacity: dialogue2Opacity }}
+            >
+              <DialogueLine
+                text={t('scenes.scene3.dialogue2')}
+                direction="down"
+              />
+            </motion.div>
+          </div>
         </div>
 
         {/* 场景说明 */}

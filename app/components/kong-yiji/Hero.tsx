@@ -26,53 +26,56 @@ export default function Hero({ inHome = false }: HeroProps) {
       </div>
 
       {/* 主要内容 */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-8">
-        {/* 孔乙己插画 - 简笔风格 */}
+      <div className="relative z-10 h-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 px-8">
+        {/* 文字区域 */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          {/* 标题 */}
+          <motion.h1
+            className={`${inHome ? 'text-4xl md:text-6xl' : 'text-6xl md:text-8xl'} font-bold text-[#1A1A1A] tracking-wider mb-4`}
+            style={{ fontFamily: 'serif' }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            {t('hero.title')}
+          </motion.h1>
+
+          {/* 副标题 */}
+          <motion.p
+            className={`${inHome ? 'text-lg md:text-xl' : 'text-xl md:text-2xl'} text-[#4A4A4A] italic max-w-md`}
+            style={{ fontFamily: 'serif' }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            {t('hero.subtitle')}
+          </motion.p>
+
+          {/* 作者 */}
+          <motion.p
+            className="mt-6 text-[#8B7355] text-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            {t('hero.author')}
+          </motion.p>
+        </div>
+
+        {/* 侧置插画区域 - 正面孔乙己 */}
         <motion.div
-          className={`${inHome ? 'w-48 h-48 mb-4' : 'w-64 h-64 mb-8'}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
+          className={`${inHome ? 'w-56 h-56' : 'w-72 h-72 md:w-96 md:h-96'}`}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, duration: 1 }}
         >
-          <KongYijiIllustration />
+          <FrontIllustration />
         </motion.div>
-
-        {/* 标题 */}
-        <motion.h1
-          className={`${inHome ? 'text-4xl md:text-5xl' : 'text-5xl md:text-7xl'} font-bold text-[#1A1A1A] tracking-wider mb-4`}
-          style={{ fontFamily: 'serif' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          {t('hero.title')}
-        </motion.h1>
-
-        {/* 副标题 */}
-        <motion.p
-          className={`${inHome ? 'text-base md:text-lg' : 'text-lg md:text-xl'} text-[#4A4A4A] italic`}
-          style={{ fontFamily: 'serif' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-        >
-          {t('hero.subtitle')}
-        </motion.p>
-
-        {/* 作者 */}
-        <motion.p
-          className="mt-4 text-sm text-[#8B7355]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
-        >
-          {t('hero.author')}
-        </motion.p>
 
         {/* Hover 提示 */}
         {inHome && (
           <motion.div
-            className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-[#8B7355]/60 opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 text-sm text-[#8B7355]/60 opacity-0 group-hover:opacity-100 transition-opacity"
           >
             {t('hero.clickToRead')}
           </motion.div>
@@ -146,6 +149,72 @@ function KongYijiIllustration() {
 
       {/* 点彩 - 酒的琥珀色 */}
       <ellipse cx="60" cy="125" rx="8" ry="3" fill="#D4A84B" fillOpacity="0.4" />
+    </svg>
+  )
+}
+
+// 孔乙己正面插画 - 瘦高增强版
+function FrontIllustration() {
+  return (
+    <svg viewBox="0 0 240 240" className="w-full h-full overflow-visible">
+      <defs>
+        <filter id="ink-brush-hero">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="ink-bleed-hero">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blur" />
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="ink" />
+          <feComposite in="SourceGraphic" in2="ink" operator="over" />
+        </filter>
+      </defs>
+
+      {/* 人物主体 */}
+      <g style={{ filter: 'url(#ink-brush-hero)' }}>
+        {/* 头部 - 正面圆润简笔 */}
+        <circle cx="120" cy="50" r="28" stroke="#1A1A1A" strokeWidth="1.8" fill="none" />
+
+        {/* 面部特征 - 仅有的两点水墨眼神 */}
+        <g fill="#1A1A1A">
+          <circle cx="112" cy="48" r="1.2" />
+          <circle cx="128" cy="48" r="1.2" />
+        </g>
+
+        {/* 身体/长衫 - 极其瘦高的廓形 */}
+        <path
+          d="M 108 78 L 95 220 Q 120 225, 145 220 L 132 78"
+          stroke="#1A1A1A"
+          strokeWidth="1.8"
+          fill="none"
+          strokeLinecap="round"
+        />
+
+        {/* 填充 - 淡淡的长衫色 */}
+        <path
+          d="M 108 78 L 95 220 Q 120 225, 145 220 L 132 78 Z"
+          fill="#4A5568"
+          fillOpacity="0.08"
+          stroke="none"
+        />
+
+        {/* 脖颈/肩膀连接线 */}
+        <path d="M 112 78 Q 112 85, 112 95" stroke="#1A1A1A" strokeWidth="1.2" opacity="0.6" />
+        <path d="M 128 78 Q 128 85, 128 95" stroke="#1A1A1A" strokeWidth="1.2" opacity="0.6" />
+
+        {/* 右手臂 - 略微张开平衡 */}
+        <path d="M 140 100 Q 175 140, 195 190" stroke="#1A1A1A" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+
+        {/* 左手臂与酒碗 - 端碗动作 */}
+        <path d="M 100 100 Q 75 130, 60 155" stroke="#1A1A1A" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+
+        {/* 酒碗 */}
+        <g transform="translate(56, 165)">
+          <path d="M -15 -5 Q -12 12, 0 12 Q 12 12, 15 -5" stroke="#1A1A1A" strokeWidth="1.2" fill="none" />
+          <path d="M -16 -6 Q 0 -13, 16 -6" stroke="#1A1A1A" strokeWidth="1.2" fill="none" opacity="0.3" />
+          {/* 黄酒色彩 */}
+          <ellipse cx="0" cy="4" rx="10" ry="4" fill="#D4A84B" fillOpacity="0.4" stroke="none" style={{ filter: 'url(#ink-bleed-hero)' }} />
+        </g>
+      </g>
     </svg>
   )
 }
