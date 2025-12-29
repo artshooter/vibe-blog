@@ -2,14 +2,12 @@
 
 ## 核心理念
 
-**氛围阅读** - 用网页技术为每篇文章创造独特的阅读氛围。
+**氛围阅读** - 每次阅读都是独特的体验
 
 - 视觉风格匹配文章情绪
 - 交互组件帮助理解内容
 - 设计营造沉浸感
 - 形式服务于内容，拒绝模板化
-
-每篇文章都是独特的 Web 体验。
 
 ## 文件结构
 
@@ -19,12 +17,12 @@ app/
 │   ├── page.tsx                    # 首页
 │   └── [article-name]/
 │       ├── page.tsx                # 文章详情页
-│       └── Cover.tsx               # 封面组件
+│       ├── Cover.tsx               # 封面组件
+│       └── design.md               # 设计文档
 │
 ├── components/
 │   ├── common/                     # 通用组件
 │   └── [article-name]/             # 文章内部组件
-│       ├── design.md               # 设计文档
 │       ├── content.md              # 文章内容
 │       └── *.tsx                   # 自定义组件
 │
@@ -52,7 +50,7 @@ messages/                            # 翻译文件（zh/en）
 
 - `app/[locale]/[article-name]/page.tsx` - 文章详情页
 - `app/[locale]/[article-name]/Cover.tsx` - 首页展示的封面
-- `app/components/[article-name]/design.md` - 设计文档
+- `app/[locale]/[article-name]/design.md` - 设计文档
 
 ### 设计原则
 

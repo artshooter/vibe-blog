@@ -33,3 +33,9 @@ next-env.d.ts
 .vscode
 *.swp
 *.swo
+
+# Claude Code
+.claude
+
+# Docker
+docker-compose.yml
