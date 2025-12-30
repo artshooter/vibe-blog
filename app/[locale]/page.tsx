@@ -19,7 +19,7 @@ export default function HomePage() {
         <h1 className="text-2xl md:text-3xl font-extralight tracking-[0.3em] text-white/60">{t('home.blogTitle')}</h1>
       </div>
       <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-        <div className="grid grid-cols-1 gap-24">
+        <div className="grid grid-cols-1 gap-24 min-h-[50vh]">
           {articles.map((article, index) => {
             const { Hero } = article
             return (
