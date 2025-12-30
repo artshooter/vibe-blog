@@ -92,11 +92,10 @@ export default function HomePage() {
 }
 EOF
 
-# 6. 提交并推送（强制覆盖远端）
-echo ">> Committing and pushing..."
+# 6. 提交
+echo ">> Committing..."
 git add .
 git commit -m "Create blank template branch - no articles"
-git push -u origin blank --force
 
 # 7. 切回原分支
 echo ">> Switching back to $CURRENT_BRANCH..."
@@ -107,4 +106,4 @@ if [[ "$STASHED" == "true" ]]; then
   git stash pop
 fi
 
-echo ">> Done! blank branch created and pushed."
+echo ">> Done! blank branch created."

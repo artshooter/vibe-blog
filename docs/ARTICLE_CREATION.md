@@ -141,6 +141,7 @@ export default function ArticlePage() {
 - 遵循 design.md 的设计方案
 - 考虑桌面端和移动端响应式
 - 交互应该帮助理解内容，不是炫技
+- **保留文章原文：禁止为了设计或交互而缩减、修改或删除原文内容（必须 100% 完整）**
 - **所有文本内容使用 `useTranslations('[article-name]')` 获取，禁止硬编码**
 - **组件顶部添加 `'use client'` 指令（如果使用 useTranslations）**
 
