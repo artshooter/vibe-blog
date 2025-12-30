@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useAnimation } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useRef, useCallback } from 'react'
 
 interface LadybugProps {
   className?: string
@@ -10,12 +10,13 @@ interface LadybugProps {
 
 export default function Ladybug({ className = '', size = 24 }: LadybugProps) {
   const controls = useAnimation()
-  const [hasFlown, setHasFlown] = useState(false)
+  const [isFlying, setIsFlying] = useState(false)
+  const isFlyingRef = useRef(false)
 
-  const handleClick = async () => {
-    if (hasFlown) return
-
-    setHasFlown(true)
+  const handleFly = useCallback(async () => {
+    if (isFlyingRef.current) return
+    isFlyingRef.current = true
+    setIsFlying(true)
 
     // 祈祷一回
     await controls.start({
@@ -24,39 +25,53 @@ export default function Ladybug({ className = '', size = 24 }: LadybugProps) {
       transition: { duration: 0.5 },
     })
 
-    // 支开翅膀，忽悠一下升空
+    // 支开翅膀，向右上飞行消失
     await controls.start({
       y: -100,
       x: 50,
       rotate: -15,
       opacity: 0,
-      transition: { duration: 1.5, ease: 'easeOut' },
+      transition: { duration: 1.2, ease: 'easeOut' },
     })
 
-    // 重置
-    await new Promise(resolve => setTimeout(resolve, 5000))
-    await controls.start({
+    // 重置位置并“Duang”地出现一个新的
+    await new Promise(resolve => setTimeout(resolve, 500))
+    controls.set({
       y: 0,
       x: 0,
       rotate: 0,
-      opacity: 1,
-      transition: { duration: 0 },
+      scale: 0.8,
+      opacity: 0,
     })
-    setHasFlown(false)
+    setIsFlying(false)
+
+    await controls.start({
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 25,
+        restDelta: 0.001,
+      },
+    })
+
+    isFlyingRef.current = false
+    setIsFlying(false)
+  }, [controls])
+
+  const handleHoverStart = () => {
+    handleFly()
   }
 
-  const handleInteraction = async () => {
-    if (hasFlown) return
-    await handleClick()
-  }
+
 
   return (
     <motion.div
       className={`inline-block cursor-pointer ${className}`}
       animate={controls}
-      onClick={handleInteraction}
-      onHoverStart={handleInteraction}
-      whileHover={!hasFlown ? { scale: 1.1 } : {}}
+      onClick={handleFly}
+      onHoverStart={handleHoverStart}
     >
       <svg
         width={size}
@@ -73,7 +88,7 @@ export default function Ladybug({ className = '', size = 24 }: LadybugProps) {
           ry="4"
           fill="#c9a86c"
           opacity="0"
-          animate={hasFlown ? {
+          animate={isFlying ? {
             opacity: [0, 0.6, 0.6],
             rotate: [-30, -30, -30],
           } : { opacity: 0 }}
@@ -86,7 +101,7 @@ export default function Ladybug({ className = '', size = 24 }: LadybugProps) {
           ry="4"
           fill="#c9a86c"
           opacity="0"
-          animate={hasFlown ? {
+          animate={isFlying ? {
             opacity: [0, 0.6, 0.6],
             rotate: [30, 30, 30],
           } : { opacity: 0 }}
@@ -116,7 +131,7 @@ export default function Ladybug({ className = '', size = 24 }: LadybugProps) {
 
         {/* 腿 */}
         <motion.g
-          animate={!hasFlown ? {
+          animate={!isFlying ? {
             rotate: [0, 2, -2, 0],
           } : {}}
           transition={{ duration: 0.3, repeat: Infinity }}
