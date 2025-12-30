@@ -94,6 +94,19 @@ export default function ArticlePage() {
 - 翻译文件：`messages/zh/` 和 `messages/en/`
 - 自动检测：`middleware.ts` 负责语言重定向
 
+### 多语言组件使用规范
+
+```tsx
+// ✅ 正确 - 使用 next-intl 的导航组件（自动处理 locale 前缀）
+import { Link, useRouter, usePathname } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
+
+// ❌ 错误 - 不要直接使用 next/link（会丢失 locale 前缀）
+import Link from 'next/link'
+```
+
+**关键规则**：所有内部链接必须使用 `@/i18n/navigation` 的 `Link` 组件，否则会生成不带 locale 的路径（如 `/article` 而非 `/zh/article`）。
+
 ---
 
 ## 设计原则
