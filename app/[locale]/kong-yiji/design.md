@@ -175,7 +175,7 @@ app/components/kong-yiji/
 
 ```ts
 {
-  slug: 'kong-yiji',
+  articleName: 'kong-yiji',
   title: '孔乙己',
   description: '站着喝酒而穿长衫的唯一的人',
   tags: ['鲁迅', '短篇小说', '经典文学'],

@@ -1,7 +1,7 @@
 import { ComponentType } from 'react'
 
 export interface ArticleMeta {
-  slug: string
+  articleName: string
   title: string
   description: string
   date: string
@@ -12,6 +12,5 @@ export interface ArticleMeta {
 export interface Article {
   meta: ArticleMeta
   Hero: ComponentType<{ inHome?: boolean }>
-  HeroCompact: ComponentType
   Content: ComponentType
 }

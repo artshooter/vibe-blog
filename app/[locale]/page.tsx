@@ -1,11 +1,24 @@
 import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/navigation'
 import LanguageSwitch from '@/app/components/common/LanguageSwitch'
-import { getPublishedArticles } from '@/app/components/articles'
+import { kongYijiArticle } from '@/app/components/kong-yiji'
+import { worldWarOneArticle } from '@/app/components/world-war-one'
+import { mnistArticle } from '@/app/components/mnist-neural-network'
+import { meAndDitanArticle } from '@/app/components/me-and-ditan'
+
+// 文章列表 - 新文章在此添加
+const allArticles = [
+  kongYijiArticle,
+  worldWarOneArticle,
+  mnistArticle,
+  meAndDitanArticle,
+]
+
+const articles = allArticles
+  .filter((a) => a.meta.status === 'published')
+  .sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime())
 
 export default function HomePage() {
   const t = useTranslations()
-  const articles = getPublishedArticles()
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -22,7 +35,7 @@ export default function HomePage() {
           {articles.map((article, index) => {
             const { Hero } = article
             return (
-              <div key={article.meta.slug} className="relative">
+              <div key={article.meta.articleName} className="relative">
                 {index > 0 && (
                   <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                 )}

@@ -1,6 +1,4 @@
-
-import { notFound } from 'next/navigation'
-import { getArticleBySlug } from '@/app/components/articles'
+import Content from '@/app/components/world-war-one/Content'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {
@@ -17,15 +15,6 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default async function ArticlePage({ params }: Props) {
-  const { locale } = await params
-  const article = getArticleBySlug('world-war-one')
-
-  if (!article) {
-    notFound()
-  }
-
-  const { Content } = article
-
+export default function ArticlePage() {
   return <Content />
 }

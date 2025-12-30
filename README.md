@@ -1,5 +1,5 @@
 # <img src="./app/icon.png" width="32" height="32" alt="icon" /> Vibe Blog
-**氛围博客** - 每篇文章都带给你独特的体验
+**氛围博客** - 每篇文章都带给你独特的氛围体验
 
 - 视觉风格匹配文章情绪，交互组件帮助理解内容
 - 通过设计营造沉浸感
@@ -29,17 +29,17 @@ app/
 │   ├── page.tsx                    # 首页
 │   └── [article-name]/
 │       ├── page.tsx                # 文章详情页
-│       ├── Cover.tsx               # 封面组件
+│       ├── content.md              # 文章原始内容
 │       └── design.md               # 设计文档
 │
 ├── components/
+│   ├── types.ts                    # 类型定义
 │   ├── common/                     # 通用组件
 │   └── [article-name]/             # 文章内部组件
-│       ├── content.md              # 文章内容
+│       ├── index.tsx               # 文章元数据 + 组件导出
+│       ├── Hero.tsx                # 首页卡片
+│       ├── Content.tsx             # 文章主体
 │       └── *.tsx                   # 自定义组件
-│
-└── data/
-    └── articles.ts                 # 文章元数据列表
 
 docs/                                # 项目文档
 ├── ARCHITECTURE.md                 # 技术架构
@@ -60,9 +60,15 @@ messages/                            # 翻译文件（zh/en）
 
 ### 每篇文章必需的文件
 
-- `app/[locale]/[article-name]/page.tsx` - 文章详情页
-- `app/[locale]/[article-name]/Cover.tsx` - 首页展示的封面
-- `app/[locale]/[article-name]/design.md` - 设计文档
+**路由层** `app/[locale]/[article-name]/`：
+- `page.tsx` - 文章详情页
+- `content.md` - 文章原始内容
+- `design.md` - 设计文档（可选）
+
+**组件层** `app/components/[article-name]/`：
+- `index.tsx` - 文章元数据导出
+- `Hero.tsx` - 首页卡片（支持 inHome 模式）
+- `Content.tsx` - 文章内容组件
 
 ### 设计原则
 

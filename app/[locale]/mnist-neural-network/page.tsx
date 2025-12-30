@@ -1,5 +1,4 @@
-import { notFound } from 'next/navigation'
-import { getArticleBySlug } from '@/app/components/articles'
+import Content from '@/app/components/mnist-neural-network/Content'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {
@@ -16,15 +15,6 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default async function ArticlePage({ params }: Props) {
-  const { locale } = await params
-  const article = getArticleBySlug('mnist-neural-network')
-
-  if (!article) {
-    notFound()
-  }
-
-  const { Content } = article
-
+export default function ArticlePage() {
   return <Content />
 }

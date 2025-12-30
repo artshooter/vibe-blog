@@ -11,25 +11,25 @@
 ### 方式 A：用户已有文档
 1. 询问用户文件路径
 2. 使用 Read 工具读取文件
-3. 根据内容生成 slug（文章的 URL 名称）：
+3. 根据内容生成 article-name（文章的 URL 名称）：
    - 如果内容有明确标题 → 使用标题的英文版（kebab-case）
    - 如果没有标题 → 根据主题自行拟定英文名称
-4. 创建 `app/[locale]/[slug]/content.md`
+4. 创建 `app/[locale]/[article-name]/content.md`
 5. 将读取的内容写入 content.md
 
 ### 方式 B：用户直接提供内容
 1. 提示用户直接粘贴文章内容
-2. 用户粘贴后，根据内容生成 slug（同上规则）
-3. 创建 `app/[locale]/[slug]/content.md`
+2. 用户粘贴后，根据内容生成 article-name（同上规则）
+3. 创建 `app/[locale]/[article-name]/content.md`
 4. 将用户提供的内容写入 content.md
 
-**slug 规则**：小写英文字母 + 连字符，例如 `atomic-habits`、`my-resume`
+**article-name 规则**：小写英文字母 + 连字符，例如 `atomic-habits`、`my-resume`
 
 ---
 
 ## Step 2: 分析文章内容
 
-读取 `app/[locale]/[slug]/content.md`，分析以下内容：
+读取 `app/[locale]/[article-name]/content.md`，分析以下内容：
 
 - **核心主题**：文章讲什么？
 - **情绪基调**：给人什么感受？
@@ -64,7 +64,7 @@
 
 ```ts
 {
-  slug: '[slug]',
+  articleName: '[article-name]',
   title: '[中文标题 - AI 总结]',
   description: '[简介 - AI 总结，1-2 句话]',
   tags: ['[标签1]', '[标签2]', ...],  // AI 提取 3-5 个标签
@@ -94,33 +94,33 @@
 **⚠️ 文件位置约束（必须严格遵守）**：
 
 ```
-app/[locale]/[slug]/           ← 路由层（路由 + 内容源文件）
-    ├── page.tsx               # 路由入口，组织页面结构
+app/[locale]/[article-name]/           ← 路由层
+    ├── page.tsx               # 路由入口
     ├── content.md             # 文章原始内容
     └── design.md              # 设计文档
 
-app/components/[slug]/         ← 组件层（所有业务组件）
-    ├── index.tsx              # 文章注册导出
-    ├── Hero.tsx               # 首页卡片 & 详情页头图
-    ├── HeroCompact.tsx        # 紧凑版头图（可选）
+app/components/[article-name]/         ← 组件层
+    ├── index.tsx              # 文章元数据 + 组件导出
+    ├── Hero.tsx               # 首页卡片（支持 inHome 模式）
     ├── Content.tsx            # 文章主体内容
     └── *.tsx                  # 其他自定义组件
 ```
 
-**禁止**：在 `app/[locale]/[slug]/` 下创建业务组件（Hero、Content 等）
-**禁止**：在 `app/components/[slug]/` 下创建 page.tsx
-
 ### 5.1 创建路由文件
 
-创建 `app/[locale]/[slug]/page.tsx`：
+创建 `app/[locale]/[article-name]/page.tsx`：
 
 ```tsx
+import Content from '@/app/components/[article-name]/Content'
 import { getTranslations } from 'next-intl/server'
-// 根据 design.md 引入需要的组件
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: '[slug].metadata' })
+  const t = await getTranslations({ locale, namespace: '[article-name].metadata' })
 
   return {
     title: t('title'),
@@ -128,88 +128,36 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 }
 
-export default async function ArticlePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params
-
-  return (
-    <main>
-      {/* 根据 design.md 组织内容 */}
-    </main>
-  )
+export default function ArticlePage() {
+  return <Content />
 }
 ```
 
-### 5.2 创建封面组件
+### 5.2 实现文章组件
 
-创建 `app/[locale]/[slug]/Cover.tsx`：
-
-```tsx
-interface CoverProps {
-  meta: {
-    slug: string
-    title: string
-    description: string
-    tags: string[]
-    publishedAt: string
-  }
-}
-
-export default function Cover({ meta }: CoverProps) {
-  return (
-    <div>
-      {/* 根据 design.md 实现封面设计 */}
-      <h2>{meta.title}</h2>
-      <p>{meta.description}</p>
-    </div>
-  )
-}
-```
-
-**重要提示**：确保 Hero 组件支持首页点击跳转
-- Hero 组件需要接受 `inHome?: boolean` 参数
-- 当 `inHome={true}` 时，必须用 `<Link href="/[slug]">` 包裹整个内容
-- 参考示例：
-```tsx
-import { Link } from '@/i18n/navigation'
-
-export default function Hero({ inHome = false }: { inHome?: boolean }) {
-  const content = <section>...</section>
-
-  if (inHome) {
-    return <Link href="/[slug]" className="block">{content}</Link>
-  }
-
-  return content
-}
-```
-
-### 5.3 实现文章组件
-
-在 `app/components/[slug]/` 下，根据 design.md 实现所需组件。
+在 `app/components/[article-name]/` 下，根据 design.md 实现所需组件。
 
 **原则**：
 - 遵循 design.md 的设计方案
 - 考虑桌面端和移动端响应式
 - 交互应该帮助理解内容，不是炫技
-- **所有文本内容使用 `useTranslations('[slug]')` 获取，禁止硬编码**
+- **所有文本内容使用 `useTranslations('[article-name]')` 获取，禁止硬编码**
 - **组件顶部添加 `'use client'` 指令（如果使用 useTranslations）**
 
 ---
 
 ## Step 6: 添加到文章列表
 
-打开 `app/data/articles.ts`，将 Step 3 生成的元数据对象添加到数组中：
+打开 `app/[locale]/page.tsx`，添加新文章：
 
-```ts
-export const articles = [
+```tsx
+// 1. 添加 import
+import { newArticle } from '@/app/components/[article-name]'
+
+// 2. 添加到 allArticles 数组
+const allArticles = [
   // ... 现有文章
-  {
-    slug: '[新文章 slug]',
-    title: '[标题]',
-    description: '[简介]',
-    tags: ['[标签1]', '[标签2]'],
-    publishedAt: '[日期]',
-  }
+  newArticle,
 ]
 ```
 
@@ -221,8 +169,8 @@ export const articles = [
 
 为文章创建独立的翻译文件：
 
-1. 创建 `messages/zh/[slug].json`（中文翻译）
-2. 创建 `messages/en/[slug].json`（英文翻译，AI自动翻译）
+1. 创建 `messages/zh/[article-name].json`（中文翻译）
+2. 创建 `messages/en/[article-name].json`（英文翻译，AI自动翻译）
 
 **翻译文件结构规范**：
 - ✅ 使用命名对象（`event1`, `event2`, `stage1`）
@@ -282,21 +230,21 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
 
   const commonMessages = (await import(`@/messages/${locale}/common.json`)).default
-  const [slug]Messages = (await import(`@/messages/${locale}/[slug].json`)).default  // 添加这行
+  const [articleName]Messages = (await import(`@/messages/${locale}/[article-name].json`)).default  // 添加这行
 
   return {
     locale,
     messages: {
       ...commonMessages,
-      '[slug]': [slug]Messages,  // 添加这行
+      '[article-name]': [articleName]Messages,  // 添加这行
     },
   }
 })
 ```
 
 **检查清单**：
-- [ ] 创建了 messages/zh/[slug].json
-- [ ] 创建了 messages/en/[slug].json
+- [ ] 创建了 messages/zh/[article-name].json
+- [ ] 创建了 messages/en/[article-name].json
 - [ ] 在 i18n/request.ts 中导入新翻译文件
 - [ ] 在 messages 对象中添加了新的 namespace
 
@@ -309,7 +257,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
 import { useTranslations } from 'next-intl'
 
 export default function Component() {
-  const t = useTranslations('[slug]')
+  const t = useTranslations('[article-name]')
 
   return <h1>{t('hero.title')}</h1>  // 不要硬编码中文
 }
@@ -348,12 +296,12 @@ pnpm dev
    - **✅ 关键：点击文章卡片能够成功跳转到文章详情页**
    - 确认 Hero 组件在 `inHome={true}` 时用 `<Link>` 包裹
 
-2. **中文版本**：访问 `http://localhost:3000/zh/[slug]`
+2. **中文版本**：访问 `http://localhost:3000/zh/[article-name]`
    - 所有文本显示中文
    - 无硬编码英文
    - 交互组件正常工作
 
-3. **英文版本**：访问 `http://localhost:3000/en/[slug]`
+3. **英文版本**：访问 `http://localhost:3000/en/[article-name]`
    - 所有文本显示英文
    - 无硬编码中文
    - 交互组件正常工作
@@ -364,11 +312,11 @@ pnpm dev
 
 - [ ] **首页卡片高度**：`inHome={true}` 模式下的 Hero 组件容器是否使用了 `h-[400px]`？（严禁使用 `h-full` 或其他数值）
 - [ ] **首页链接包裹**：`inHome={true}` 时，是否使用 `<Link>` 包裹了整个 Hero 内容？
-- [ ] **多语言命名空间**：`useTranslations('[slug]')` 中的 `[slug]` 是否与文件名及 i18n 配置一致？
+- [ ] **多语言命名空间**：`useTranslations('[article-name]')` 中的 `[article-name]` 是否与文件名及 i18n 配置一致？
 - [ ] **硬编码检查**：组件内是否存在未通过 `t()` 函数加载的中文/英文文本？
 - [ ] **Client 指令**：使用 `useTranslations` 的组件顶部是否有 `'use client'`？
 - [ ] **返回按钮**：文章详情页是否有返回首页的按钮或链接？
-- [ ] **文件位置**：业务组件（Hero、Content 等）是否都在 `app/components/[slug]/` 下？路由层是否只有 page.tsx 和 design.md？
+- [ ] **文件位置**：业务组件（Hero、Content 等）是否都在 `app/components/[article-name]/` 下？路由层是否只有 page.tsx 和 design.md？
 
 ### 8.5 报告验收结果
 
@@ -382,7 +330,7 @@ pnpm dev
 
 ## 注意事项
 
-- slug（文章 URL 名称）必须使用 kebab-case（小写字母 + 连字符）
+- article-name（文章 URL 名称）必须使用 kebab-case（小写字母 + 连字符）
 - 所有新建文件必须使用绝对路径
 - 遵循 [ARCHITECTURE.md](./ARCHITECTURE.md) 的文件组织规范
 - 遵循 [DESIGN_GUIDE.md](./DESIGN_GUIDE.md) 的设计原则

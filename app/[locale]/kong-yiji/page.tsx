@@ -1,29 +1,20 @@
-import { notFound } from 'next/navigation'
-import { getArticleBySlug } from '@/app/components/articles'
+import Content from '@/app/components/kong-yiji/Content'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {
-    params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>
 }
 
 export async function generateMetadata({ params }: Props) {
-    const { locale } = await params
-    const t = await getTranslations({ locale, namespace: 'kong-yiji.metadata' })
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'kong-yiji.metadata' })
 
-    return {
-        title: t('title'),
-        description: t('description'),
-    }
+  return {
+    title: t('title'),
+    description: t('description'),
+  }
 }
 
-export default async function ArticlePage({ params }: Props) {
-    const article = getArticleBySlug('kong-yiji')
-
-    if (!article) {
-        notFound()
-    }
-
-    const { Content } = article
-
-    return <Content />
+export default function ArticlePage() {
+  return <Content />
 }

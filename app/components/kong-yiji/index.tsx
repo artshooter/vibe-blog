@@ -1,11 +1,10 @@
-import { Article } from '@/app/components/articles/types'
+import { Article } from '@/app/components/types'
 import Hero from './Hero'
-import HeroCompact from './HeroCompact'
 import Content from './Content'
 
 export const kongYijiArticle: Article = {
   meta: {
-    slug: 'kong-yiji',
+    articleName: 'kong-yiji',
     title: '孔乙己',
     description: '站着喝酒而穿长衫的唯一的人',
     date: '2025-12-29',
@@ -13,6 +12,5 @@ export const kongYijiArticle: Article = {
     status: 'published',
   },
   Hero,
-  HeroCompact,
   Content,
 }

@@ -1,11 +1,10 @@
-import { Article } from '@/app/components/articles/types'
+import { Article } from '@/app/components/types'
 import Hero from './Hero'
-import HeroCompact from './HeroCompact'
 import Content from './Content'
 
 export const mnistArticle: Article = {
   meta: {
-    slug: 'mnist-neural-network',
+    articleName: 'mnist-neural-network',
     title: 'MNIST - 从零手撸神经网络',
     description: '理解手写数字识别背后的原理：卷积层、激活函数、全连接层如何协同工作，以及如何通过梯度下降训练模型',
     date: '2025-12-28',
@@ -13,6 +12,5 @@ export const mnistArticle: Article = {
     status: 'published',
   },
   Hero,
-  HeroCompact,
   Content,
 }

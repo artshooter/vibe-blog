@@ -29,12 +29,13 @@ app/
 │       └── design.md               # 设计文档
 │
 ├── components/
+│   ├── types.ts                    # Article 类型定义
 │   ├── common/                     # 通用组件
 │   └── [article-name]/             # 文章内部组件
-│       └── *.tsx                   # 自定义组件
-│
-└── data/
-    └── articles.ts                 # 文章元数据列表
+│       ├── index.tsx               # 文章元数据 + 组件导出
+│       ├── Hero.tsx                # 首页卡片（支持 inHome 模式）
+│       ├── Content.tsx             # 文章主体内容
+│       └── *.tsx                   # 其他自定义组件
 
 docs/                                # 项目文档
 ├── ARCHITECTURE.md                 # 技术架构
@@ -61,23 +62,28 @@ middleware.ts                        # 语言检测
 /en/[article-name]       → 文章详情（英文）
 ```
 
-### Cover.tsx（必需）
-
-- **位置**：`app/[locale]/[article-name]/Cover.tsx`
-- **作用**：文章封面，在首页展示
-- **类比**：书架上看到的书籍封面
-
 ### page.tsx（必需）
 
 - **位置**：`app/[locale]/[article-name]/page.tsx`
 - **作用**：文章详情页路由
-- **自由度**：内容组织方式完全自由，由设计决定
+- **实现**：直接 import Content 组件
+
+```tsx
+import Content from '@/app/components/[article-name]/Content'
+
+export default function ArticlePage() {
+  return <Content />
+}
+```
 
 ### components/[article-name]/（必需）
 
 - **位置**：`app/components/[article-name]/`
-- **必需文件**：`design.md`（设计文档）
-- **其他组件**：完全自由，根据设计需求实现
+- **必需文件**：
+  - `index.tsx` - 导出 Article 对象（meta + 组件）
+  - `Hero.tsx` - 首页卡片，支持 `inHome?: boolean`
+  - `Content.tsx` - 文章主体内容
+- **其他组件**：根据设计需求自由添加
 
 ---
 
