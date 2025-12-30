@@ -1,17 +1,9 @@
 import { useTranslations } from 'next-intl'
 import LanguageSwitch from '@/app/components/common/LanguageSwitch'
-import { kongYijiArticle } from '@/app/components/kong-yiji'
-import { worldWarOneArticle } from '@/app/components/world-war-one'
-import { mnistArticle } from '@/app/components/mnist-neural-network'
-import { meAndDitanArticle } from '@/app/components/me-and-ditan'
+import { Article } from '@/app/components/types'
 
 // 文章列表 - 新文章在此添加
-const allArticles = [
-  kongYijiArticle,
-  worldWarOneArticle,
-  mnistArticle,
-  meAndDitanArticle,
-]
+const allArticles: Article[] = []
 
 const articles = allArticles
   .filter((a) => a.meta.status === 'published')
@@ -23,13 +15,9 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-black text-white">
       <LanguageSwitch />
-
-      {/* Header */}
       <div className="flex flex-col items-center justify-center py-32">
         <h1 className="text-2xl md:text-3xl font-extralight tracking-[0.3em] text-white/60">{t('home.blogTitle')}</h1>
       </div>
-
-      {/* Articles Grid */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
         <div className="grid grid-cols-1 gap-24">
           {articles.map((article, index) => {
@@ -48,8 +36,6 @@ export default function HomePage() {
           })}
         </div>
       </div>
-
-      {/* Footer */}
       <div className="pb-12 text-center text-gray-500 text-sm">
         {t('home.endOfList', { count: articles.length })}
       </div>
