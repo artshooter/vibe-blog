@@ -14,6 +14,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const mnistMessages = (await import(`@/messages/${locale}/mnist-neural-network.json`)).default
   const meAndDitanMessages = (await import(`@/messages/${locale}/me-and-ditan.json`)).default
   const kongYijiMessages = (await import(`@/messages/${locale}/kong-yiji.json`)).default
+  const backViewMessages = (await import(`@/messages/${locale}/back-view.json`)).default
+  const guxiangMessages = (await import(`@/messages/${locale}/guxiang.json`)).default
+  const farewellToCambridgeMessages = (await import(`@/messages/${locale}/farewell-to-cambridge.json`)).default
 
   return {
     locale,
@@ -23,6 +26,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
       'mnist-neural-network': mnistMessages,
       'me-and-ditan': meAndDitanMessages,
       'kong-yiji': kongYijiMessages,
+      'back-view': backViewMessages,
+      'guxiang': guxiangMessages,
+      'farewell-to-cambridge': farewellToCambridgeMessages,
     },
   }
 })

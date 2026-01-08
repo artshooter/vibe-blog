@@ -168,15 +168,15 @@ const allArticles = [
 
 ### 7.1 创建翻译文件
 
-为文章创建独立的翻译文件：
+为文章创建中文翻译文件：
 
 1. 创建 `messages/zh/[article-name].json`（中文翻译）
-2. 创建 `messages/en/[article-name].json`（英文翻译，AI自动翻译）
+
+> **注意**：英文翻译文件 `messages/en/[article-name].json` 暂不创建，后续需要时再添加。
 
 **翻译文件结构规范**：
 - ✅ 使用命名对象（`event1`, `event2`, `stage1`）
 - ❌ 不使用数组索引（`events.0`, `stages.1`）
-- 确保中英文 JSON 结构完全一致
 
 **特殊字符转义规范**（JSON 语法要求）：
 - 双引号 `"` → `\"`（必须转义，否则 JSON 解析失败）
@@ -245,7 +245,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
 **检查清单**：
 - [ ] 创建了 messages/zh/[article-name].json
-- [ ] 创建了 messages/en/[article-name].json
 - [ ] 在 i18n/request.ts 中导入新翻译文件
 - [ ] 在 messages 对象中添加了新的 namespace
 
@@ -289,9 +288,9 @@ pnpm dev
 
 ### 8.3 访问页面验证
 
-分别访问中英文版本，检查翻译是否生效：
+访问中文版本，检查页面是否正常：
 
-1. **首页检查**（重要！）：访问 `/zh` 和 `/en`
+1. **首页检查**（重要！）：访问 `/zh`
    - 文章卡片正常显示
    - 标题和描述使用了翻译
    - **✅ 关键：点击文章卡片能够成功跳转到文章详情页**
@@ -299,13 +298,9 @@ pnpm dev
 
 2. **中文版本**：访问 `http://localhost:3000/zh/[article-name]`
    - 所有文本显示中文
-   - 无硬编码英文
    - 交互组件正常工作
 
-3. **英文版本**：访问 `http://localhost:3000/en/[article-name]`
-   - 所有文本显示英文
-   - 无硬编码中文
-   - 交互组件正常工作
+> **注意**：英文版本暂不验证，待后续添加英文翻译后再测试。
 
 ### 8.4 完整性与规范检查（必须 100% 遵守）
 

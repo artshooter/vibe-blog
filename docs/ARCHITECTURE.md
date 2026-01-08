@@ -57,9 +57,7 @@ middleware.ts                        # 语言检测
 
 ```
 /zh                      → 首页（中文）
-/en                      → 首页（英文）
 /zh/[article-name]       → 文章详情（中文）
-/en/[article-name]       → 文章详情（英文）
 ```
 
 ### page.tsx（必需）
@@ -89,10 +87,11 @@ export default function ArticlePage() {
 
 ## 多语言架构
 
-- 语言通过路由区分：`/zh` vs `/en`
-- 配置文件：`i18n/config.ts`（定义 locales: ['zh', 'en']）
-- 翻译文件：`messages/zh/` 和 `messages/en/`
+- 语言通过路由区分：`/zh`
+- 配置文件：`i18n/config.ts`（定义 locales: ['zh']）
+- 翻译文件：`messages/zh/`
 - 自动检测：`middleware.ts` 负责语言重定向
+
 
 ---
 

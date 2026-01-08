@@ -80,8 +80,7 @@ messages/                            # 翻译文件（zh/en）
 ### 多语言
 
 - 文章内容：中文
-- 翻译：AI 自动生成英文翻译
-- 路由：`/zh/article` 和 `/en/article`
+- 路由：`/zh/article`
 
 ## 创建文章
 
