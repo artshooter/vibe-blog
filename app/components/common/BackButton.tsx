@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { motion } from 'framer-motion'
 
-type Variant = 'war' | 'terminal' | 'nature'
+type Variant = 'war' | 'terminal' | 'nature' | 'journal'
 
 const variants: Record<Variant, { container: string; arrow: string; text: string }> = {
   // 一战文章 - 深红色军事风格
@@ -25,12 +25,19 @@ const variants: Record<Variant, { container: string; arrow: string; text: string
     arrow: 'text-[#8b7355]',
     text: 'font-serif',
   },
+  // 年终手记 - 温暖米白风格
+  journal: {
+    container: 'text-[#3D3D3D]/60 hover:text-[#3D3D3D]',
+    arrow: 'text-[#81B29A]',
+    text: '',
+  },
 }
 
 const arrowIcons: Record<Variant, React.ReactNode> = {
   war: <span className="text-lg">&larr;</span>,
   terminal: <span>{'<'}-</span>,
   nature: <span className="text-lg">&#8592;</span>,
+  journal: <span className="text-lg">&#8592;</span>,
 }
 
 interface BackButtonProps {
@@ -46,6 +53,7 @@ export default function BackButton({ variant }: BackButtonProps) {
     war: 'back.war',
     terminal: 'back.terminal',
     nature: 'back.nature',
+    journal: 'back.journal',
   }
 
   return (

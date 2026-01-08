@@ -14,6 +14,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const mnistMessages = (await import(`@/messages/${locale}/mnist-neural-network.json`)).default
   const meAndDitanMessages = (await import(`@/messages/${locale}/me-and-ditan.json`)).default
   const kongYijiMessages = (await import(`@/messages/${locale}/kong-yiji.json`)).default
+  const ordinaryPerson2025Messages = (await import(`@/messages/${locale}/ordinary-person-2025.json`)).default
 
   return {
     locale,
@@ -23,6 +24,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       'mnist-neural-network': mnistMessages,
       'me-and-ditan': meAndDitanMessages,
       'kong-yiji': kongYijiMessages,
+      'ordinary-person-2025': ordinaryPerson2025Messages,
     },
   }
 })

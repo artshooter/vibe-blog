@@ -4,6 +4,7 @@ import { kongYijiArticle } from '@/app/components/kong-yiji'
 import { worldWarOneArticle } from '@/app/components/world-war-one'
 import { mnistArticle } from '@/app/components/mnist-neural-network'
 import { meAndDitanArticle } from '@/app/components/me-and-ditan'
+import { ordinaryPerson2025Article } from '@/app/components/ordinary-person-2025'
 
 // 文章列表 - 新文章在此添加
 const allArticles = [
@@ -11,6 +12,7 @@ const allArticles = [
   worldWarOneArticle,
   mnistArticle,
   meAndDitanArticle,
+  ordinaryPerson2025Article,
 ]
 
 const articles = allArticles

@@ -16,7 +16,8 @@
   "back": {
     "war": "返回",
     "terminal": "cd ..",
-    "nature": "返回"
+    "nature": "返回",
+    "journal": "返回"
   },
   "language": {
     "switch": "切换语言"

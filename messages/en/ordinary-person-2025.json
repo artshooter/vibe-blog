@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "title": "An Ordinary Person's 2025",
+    "description": "Quit my job, got lost, tried things, gave up. Finally discovered the truth about fearing effort. Accepting that I'm just an ordinary person."
+  },
+  "hero": {
+    "year": "2025 Year-End Notes",
+    "title": "An Ordinary Person's 2025",
+    "subtitle": "Quit, lost, tried, gave up — finally facing the truth about fearing effort",
+    "june": "June · Quit",
+    "september": "Sept · Lost",
+    "december": "Dec · Epiphany",
+    "clickToRead": "Click to read"
+  },
+  "markers": {
+    "june": "June",
+    "september": "September",
+    "december": "December"
+  },
+  "content": {
+    "p1": "In June, I quit my job without having another one lined up.",
+    "p2": "After leaving work, I realized I hadn't been doing well in my career. People my age were becoming managers or senior specialists, while I seemed stuck in place. I started blaming my career stagnation on not choosing the right industry. With AI's help, I began exploring and learning, building many things. First, a Chinese astrology website for foreigners, featuring explanations they could understand. I launched a simple demo, but thought the product wasn't good enough. Without promotion, no one used it, so I stopped optimizing and gave up. Then I tried quantitative trading, backtesting basic strategies with historical data, only to find it wasn't that simple. Shelved. Tried making a small game, got stuck on 3D modeling resources. Gave up. Then I started reading books and occasionally fixing bugs for open source projects.",
+    "highlight1": "I couldn't find anything to do, yet I couldn't stand doing nothing",
+    "p3": "In September, I attended my high school friend's wedding. After graduating from a top university, he went to work as a technician at a traditional state-owned enterprise in a third-tier city. At first, they even had to work night shifts every week. When we first graduated, I thought it was a waste for a top university graduate to work factory night shifts. My friend didn't think much of it and kept working there. I knew he got promoted somewhere along the way, but didn't know the details. At his wedding, I learned he had already reached section chief level. At the reception, I watched him toast the leaders at the next table. The table was mostly middle-aged people, with a thin, short man with thick eyebrows sitting at the head — obviously shrewd. The old man beckoned my friend to lean in close and whispered something, while my friend's wife stood nearby holding a wine glass, chatting with other middle-aged people. They were too far away for me to hear. I felt my friend had integrated into their circle. He had found his place.",
+    "p4": "After the wedding, I became more obsessed. The impact from my section-chief friend was huge. Beyond feeling he was doing better than me, that steady development was more substantial than my job-hopping. More importantly, I felt he had found his place — or rather, he had achieved inner peace. While I still didn't know what I wanted.",
+    "highlight2": "I felt my constant searching was meaningless. His steady work had actually constructed real meaning for him.",
+    "p5": "I started looking for jobs sporadically. After much thought, I decided AI was the trend, so I should look for AI-related work first, and only return to my original field if that didn't work out. So I looked into what AI jobs required. Many were Agent-related. I built an Agent to match my resume with job descriptions on recruitment platforms. While applying, I always felt unprepared and didn't want to interview. Thinking I had planned to rest for six months anyway, I decided to prepare more. So I stopped interviewing.",
+    "p6": "Later I started working on AI Agent projects. I wanted to build an AI chess game that would automatically match the player's skill level — chess is only fun when both sides are evenly matched. But after some exploration, I found I couldn't do it. There were some related explorations online, predicting moves based on massive human game databases. Too hard, I gave up. Then I made an AI Werewolf game where AI and humans play together. It worked okay, had a demo, but I thought it was mediocre so I didn't promote it. Without users, there was no motivation to improve.",
+    "highlight3": "In early December, I looked back. What was I doing? Why was I like a monkey picking corn — picking one up, throwing it away?",
+    "p7": "Wait, I think I'm onto something...",
+    "p8": "I remembered a scene. When I was young, if I didn't do well on a test, teachers would say: \"You're actually quite smart, just a bit careless, not trying hard enough.\" Honestly, every time I heard this, I felt an emotion happier than comfort — almost a twisted pride. I seemed to be saying to imaginary classmates in my head, \"See? I was just careless. But I'm smart. If I just pay more attention, I'd definitely be first in the grade. You all only do well because you try hard — anyone can try hard. But only I am smart. Once I actually try, you'll all fall behind.\"",
+    "quote1": "The 'possibility' of being smart is freedom. Real effort means locking your future in a narrow corridor. Once you truly persist in effort, you must accept a crueler constraint: you'll be bound to one path for a long time.",
+    "p9": "From elementary school to high school, I heard \"smart, just didn't try\" many times. But I seem to have never truly tried.",
+    "p10": "Now it's the same situation. I discovered I'm afraid of effort, afraid of real feedback.",
+    "insight1": "I'm afraid of losing the imaginary space where 'I could succeed if I just tried'",
+    "insight2": "I'm afraid that after facing others' feedback, I'll realize — I'm actually just an ordinary person?",
+    "p11": "I sighed and thought: be brave. I'm an ordinary person.",
+    "p12": "I don't need to pursue grand meaning from the start. Thinking too much, doing too little, trapped by perfectionism and indecision. So I started doing small things: writing articles, making videos to share, building small projects. Output first, then adjust. Thinking alone can't find direction.",
+    "p13": "As for work, I now understand it this way: life has two layers. One is 'support': find a way to make money, ensure survival. The other is 'exploration': invest in things you're willing to accumulate and try long-term. Work only needs to satisfy the first layer. Of course, if both layers can be satisfied at once, that's tremendous luck.",
+    "ending1": "These thoughts may not be mature, but they truly happened this year.",
+    "ending2": "If you can relate, this writing is honored~"
+  },
+  "timeline": {
+    "title": "Projects This Year",
+    "projects": {
+      "bazi": {
+        "name": "Chinese Astrology Site",
+        "desc": "BaZi readings for foreigners"
+      },
+      "quant": {
+        "name": "Quantitative Trading",
+        "desc": "Backtesting with historical data"
+      },
+      "game": {
+        "name": "Small Game",
+        "desc": "Stuck on 3D modeling resources"
+      },
+      "chess": {
+        "name": "AI Chess",
+        "desc": "Match player skill levels"
+      },
+      "werewolf": {
+        "name": "AI Werewolf",
+        "desc": "AI and humans play together"
+      }
+    },
+    "status": {
+      "abandoned": "Abandoned",
+      "shelved": "Shelved",
+      "paused": "Paused"
+    }
+  },
+  "twoLayers": {
+    "title": "Two Layers of Life",
+    "explore": {
+      "title": "Exploration Layer",
+      "desc": "Invest in things you're willing to accumulate and try long-term"
+    },
+    "support": {
+      "title": "Support Layer",
+      "desc": "Find a way to make money, ensure survival"
+    },
+    "note": "Work only needs to satisfy the support layer. Satisfying both is tremendous luck."
+  },
+  "footer": {
+    "date": "December 2025"
+  }
+}
