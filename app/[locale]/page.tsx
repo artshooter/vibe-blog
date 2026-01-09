@@ -1,26 +1,10 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import LanguageSwitch from '@/app/components/common/LanguageSwitch'
-import { kongYijiArticle } from '@/app/components/kong-yiji'
-import { worldWarOneArticle } from '@/app/components/world-war-one'
-import { mnistArticle } from '@/app/components/mnist-neural-network'
-import { meAndDitanArticle } from '@/app/components/me-and-ditan'
-import { ordinaryPerson2025Article } from '@/app/components/ordinary-person-2025'
+import { getAllPublishedArticles } from '@/app/lib/articles-loader'
 
-// 文章列表 - 新文章在此添加
-const allArticles = [
-  kongYijiArticle,
-  worldWarOneArticle,
-  mnistArticle,
-  meAndDitanArticle,
-  ordinaryPerson2025Article,
-]
-
-const articles = allArticles
-  .filter((a) => a.meta.status === 'published')
-  .sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime())
-
-export default function HomePage() {
-  const t = useTranslations()
+export default async function HomePage() {
+  const articles = await getAllPublishedArticles()
+  const t = await getTranslations()
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -33,18 +17,15 @@ export default function HomePage() {
 
       {/* Articles Grid */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-        <div className="grid grid-cols-1 gap-24">
-          {articles.map((article, index) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          {articles.map((article) => {
             const { Hero } = article
             return (
-              <div key={article.meta.articleName} className="relative">
-                {index > 0 && (
-                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                )}
-                <div className="absolute -left-20 top-4 font-extralight text-lg text-white/40 tracking-widest italic hidden md:block">
-                  {article.meta.date.slice(5)}
-                </div>
+              <div key={article.meta.articleName} className="relative group">
                 <Hero inHome={true} />
+                <div className="absolute bottom-3 right-3 text-xs text-white/40 font-mono">
+                  {article.meta.date}
+                </div>
               </div>
             )
           })}

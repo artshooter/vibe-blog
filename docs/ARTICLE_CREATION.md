@@ -147,26 +147,24 @@ export default function ArticlePage() {
 
 ---
 
-## Step 6: 添加到文章列表
+## Step 6: 创建翻译文件（自动发现！）
 
-打开 `app/[locale]/page.tsx`，添加新文章：
+✨ **好消息**：首页文章列表和 i18n 翻译加载已全面自动化！
 
-```tsx
-// 1. 添加 import
-import { newArticle } from '@/app/components/[article-name]'
+### 6.1 自动发现机制
 
-// 2. 添加到 allArticles 数组
-const allArticles = [
-  // ... 现有文章
-  newArticle,
-]
-```
+当你在 `app/components/[article-name]/` 中创建新的文章组件文件夹时：
 
----
+1. **开发或构建时**，脚本 `scripts/generate-articles-list.js` 会自动：
+   - 扫描 `app/components/` 下所有包含 `index.tsx/ts` 的文件夹
+   - 自动更新 `app/lib/articles-loader.ts` 的文章列表
+   - 首页会自动加载和显示新文章（无需手动修改 page.tsx）
 
-## Step 7: 创建翻译文件并配置 i18n
+2. **i18n 翻译加载自动化**：
+   - `i18n/request.ts` 会自动加载所有文章对应的翻译文件
+   - 无需手动在 request.ts 中添加导入语句
 
-### 7.1 创建翻译文件
+### 6.2 创建翻译文件
 
 为文章创建独立的翻译文件：
 
@@ -193,7 +191,7 @@ const allArticles = [
 }
 ```
 
-**示例**：
+**标准结构示例**：
 
 ```json
 {
@@ -218,38 +216,7 @@ const allArticles = [
 }
 ```
 
-### 7.2 更新 i18n 配置
-
-**关键步骤**：编辑 `i18n/request.ts`，添加新文章的翻译加载：
-
-```typescript
-export default getRequestConfig(async ({ requestLocale }) => {
-  let locale = await requestLocale
-
-  if (!locale || !routing.locales.includes(locale as Locale)) {
-    locale = routing.defaultLocale
-  }
-
-  const commonMessages = (await import(`@/messages/${locale}/common.json`)).default
-  const [articleName]Messages = (await import(`@/messages/${locale}/[article-name].json`)).default  // 添加这行
-
-  return {
-    locale,
-    messages: {
-      ...commonMessages,
-      '[article-name]': [articleName]Messages,  // 添加这行
-    },
-  }
-})
-```
-
-**检查清单**：
-- [ ] 创建了 messages/zh/[article-name].json
-- [ ] 创建了 messages/en/[article-name].json
-- [ ] 在 i18n/request.ts 中导入新翻译文件
-- [ ] 在 messages 对象中添加了新的 namespace
-
-### 7.3 组件中使用翻译
+### 6.3 组件中使用翻译
 
 确保所有组件使用翻译而非硬编码文本：
 
@@ -264,35 +231,51 @@ export default function Component() {
 }
 ```
 
+### 6.4 开发时自动扫描
+
+无需额外操作！系统已配置自动扫描：
+
+```bash
+# 开发时自动扫描
+npm run dev              # 等同于：npm run articles:scan && rm -rf .next && next dev
+
+# 构建时自动扫描
+npm run build           # 等同于：npm run articles:scan && next build
+
+# 手动扫描（如需）
+npm run articles:scan
+```
+
 ---
 
-## Step 8: 验收测试
+## Step 7: 验收测试
 
 AI 自动执行以下验收流程：
 
-### 8.1 启动开发服务器
+### 7.1 启动开发服务器
 
 使用 Bash 工具启动服务器（如果未启动）：
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
-等待服务器启动完成（显示 "Ready in XXXms"）。
+等待服务器启动完成（显示 "Ready in XXXms"）。服务器启动时会自动运行 `npm run articles:scan`。
 
-### 8.2 验证编译无错误
+### 7.2 验证编译无错误
 
 监听服务器日志，确认：
 - [ ] 无编译错误（compile 成功）
 - [ ] 无 `MISSING_MESSAGE` 错误
 - [ ] 无 `Could not resolve` 错误
+- [ ] 脚本正确执行（看到 `✅ 成功扫描文章列表！` 日志）
 
-### 8.3 访问页面验证
+### 7.3 访问页面验证
 
 分别访问中英文版本，检查翻译是否生效：
 
 1. **首页检查**（重要！）：访问 `/zh` 和 `/en`
-   - 文章卡片正常显示
+   - 文章卡片正常显示（包括新文章）
    - 标题和描述使用了翻译
    - **✅ 关键：点击文章卡片能够成功跳转到文章详情页**
    - 确认 Hero 组件在 `inHome={true}` 时用 `<Link>` 包裹
@@ -307,19 +290,20 @@ pnpm dev
    - 无硬编码中文
    - 交互组件正常工作
 
-### 8.4 完整性与规范检查（必须 100% 遵守）
+### 7.4 完整性与规范检查（必须 100% 遵守）
 
 在提交前，AI 必须对照以下列表进行最后自检：
 
-- [ ] **首页卡片高度**：`inHome={true}` 模式下的 Hero 组件容器是否使用了 `h-[400px]`？（严禁使用 `h-full` 或其他数值）
+- [ ] **首页卡片高度**：`inHome={true}` 模式下的 Hero 组件容器是否使用了 `h-[280px]`？（严禁使用 `h-full` 或其他数值）
 - [ ] **首页链接包裹**：`inHome={true}` 时，是否使用 `<Link>` 包裹了整个 Hero 内容？
-- [ ] **多语言命名空间**：`useTranslations('[article-name]')` 中的 `[article-name]` 是否与文件名及 i18n 配置一致？
+- [ ] **多语言命名空间**：`useTranslations('[article-name]')` 中的 `[article-name]` 是否与文件名及翻译文件名一致？
 - [ ] **硬编码检查**：组件内是否存在未通过 `t()` 函数加载的中文/英文文本？
 - [ ] **Client 指令**：使用 `useTranslations` 的组件顶部是否有 `'use client'`？
 - [ ] **返回按钮**：文章详情页是否有返回首页的按钮或链接？
 - [ ] **文件位置**：业务组件（Hero、Content 等）是否都在 `app/components/[article-name]/` 下？路由层是否只有 page.tsx 和 design.md？
+- [ ] **自动发现**：新文章是否已在 `app/lib/articles-loader.ts` 中出现？（由脚本自动更新，无需手动修改）
 
-### 8.5 报告验收结果
+### 7.5 报告验收结果
 
 向用户报告：
 - ✅ 所有检查通过，文章创建完成
@@ -331,11 +315,52 @@ pnpm dev
 
 ## 注意事项
 
-- article-name（文章 URL 名称）必须使用 kebab-case（小写字母 + 连字符）
+- **article-name**（文章 URL 名称）必须使用 kebab-case（小写字母 + 连字符）
+- **导出命名规范**：`app/components/[article-name]/index.tsx` 必须导出 `[camelCaseArticleName]Article` 对象
+  - 例：`world-war-one` → 导出 `worldWarOneArticle`
+  - 例：`mnist-neural-network` → 导出 `mnistArticle`
 - 所有新建文件必须使用绝对路径
 - 遵循 [ARCHITECTURE.md](./ARCHITECTURE.md) 的文件组织规范
 - 遵循 [DESIGN_GUIDE.md](./DESIGN_GUIDE.md) 的设计原则
 - 优先考虑内容和用户体验，避免过度设计
+- **无需手动修改首页配置**：`app/[locale]/page.tsx` 和 `i18n/request.ts` 会自动发现新文章
+
+---
+
+## 自动化系统说明
+
+### 文章自动发现流程
+
+```
+1. 创建文件夹: app/components/[article-name]/
+                └── index.tsx (导出 Article 对象)
+                ├── Hero.tsx
+                ├── Content.tsx
+                └── ...
+
+2. 创建翻译文件: messages/zh/[article-name].json
+                 messages/en/[article-name].json
+
+3. 运行开发或构建命令
+   npm run dev          ← 自动执行 articles:scan
+   npm run build        ← 自动执行 articles:scan
+
+4. 脚本 scripts/generate-articles-list.js 自动：
+   - 扫描 app/components/ 下的所有文章文件夹
+   - 更新 app/lib/articles-loader.ts 的 ARTICLE_MODULES 列表
+   - 首页自动加载所有已发布文章
+   - i18n/request.ts 自动加载对应翻译文件
+```
+
+### 核心文件说明
+
+| 文件 | 作用 | 是否手动修改 |
+|------|------|-----------|
+| `app/lib/articles-loader.ts` | 文章自动加载器 | ❌ 由脚本自动生成 |
+| `app/[locale]/page.tsx` | 首页 | ❌ 使用自动加载器，无需手动添加文章 |
+| `i18n/request.ts` | i18n 配置 | ❌ 自动加载所有翻译文件 |
+| `scripts/generate-articles-list.js` | 自动扫描脚本 | ❌ 仅在更改扫描逻辑时修改 |
+| `package.json` | npm 脚本 | ❌ 已配置 `articles:scan` |
 
 ---
 

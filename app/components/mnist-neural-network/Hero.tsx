@@ -18,7 +18,7 @@ export default function Hero({ inHome = false }: { inHome?: boolean }) {
   }, [])
 
   const content = (
-    <section className={`relative ${inHome ? 'h-[400px]' : 'min-h-screen'} flex items-center justify-center overflow-hidden bg-[#1a1a1a] px-4`}>
+    <section className={`relative ${inHome ? 'h-[200px]' : 'min-h-screen'} flex items-center justify-center overflow-hidden bg-[#1a1a1a] px-4`}>
       {/* Scanline effect (subtle) */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] bg-[length:100%_4px] opacity-30"></div>
 
@@ -35,19 +35,33 @@ export default function Hero({ inHome = false }: { inHome?: boolean }) {
           </motion.div>
         )}
 
-        {/* ASCII Art Title */}
-        <motion.pre
-          className={`${inHome ? 'mb-3' : 'mb-6'} font-mono text-[#50fa7b] ${inHome ? 'text-[10px] md:text-xs' : 'text-xs md:text-sm'} overflow-x-auto`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: inHome ? 0 : 0.3, duration: inHome ? 0.5 : 0.8 }}
-        >
-          {` __  __ _   _ ___ ____ _____
+        {/* ASCII Art Title - hidden on home page for space */}
+        {!inHome && (
+          <motion.pre
+            className="mb-6 font-mono text-[#50fa7b] text-xs md:text-sm overflow-x-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+          >
+            {` __  __ _   _ ___ ____ _____
 |  \\/  | \\ | |_ _/ ___|_   _|
 | |\\/| |  \\| || |\\___ \\ | |
 | |  | | |\\  || | ___) || |
 |_|  |_|_| \\_|___|____/ |_|  `}
-        </motion.pre>
+          </motion.pre>
+        )}
+
+        {/* Simple title for home page */}
+        {inHome && (
+          <motion.h2
+            className="mb-3 font-mono text-2xl md:text-3xl text-[#50fa7b] font-bold"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            MNIST
+          </motion.h2>
+        )}
 
         {/* Subtitle */}
         <motion.div
@@ -81,7 +95,7 @@ export default function Hero({ inHome = false }: { inHome?: boolean }) {
         {/* Description for home page */}
         {inHome && (
           <motion.div
-            className="mb-4 font-mono text-xs md:text-sm text-[#e5e7eb]/80 leading-relaxed"
+            className="mb-4 font-mono text-xs text-[#e5e7eb]/80 leading-relaxed line-clamp-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.5 }}
@@ -170,7 +184,7 @@ export default function Hero({ inHome = false }: { inHome?: boolean }) {
         {/* Click to read indicator for home page */}
         {inHome && (
           <motion.div
-            className="mt-6 font-mono text-sm text-[#50fa7b] group-hover:text-[#f1fa8c] transition-colors"
+            className="mt-4 font-mono text-xs text-[#50fa7b]/60 group-hover:text-[#f1fa8c] transition-colors"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.5 }}

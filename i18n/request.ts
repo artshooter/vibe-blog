@@ -1,5 +1,6 @@
 import { getRequestConfig } from 'next-intl/server'
 import { routing } from './routing'
+import { getArticleNames } from '@/app/lib/articles-loader'
 import { Locale } from './config'
 
 export default getRequestConfig(async ({ requestLocale }) => {
@@ -9,22 +10,27 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale = routing.defaultLocale
   }
 
+  // 加载共通翻译
   const commonMessages = (await import(`@/messages/${locale}/common.json`)).default
-  const worldWarOneMessages = (await import(`@/messages/${locale}/world-war-one.json`)).default
-  const mnistMessages = (await import(`@/messages/${locale}/mnist-neural-network.json`)).default
-  const meAndDitanMessages = (await import(`@/messages/${locale}/me-and-ditan.json`)).default
-  const kongYijiMessages = (await import(`@/messages/${locale}/kong-yiji.json`)).default
-  const ordinaryPerson2025Messages = (await import(`@/messages/${locale}/ordinary-person-2025.json`)).default
+
+  // 动态加载所有文章的翻译
+  const articleMessages: Record<string, any> = {}
+  const articleNames = getArticleNames()
+
+  for (const articleName of articleNames) {
+    try {
+      const messages = (await import(`@/messages/${locale}/${articleName}.json`)).default
+      articleMessages[articleName] = messages
+    } catch (error) {
+      console.warn(`[i18n] 未找到翻译文件: messages/${locale}/${articleName}.json`)
+    }
+  }
 
   return {
     locale,
     messages: {
       ...commonMessages,
-      'world-war-one': worldWarOneMessages,
-      'mnist-neural-network': mnistMessages,
-      'me-and-ditan': meAndDitanMessages,
-      'kong-yiji': kongYijiMessages,
-      'ordinary-person-2025': ordinaryPerson2025Messages,
+      ...articleMessages,
     },
   }
 })

@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "rm -rf .next && next dev",
-    "build": "next build",
+    "articles:scan": "node scripts/generate-articles-list.js",
+    "dev": "npm run articles:scan && rm -rf .next && next dev",
+    "build": "npm run articles:scan && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",

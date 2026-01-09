@@ -2,7 +2,7 @@ import { Article } from '@/app/components/types'
 import Hero from './Hero'
 import Content from './Content'
 
-export const mnistArticle: Article = {
+export const mnistNeuralNetworkArticle: Article = {
   meta: {
     articleName: 'mnist-neural-network',
     title: 'MNIST - 从零手撸神经网络',
