@@ -17,7 +17,9 @@
     "war": "Back",
     "terminal": "cd ..",
     "nature": "Back",
-    "journal": "Back"
+    "journal": "Back",
+    "tech": "Back",
+    "home": "Back Home"
   },
   "language": {
     "switch": "Switch Language"

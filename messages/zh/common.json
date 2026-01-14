@@ -17,7 +17,9 @@
     "war": "返回",
     "terminal": "cd ..",
     "nature": "返回",
-    "journal": "返回"
+    "journal": "返回",
+    "tech": "返回",
+    "home": "返回首页"
   },
   "language": {
     "switch": "切换语言"

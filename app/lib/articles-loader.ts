@@ -12,6 +12,7 @@ import type { Article } from '@/app/components/types'
 // 文章模块清单 - 根据编译时生成的列表动态加载
 // 这是编译脚本自动更新的
 const ARTICLE_MODULES = [
+  'chinese-class',
   'mnist-neural-network',
   'ordinary-person-2025',
   'world-war-one',

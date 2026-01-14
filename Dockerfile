@@ -73,7 +73,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # 复制构建产物
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # 自动利用输出跟踪来减少镜像大小
 # https://nextjs.org/docs/advanced-features/output-file-tracing
@@ -81,15 +81,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # 复制国际化相关文件（修复404问题）
-COPY --from=builder /app/messages ./messages
-
-# 确保静态资源在正确位置（修复静态资源404问题）
-RUN echo "🔧 确保静态资源和国际化文件正确放置..." && \
-    mkdir -p ./.next/static && \
-    if [ -d "./.next/static" ] && [ ! -d "./.next/standalone/.next/static" ]; then \
-        cp -r ./.next/static ./.next/standalone/.next/ || true; \
-    fi && \
-    echo "✅ 所有文件检查完成"
+COPY --from=builder --chown=nextjs:nodejs /app/messages ./messages
 
 USER nextjs
 

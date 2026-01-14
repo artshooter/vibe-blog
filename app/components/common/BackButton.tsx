@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { motion } from 'framer-motion'
 
-type Variant = 'war' | 'terminal' | 'nature' | 'journal'
+type Variant = 'war' | 'terminal' | 'nature' | 'journal' | 'tech' | 'default'
 
 const variants: Record<Variant, { container: string; arrow: string; text: string }> = {
   // 一战文章 - 深红色军事风格
@@ -31,6 +31,18 @@ const variants: Record<Variant, { container: string; arrow: string; text: string
     arrow: 'text-[#81B29A]',
     text: '',
   },
+  // 语文课 - 紫蓝色科技风格
+  tech: {
+    container: 'text-purple-600/70 hover:text-purple-600',
+    arrow: 'text-blue-500',
+    text: 'font-medium',
+  },
+  // 默认/极简风格
+  default: {
+    container: 'text-gray-500 hover:text-gray-900',
+    arrow: 'text-gray-900',
+    text: 'font-medium',
+  },
 }
 
 const arrowIcons: Record<Variant, React.ReactNode> = {
@@ -38,6 +50,8 @@ const arrowIcons: Record<Variant, React.ReactNode> = {
   terminal: <span>{'<'}-</span>,
   nature: <span className="text-lg">&#8592;</span>,
   journal: <span className="text-lg">&#8592;</span>,
+  tech: <span className="text-lg">&#8592;</span>,
+  default: <span className="text-lg">&#8592;</span>,
 }
 
 interface BackButtonProps {
@@ -54,6 +68,8 @@ export default function BackButton({ variant }: BackButtonProps) {
     terminal: 'back.terminal',
     nature: 'back.nature',
     journal: 'back.journal',
+    tech: 'back.tech',
+    default: 'back.home', // Use a generic key or reuse existing
   }
 
   return (

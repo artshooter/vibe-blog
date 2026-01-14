@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "title": "「语文课」网页复盘",
+    "description": "网页链接：https://chinese-class.ashooter.com/"
+  },
+  "hero": {
+    "title": "「语文课」网页复盘",
+    "subtitle": "分享 AI 文生图的应用探索与工具对比",
+    "projectLink": "https://chinese-class.ashooter.com/",
+    "clickToRead": "点击阅读"
+  },
+  "content": {
+    "projectLink": "https://chinese-class.ashooter.com/",
+    "section1": {
+      "title": "文生图能做游戏素材",
+      "intro": "这个项目中用到了很多「文生图」的技巧，并且生成了很多指定的 AI 图片。这些图片不仅好看，而且画风一致、具有连续性。",
+      "text": "完全可以通过这种方式，将内容生成为以下几类轻游戏：",
+      "items": {
+        "item1": "对话式游戏",
+        "item2": "场景类游戏",
+        "item3": "恋爱小游戏"
+      }
+    },
+    "section2": {
+      "title": "文生图技巧",
+      "tip1": {
+        "title": "连续动画帧",
+        "content": "连续动画帧确实可以考虑用\"文生图\"先生成第一张图，然后通过\"图生视频\"再进行视频截帧。这种方案我试了一下，确实可行，但存在一些瑕疵：",
+        "detail1": "可能会生成额外的元素（如动作阴影）：在图生视频的过程中，AI可能会产生一些多余的动态残影或元素，这需要你后期额外处理。",
+        "detail2": "分辨率折损：图生视频生成的画面，在经过截帧处理后，分辨率通常要比你的原图的分辨率差。"
+      },
+      "tip2": {
+        "title": "在同一个对话中的问题",
+        "content": "在同一个对话中，如果一直通过对话去修改上一个生成的图，你会发现生成图片的质量会越来越差。",
+        "solution": "针对这种情况，解决方案是：",
+        "detail1": "每当你需要生成一张指定的图时，都去单独新开一个对话。",
+        "detail2": "在新的对话中单独调试那张图。",
+        "detail3": "只要那张图调好了，就去开下一个新对话继续生成下一张。"
+      }
+    },
+    "section3": {
+      "title": "Nana Banana 和 MidJourney 对比",
+      "intro": "中途我尝试了用 MidJourney 去做图。我发现 Nana Banana 更\"聪明\"，MidJourney 更好看",
+      "point1": {
+        "title": "控制力与逻辑",
+        "content": "MidJourney 有时候会忽略真实的空间逻辑，生成一些错误的图像。当你用文本控制画面逻辑时，它会比 Nana Banana 更难驾驭。"
+      },
+      "point2": {
+        "title": "审美与效果",
+        "content": "MidJourney 的整体审美会比 Nana Banana 好看一些。对于任意简单的提示词，MidJourney 生成的图可能效果更好，但往往并不那么符合你的心意。"
+      }
+    }
+  }
+}
