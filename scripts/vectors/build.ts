@@ -82,7 +82,7 @@ async function main() {
   const db = await lancedb.connect(DB_PATH)
 
   // Create table with vector records
-  await db.createTable(TABLE_NAME, vectorRecords)
+  await db.createTable(TABLE_NAME, vectorRecords as unknown as Record<string, unknown>[])
   console.log(`  Created table "${TABLE_NAME}" with ${vectorRecords.length} records`)
 
   // Step 5: Verify

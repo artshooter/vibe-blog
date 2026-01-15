@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import { embedQuery } from '@/app/lib/rag/embedder-runtime'
 import { retrieveChunks } from '@/app/lib/rag/retriever'
 import { streamChat } from '@/app/lib/rag/llm'
+import { rewriteQuery } from '@/app/lib/rag/query-rewriter'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -24,9 +25,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Step 1: Generate query embedding
+    // Step 0: Rewrite query with AI
+    logWithTime('正在分析用户意图...')
+    const { rewrittenQuery, wasRewritten } = await rewriteQuery(question)
+    if (wasRewritten) {
+      logWithTime(`查询优化: "${question}" → "${rewrittenQuery}"`)
+    } else {
+      logWithTime('查询无需优化')
+    }
+
+    // Step 1: Generate query embedding (使用优化后的查询)
     logWithTime('正在生成查询向量...')
-    const queryVector = await embedQuery(question)
+    const queryVector = await embedQuery(rewrittenQuery)
     logWithTime(`查询向量生成完成 (维度: ${queryVector.length})`)
     console.log(queryVector) // Print the full vector as requested
 

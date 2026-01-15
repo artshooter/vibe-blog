@@ -1,15 +1,13 @@
-# 使用官方 Node.js 镜像作为基础镜像
-FROM node:20-alpine AS base
+# 使用官方 Node.js 镜像作为基础镜像（完整版，包含 ONNX Runtime 所需的系统库）
+FROM node:20 AS base
 
 # 安装 pnpm
 RUN npm install -g pnpm
 
 # 安装依赖阶段
 FROM base AS deps
-# 检查 https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine
 RUN echo "🏗️  [STAGE 1/3] 开始安装依赖阶段..." && \
-    apk add --no-cache libc6-compat && \
-    echo "✅ 系统依赖安装完成"
+    echo "✅ 系统依赖准备完成 (Debian slim)"
 
 WORKDIR /app
 
@@ -46,7 +44,7 @@ RUN echo "📊 项目文件统计:" && \
     echo "  源代码文件: $(find ./app -name "*.ts" -o -name "*.tsx" | wc -l 2>/dev/null || echo 0)"
 
 # 禁用 telemetry
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # 构建应用
 RUN echo "🔨 开始构建 Next.js 应用..." && \
@@ -62,15 +60,12 @@ RUN echo "🔨 开始构建 Next.js 应用..." && \
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# 安装 curl 用于健康检查
-RUN apk add --no-cache curl
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # 创建 nextjs 用户
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN groupadd --system --gid 1001 nodejs
+RUN useradd --system --uid 1001 --gid nodejs nextjs
 
 # 复制构建产物
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
@@ -83,12 +78,19 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # 复制国际化相关文件（修复404问题）
 COPY --from=builder --chown=nextjs:nodejs /app/messages ./messages
 
+# 安装 native 模块（standalone 模式不会复制 .so 文件）
+RUN pnpm add onnxruntime-node @xenova/transformers --ignore-workspace
+
 USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# 健康检查（使用 Node.js 内置 fetch，无需安装 curl）
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD node -e "fetch('http://localhost:3000').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
 
 # 启动应用
 CMD ["node", "server.js"]
