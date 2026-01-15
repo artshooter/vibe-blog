@@ -1,0 +1,54 @@
+{
+    "metadata": {
+        "title": "\"Chinese Class\" Webpage Review",
+        "description": "Webpage link: https://chinese-class.ashooter.com/"
+    },
+    "hero": {
+        "title": "\"Chinese Class\" Webpage Review",
+        "subtitle": "Sharing AI Text-to-Image Application Exploration and Tool Comparison",
+        "projectLink": "https://chinese-class.ashooter.com/",
+        "clickToRead": "Click to Read"
+    },
+    "content": {
+        "projectLink": "https://chinese-class.ashooter.com/",
+        "section1": {
+            "title": "Text-to-Image for Game Assets",
+            "intro": "This project uses many \"text-to-image\" techniques and generates many specified AI images. These images are not only beautiful but also have a consistent style and continuity.",
+            "text": "Through this approach, content can be generated for the following types of casual games:",
+            "items": {
+                "item1": "Dialogue Games",
+                "item2": "Scene-based Games",
+                "item3": "Romance Mini-games"
+            }
+        },
+        "section2": {
+            "title": "Text-to-Image Tips",
+            "tip1": {
+                "title": "Continuous Animation Frames",
+                "content": "For continuous animation frames, you can consider using \"text-to-image\" to generate the first image, then use \"image-to-video\" and extract frames. I tried this approach and it works, but there are some issues:",
+                "detail1": "May generate extra elements (like motion shadows): During image-to-video conversion, AI may produce some residual dynamic shadows or elements that require additional post-processing.",
+                "detail2": "Resolution loss: The video frames generated usually have lower resolution than the original image after extraction."
+            },
+            "tip2": {
+                "title": "Issues Within the Same Conversation",
+                "content": "In the same conversation, if you keep modifying the previously generated image through dialogue, you'll find the quality of generated images deteriorates.",
+                "solution": "The solution for this situation is:",
+                "detail1": "Open a new conversation each time you need to generate a specific image.",
+                "detail2": "Debug that image in the new conversation separately.",
+                "detail3": "Once that image is ready, open another new conversation to continue generating the next one."
+            }
+        },
+        "section3": {
+            "title": "Nana Banana vs MidJourney Comparison",
+            "intro": "Midway through, I tried using MidJourney for images. I found Nana Banana is \"smarter\", while MidJourney produces better-looking results.",
+            "point1": {
+                "title": "Control and Logic",
+                "content": "MidJourney sometimes ignores real spatial logic, generating incorrect images. When you try to control the image logic with text, it's harder to manage than Nana Banana."
+            },
+            "point2": {
+                "title": "Aesthetics and Effects",
+                "content": "MidJourney's overall aesthetics are slightly better than Nana Banana. For any simple prompt, MidJourney may generate better-looking images, but they often don't match your expectations."
+            }
+        }
+    }
+}
