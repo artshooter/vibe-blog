@@ -32,10 +32,12 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale}>
       <body>
         <NavigationProgress />
-        <SwipeBack>
-          <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
-        </SwipeBack>
-        <RagChat />
+        <NextIntlClientProvider messages={messages}>
+          <SwipeBack>
+            {children}
+          </SwipeBack>
+          <RagChat />
+        </NextIntlClientProvider>
       </body>
     </html>
   )

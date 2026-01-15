@@ -2,6 +2,7 @@ export interface Source {
   title: string
   date: string
   score: number
+  slug: string
 }
 
 export interface Message {

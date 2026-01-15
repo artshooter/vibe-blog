@@ -6,6 +6,12 @@ import { streamChat } from '@/app/lib/rag/llm'
 export const runtime = 'nodejs'
 export const maxDuration = 60
 
+function logWithTime(message: string) {
+  const now = new Date()
+  const timeString = now.toLocaleTimeString('zh-CN', { hour12: false })
+  console.log(`[RAG ${timeString}] ${message}`)
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -19,10 +25,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Step 1: Generate query embedding
+    logWithTime('正在生成查询向量...')
     const queryVector = await embedQuery(question)
+    logWithTime(`查询向量生成完成 (维度: ${queryVector.length})`)
+    console.log(queryVector) // Print the full vector as requested
 
     // Step 2: Retrieve relevant chunks
+    logWithTime('正在进行向量匹配...')
     const { chunks, hasRelevantContent } = await retrieveChunks(queryVector)
+    logWithTime(`匹配完成，找到 ${chunks.length} 个相关片段`)
 
     // Step 3: Stream response from LLM
     const encoder = new TextEncoder()
@@ -37,11 +48,13 @@ export async function POST(request: NextRequest) {
               title: c.articleTitle,
               date: c.articleDate,
               score: Math.round(c.score * 100) / 100,
+              slug: c.articleName,
             })),
           }
           controller.enqueue(encoder.encode(`data: ${JSON.stringify(metadata)}\n\n`))
 
           // Stream LLM response
+          logWithTime('正在调用大语言模型接口...')
           for await (const chunk of streamChat(question, chunks, hasRelevantContent)) {
             const data = { type: 'content', content: chunk }
             controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`))
