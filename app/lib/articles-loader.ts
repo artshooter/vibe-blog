@@ -15,6 +15,7 @@ const ARTICLE_MODULES = [
   'chinese-class',
   'mnist-neural-network',
   'ordinary-person-2025',
+  'rag-chat',
   'world-war-one',
 ]
 

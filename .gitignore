@@ -39,3 +39,9 @@ next-env.d.ts
 
 # Docker
 docker-compose.yml
+
+# RAG Vector Database
+data/vectors.lance/
+
+# Transformers.js model cache
+.cache/
