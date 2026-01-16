@@ -25,25 +25,50 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Step 0: Rewrite query with AI
+    // Step 0: Rewrite query with AI (Query Expansion)
     logWithTime('正在分析用户意图...')
-    const { rewrittenQuery, wasRewritten } = await rewriteQuery(question)
+    const { expandedQueries, wasRewritten } = await rewriteQuery(question)
     if (wasRewritten) {
-      logWithTime(`查询优化: "${question}" → "${rewrittenQuery}"`)
+      logWithTime(`查询扩展: ${expandedQueries.length} 个变体`)
+      expandedQueries.forEach((q, i) => logWithTime(`  [${i + 1}] ${q}`))
     } else {
       logWithTime('查询无需优化')
     }
 
-    // Step 1: Generate query embedding (使用优化后的查询)
+    // Step 1: Generate embeddings for all expanded queries
     logWithTime('正在生成查询向量...')
-    const queryVector = await embedQuery(rewrittenQuery)
-    logWithTime(`查询向量生成完成 (维度: ${queryVector.length})`)
-    console.log(queryVector) // Print the full vector as requested
+    const queryVectors = await Promise.all(
+      expandedQueries.map(q => embedQuery(q))
+    )
+    logWithTime(`生成 ${queryVectors.length} 个查询向量`)
 
-    // Step 2: Retrieve relevant chunks
+    // Step 2: Retrieve chunks for all queries and merge results
     logWithTime('正在进行向量匹配...')
-    const { chunks, hasRelevantContent } = await retrieveChunks(queryVector)
-    logWithTime(`匹配完成，找到 ${chunks.length} 个相关片段`)
+    const allResults = await Promise.all(
+      queryVectors.map(vec => retrieveChunks(vec))
+    )
+
+    // Merge and deduplicate by text content, keep highest score
+    const chunkMap = new Map<string, typeof allResults[0]['chunks'][0]>()
+    for (const result of allResults) {
+      for (const chunk of result.chunks) {
+        const existing = chunkMap.get(chunk.text)
+        if (!existing || chunk.score > existing.score) {
+          chunkMap.set(chunk.text, chunk)
+        }
+      }
+    }
+
+    // Sort by score and take top results
+    const chunks = Array.from(chunkMap.values())
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5)
+
+    const hasRelevantContent = chunks.length > 0
+    logWithTime(`匹配完成，合并去重后 ${chunks.length} 个相关片段`)
+    chunks.forEach((c, i) => {
+      logWithTime(`  [${i + 1}] score=${c.score.toFixed(3)} | ${c.articleTitle} | ${c.text.substring(0, 60)}...`)
+    })
 
     // Step 3: Stream response from LLM
     const encoder = new TextEncoder()

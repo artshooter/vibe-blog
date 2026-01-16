@@ -81,7 +81,17 @@ COPY --from=builder --chown=nextjs:nodejs /app/messages ./messages
 # 安装 native 模块（standalone 模式不会复制 .so 文件）
 RUN pnpm add onnxruntime-node @xenova/transformers --ignore-workspace
 
+# 创建 transformers 缓存目录并授权给 nextjs 用户
+RUN mkdir -p /app/.cache/transformers && chown -R nextjs:nodejs /app/.cache
+
+# 同时修复 node_modules 内的缓存目录权限（fallback，防止库不读环境变量）
+RUN find /app/node_modules -path '*/@xenova/transformers' -type d -exec chown -R nextjs:nodejs {} + 2>/dev/null || true
+
 USER nextjs
+
+# 设置缓存环境变量，避免写入 node_modules
+ENV TRANSFORMERS_CACHE=/app/.cache/transformers
+ENV HF_HOME=/app/.cache
 
 EXPOSE 3000
 
