@@ -5,6 +5,7 @@
 - 视觉风格匹配文章情绪
 - 交互组件帮助理解内容
 - 形式服务于内容
+- RAG 智能问答（基于文章内容）
 
 ## 快速开始
 
@@ -25,4 +26,4 @@ pnpm dev
 
 ## 技术栈
 
-Next.js 16 · React 19 · TypeScript · Tailwind CSS · Framer Motion · next-intl
+Next.js 16 · React 19 · TypeScript · Tailwind CSS · Framer Motion · next-intl · LanceDB

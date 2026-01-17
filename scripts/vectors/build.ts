@@ -33,8 +33,20 @@ async function main() {
   const allRecords: Omit<VectorRecord, 'vector'>[] = []
 
   for (const article of articles) {
+    // 标题 + description 作为第一个 chunk
+    const titleChunk = `${article.meta.title}\n${article.meta.description}`
+    allRecords.push({
+      text: titleChunk,
+      articleName: article.meta.articleName,
+      articleTitle: article.meta.title,
+      articleDate: article.meta.date,
+      locale: article.locale,
+      chunkIndex: 0,
+    })
+
+    // content 的 chunks 从 index 1 开始
     const chunks = chunkText(article.content)
-    console.log(`  ${article.meta.articleName}: ${chunks.length} chunks`)
+    console.log(`  ${article.meta.articleName}: ${chunks.length + 1} chunks (含标题)`)
 
     for (const chunk of chunks) {
       allRecords.push({
@@ -43,7 +55,7 @@ async function main() {
         articleTitle: article.meta.title,
         articleDate: article.meta.date,
         locale: article.locale,
-        chunkIndex: chunk.index,
+        chunkIndex: chunk.index + 1,
       })
     }
   }

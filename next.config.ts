@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts')
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  serverExternalPackages: ['@lancedb/lancedb', '@xenova/transformers', 'sharp'],
+  serverExternalPackages: ['@lancedb/lancedb', 'sharp'],
 }
 
 export default withNextIntl(nextConfig)

@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import { embedQuery } from '@/app/lib/rag/embedder-runtime'
+import { embedQueries } from '@/app/lib/rag/embedder-runtime'
 import { retrieveChunks } from '@/app/lib/rag/retriever'
 import { streamChat } from '@/app/lib/rag/llm'
 import { rewriteQuery } from '@/app/lib/rag/query-rewriter'
@@ -35,11 +35,9 @@ export async function POST(request: NextRequest) {
       logWithTime('查询无需优化')
     }
 
-    // Step 1: Generate embeddings for all expanded queries
+    // Step 1: Generate embeddings for all expanded queries (batch call)
     logWithTime('正在生成查询向量...')
-    const queryVectors = await Promise.all(
-      expandedQueries.map(q => embedQuery(q))
-    )
+    const queryVectors = await embedQueries(expandedQueries)
     logWithTime(`生成 ${queryVectors.length} 个查询向量`)
 
     // Step 2: Retrieve chunks for all queries and merge results
@@ -115,6 +113,15 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('[RAG] Error:', error)
+
+    // Embedding API 失败时返回友好提示
+    if (error instanceof Error && error.name === 'EmbeddingAPIError') {
+      return Response.json(
+        { error: '第三方 API 限流，请稍后再试' },
+        { status: 429 }
+      )
+    }
+
     const message = error instanceof Error ? error.message : 'Internal server error'
     return Response.json({ error: message }, { status: 500 })
   }

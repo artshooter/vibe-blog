@@ -1,8 +1,8 @@
 import type { Chunk, ChunkOptions } from './types'
 
 const DEFAULT_OPTIONS: ChunkOptions = {
-  maxLength: 512,
-  overlap: 50,
+  maxLength: 128,
+  overlap: 20,
 }
 
 export function chunkText(text: string, options: Partial<ChunkOptions> = {}): Chunk[] {

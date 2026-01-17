@@ -1,37 +1,33 @@
-import { pipeline, type FeatureExtractionPipeline } from '@xenova/transformers'
+const EMBEDDING_BASE_URL = process.env.EMBEDDING_BASE_URL!
+const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL!
+const API_KEY = process.env.LLM_API_KEY!
 
-const MODEL_NAME = 'Xenova/paraphrase-multilingual-MiniLM-L12-v2'
-
-let model: FeatureExtractionPipeline | null = null
-let initPromise: Promise<void> | null = null
-
-async function initModel(): Promise<void> {
-  if (model) return
-  if (initPromise) {
-    await initPromise
-    return
-  }
-
-  initPromise = (async () => {
-    console.log('[RAG] Loading embedding model...')
-    model = await pipeline('feature-extraction', MODEL_NAME)
-    console.log('[RAG] Model loaded')
-  })()
-
-  await initPromise
-}
-
-export async function embedQuery(text: string): Promise<number[]> {
-  await initModel()
-
-  if (!model) {
-    throw new Error('Embedding model not initialized')
-  }
-
-  const output = await model(text, {
-    pooling: 'mean',
-    normalize: true,
+export async function embedQueries(texts: string[]): Promise<number[][]> {
+  const response = await fetch(EMBEDDING_BASE_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: EMBEDDING_MODEL,
+      input: texts,
+    }),
   })
 
-  return Array.from(output.data as Float32Array)
+  if (!response.ok) {
+    const errorBody = await response.text()
+    const error = new Error(`Embedding API error: ${response.status} - ${errorBody}`)
+    error.name = 'EmbeddingAPIError'
+    throw error
+  }
+
+  const data = await response.json()
+
+  // 按 index 排序，确保顺序与输入一致
+  const sorted = data.data.sort(
+    (a: { index: number }, b: { index: number }) => a.index - b.index
+  )
+
+  return sorted.map((item: { embedding: number[] }) => item.embedding)
 }

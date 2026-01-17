@@ -23,6 +23,7 @@ pnpm lint:fix         # 修复 lint 问题
 pnpm format           # Prettier 格式化
 pnpm type-check       # TypeScript 类型检查
 pnpm articles:scan    # 手动重新生成文章列表
+pnpm vectors:build    # 构建 RAG 向量数据库
 ```
 
 ## 架构
@@ -69,6 +70,24 @@ interface Article {
 ### 命名规范
 
 文章文件夹 `world-war-one` → 在 index.tsx 中导出 `worldWarOneArticle`
+
+### RAG 智能问答
+
+基于文章内容的向量检索问答系统：
+
+**构建时** (`scripts/vectors/`)：
+- `scanner.ts` - 扫描文章 content.md
+- `chunker.ts` - 文章内容分块
+- `embedder.ts` - 生成向量嵌入
+- `build.ts` - 构建入口，输出到 `data/vectors.lance`
+
+**运行时** (`app/lib/rag/`)：
+- `query-rewriter.ts` - 查询扩展
+- `embedder-runtime.ts` - 查询向量生成
+- `retriever.ts` - LanceDB 向量检索
+- `llm.ts` - 流式 LLM 响应
+
+**API**: `POST /api/rag` - 接收问题，返回 SSE 流式响应
 
 ## 关键约定
 
