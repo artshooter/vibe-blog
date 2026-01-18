@@ -1,0 +1,110 @@
+{
+    "metadata": {
+        "title": "Designing a CS Course for Non-Majors",
+        "description": "How to help non-majors build an engineering mindset in the AI programming era"
+    },
+    "hero": {
+        "title": "Designing a CS Course for Non-Majors",
+        "subtitle": "Building an Engineering Mindset for Everyone"
+    },
+    "content": {
+        "intro": "I intend to describe this course in terms of \"Learning Objectives\" and \"Curriculum Structure Design.\"",
+        "target": {
+            "title": "Learning Objectives",
+            "p1": "In the era of AI programming, the goal of this course should be to help non-majors build a set of engineering mindset models.",
+            "model": {
+                "intro": "I believe this engineering mindset model has three layers:",
+                "layer1": {
+                    "name": "Surface: Execution & Engineering",
+                    "desc": "(Engineering implementation, building observability, debugging methodology)"
+                },
+                "layer2": {
+                    "name": "Middle: Engineering Control Layer",
+                    "desc": "(Goal management, awareness of current system state, trade-off and correction)"
+                },
+                "layer3": {
+                    "name": "Bottom: Internal Drive",
+                    "desc": "(Propensity to deconstruct complex things, desire to create)"
+                }
+            }
+        },
+        "execution": {
+            "title": "Execution & Engineering",
+            "p1": "This layer refers to more specific computer engineering mindsets. For example:",
+            "item1": {
+                "title": "1. Building Observability",
+                "p1": "Code often feels like a \"black box\" to non-professionals. Professional programmers observe logic by logging or printing information to the console. Even if you don't code, you need this \"observational intent.\" This observability helps you understand the current status of the system.",
+                "example": "For example, when building a learning tool based on YouTube videos, you need to display the retrieved subtitles and audio as intermediate steps to determine if a specific step failed."
+            },
+            "item2": {
+                "title": "2. Ability to Abstract Complex Problems",
+                "p1": "Computer technology is inherently complex; a simple app may have many deep technical foundations. We need abstraction to simplify the structure for better understanding.",
+                "p2": "Taking web development as an example, you should be able to abstract its basic structure: a web application consists of a client-side and a server-side, connected via a network. Further abstracting the server-side: it includes API exposure, internal service logic, and persistent data.",
+                "example": "Using a YouTube-based learning tool as an example, internal logic can be decomposed into: fetching video data, parsing data, organizing data, and displaying it. This abstraction ability helps you simplify problems, clarify your position, and reduce cognitive load."
+            },
+            "item3": {
+                "title": "3. Debugging and Troubleshooting Mindset",
+                "p1": "When encountering specific issues, it is often necessary to use comparison and scope-reduction methods to find the root cause. Once the root cause is found, AI can usually help solve it.",
+                "example": "For example, in app development, if your app isn't running normally, you might need to determine if the issue is with the server or the client. If all versions of the app fail, it's likely a server issue. If only one version fails while others are normal, it might be that specific client version.",
+                "p2": "By gradually narrowing down the scope, you can find the true root cause. Once found, AI can quickly help solve the problem."
+            },
+            "footer": "These are just some basic engineering mindsets I've listed; there might be others~"
+        },
+        "control": {
+            "title": "Engineering Control Layer",
+            "p1": "The core concept of this layer is: for a project, you must always clearly know: 1. What you are doing, 2. What stage the project/system is in, 3. What the goal is.",
+            "p2": "In the process of engineering construction, you will constantly face choices. AI can give you options, but it cannot judge whether the goals, stages, and trade-offs are reasonable for you. You must clearly anticipate: what will be the cost of doing this, and what will be gained. All of this is based on your precise control of current position and goals. Of course, if you cannot clearly anticipate, acknowledge your ambiguity and plan to try it out, but you must know \"the project is currently in an experimental state.\""
+        },
+        "motivation": {
+            "title": "Internal Drive",
+            "p1": "I currently feel this layer is somewhat abstract, not as specific as the surface engineering mindset.",
+            "p2": "It actually refers to the motivation you have to complete something, similar to what is now called 'High Energy.'",
+            "p3": "I can currently think of two manifestations of this High Energy in the engineering field:",
+            "item1": {
+                "title": "1. Propensity to deconstruct complex things (or a cognitive propensity):",
+                "p1": "Simply put, it's how curious you are about this matter and how much you want to thoroughly understand it."
+            },
+            "item2": {
+                "title": "2. Desire to Create:",
+                "p1": "How much you want to make a product to help others, or how much you want to make a product of your own."
+            },
+            "footer": "These three layers are the core competencies I believe should be cultivated."
+        },
+        "curriculum": {
+            "title": "Curriculum Structure Design",
+            "p1": "I believe in the AI era we can explore new approaches, rather than following the traditional path from basics to code training, to development patterns, and then to applications. I think the new course structure can skip many intermediate steps, mastering only the most basic core concepts before immediately entering the development phase.",
+            "p2": "The specific course structure is as follows:",
+            "concepts": {
+                "title": "Basic Concepts",
+                "p1": "This part is simple: list some basic concepts and learn them, understanding their specific meanings.",
+                "p2": "I'll briefly add two points here.",
+                "why": {
+                    "title": "Why Learn Basic Concepts",
+                    "item1": "1. To provide scattered knowledge background: so you roughly know the context and meaning when discussing AI-related content later.",
+                    "item2": "2. To clarify the boundaries of subsequent exploration: so you know that if you need to explore deeply and reach a basic concept, understanding it to this degree is enough. For deeper underlying exploration, you can stop for now."
+                },
+                "how": {
+                    "title": "How to Learn Basic Concepts",
+                    "p1": "By having AI quickly deconstruct the positions and structures of these basic concepts in real-life applications, helping you understand them quickly through this decomposition.",
+                    "example": {
+                        "p1": "For instance, when we browse Twitter, the process goes: phone asks server for content -> server gets content from database -> server organizes it and returns it to the phone.",
+                        "p2": "In this process, what role does the database play? You can think of the database as a massive repository, containing many 'Excel' sheets. these tables store everyone's tweets.",
+                        "p3": "When you refresh Twitter, the server should return the latest tweets to you. This is like the server sending a request to the database: 'Hey, I want the latest news, please return the latest tweets.' The database receives the request and returns those stored latest tweets to the server.",
+                        "p4": "This might give you a basic understanding of the database concept."
+                    }
+                }
+            },
+            "practice": {
+                "title": "Development Practice Phase",
+                "p1": "Actually, I think this phase shouldn't be called 'practice,' but rather 'direct start.'",
+                "p2": "And there's a great thing now: we no longer need to set uniform goals like traditional courses. We can let AI set different open-ended goals based on your interests: if you want to make a game, let AI help you start making a game; if you want to make a website, then go make a website."
+            }
+        },
+        "postscript": {
+            "title": "Postscript",
+            "p1": "There's also a very interesting point: I realized that after I finished this course design, the course might already be over.",
+            "p2": "Because with a grand framework, AI can help you start training based on this outline. As for the remaining specific implementation parts, perhaps AI can start doing it for you."
+        }
+    },
+    "back": "Back to Home"
+}

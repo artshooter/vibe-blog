@@ -1,55 +1,44 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import { motion } from 'framer-motion'
 
 export default function GameUseCases() {
-  const t = useTranslations('chinese-class')
+    const t = useTranslations('chinese-class')
 
-  const items = [
-    {
-      title: t('content.section1.items.item1'),
-      icon: '💬',
-      gradient: 'from-[#8b5cf6] to-[#6d28d9]', // Purple gradient
-      shadowColor: 'rgba(139, 92, 246, 0.3)'
-    },
-    {
-      title: t('content.section1.items.item2'),
-      icon: '🎭',
-      gradient: 'from-[#3b82f6] to-[#1d4ed8]', // Blue gradient
-      shadowColor: 'rgba(59, 130, 246, 0.3)'
-    },
-    {
-      title: t('content.section1.items.item3'),
-      icon: '💝',
-      gradient: 'from-[#f59e0b] to-[#d97706]', // Amber/Gold gradient
-      shadowColor: 'rgba(245, 158, 11, 0.3)'
-    },
-  ]
+    const items = [
+        { key: 'item1', icon: '💬', color: 'from-purple-500/20 to-transparent' },
+        { key: 'item2', icon: '🗺️', color: 'from-blue-500/20 to-transparent' },
+        { key: 'item3', icon: '💖', color: 'from-pink-500/20 to-transparent' }
+    ]
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {items.map((item, index) => (
-        <motion.div
-          key={index}
-          className={`relative p-6 rounded-xl text-center cursor-default group overflow-hidden bg-gray-50 border border-gray-100 hover:border-gray-300 transition-colors`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          viewport={{ once: true }}
-          whileHover={{ y: -5 }}
-        >
-          {/* Subtle background wash - removed */}
-          <div className={`absolute inset-0 bg-gray-100 opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {items.map((item, i) => (
+                <motion.div
+                    key={item.key}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className={`relative group p-6 rounded-3xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition-all overflow-hidden`}
+                >
+                    {/* Background Highlight */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
 
-          <div className="relative z-10">
-            <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${item.gradient} flex items-center justify-center text-3xl text-white shadow-lg`}>
-              {item.icon}
-            </div>
-            <p className="font-bold text-gray-800 text-lg group-hover:text-gray-900 transition-colors">{item.title}</p>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  )
+                    <div className="relative z-10 flex flex-col items-center text-center">
+                        <div className="text-4xl mb-4 group-hover:scale-125 transition-transform duration-500">
+                            {item.icon}
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-100 mb-2">
+                            {t(`content.section1.items.${item.key}`)}
+                        </h3>
+                        <div className="w-8 h-0.5 bg-slate-800 group-hover:w-16 group-hover:bg-slate-500 transition-all duration-500" />
+                    </div>
+
+                    {/* Decorative Corner */}
+                    <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-slate-800/50 group-hover:bg-slate-700 transition-colors" />
+                </motion.div>
+            ))}
+        </div>
+    )
 }

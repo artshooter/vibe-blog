@@ -13,6 +13,7 @@ import type { Article } from '@/app/components/types'
 // 这是编译脚本自动更新的
 const ARTICLE_MODULES = [
   'chinese-class',
+  'cs-course-for-beginners',
   'mnist-neural-network',
   'ordinary-person-2025',
   'three-ways-to-evaluate-ai-skills',
