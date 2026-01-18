@@ -16,6 +16,7 @@ const ARTICLE_MODULES = [
   'mnist-neural-network',
   'ordinary-person-2025',
   'rag-chat',
+  'three-ways-to-evaluate-ai-skills',
   'world-war-one',
 ]
 

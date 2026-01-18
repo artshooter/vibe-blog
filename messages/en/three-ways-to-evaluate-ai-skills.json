@@ -1,0 +1,62 @@
+{
+    "metadata": {
+        "title": "How to Evaluate the Learning Value of AI Skills",
+        "description": "Evaluate whether an AI skill is worth learning from three perspectives: understanding the essence, producing outcomes, and improving abilities"
+    },
+    "hero": {
+        "title": "How to Evaluate the Learning Value of AI Skills",
+        "subtitle": "I generally judge from three perspectives",
+        "dimension1": "Understanding",
+        "dimension2": "Outcomes",
+        "dimension3": "Abilities"
+    },
+    "content": {
+        "intro": "I generally judge from three perspectives",
+        "dimension1": {
+            "title": "Can it help you better understand the essence or boundaries of AI?",
+            "intro": "Here are two examples",
+            "example1": {
+                "title": "Chain-of-Thought Prompting",
+                "content": "This technique involves having AI display its thinking steps before answering questions, thereby improving reasoning ability. By using it, you'll discover that AI doesn't think out results all at once like a digital brain - it generates text step by step. It predicts the next token based on the probability of context within the language sequence to arrive at results. Chain-of-thought enriches the context, thus increasing the probability of generating correct answers. This helps you understand the essence of AI."
+            },
+            "example2": {
+                "title": "Wrapper AI Tools",
+                "content": "Most of these tools completely hide their logic and AI calls under a product shell - you can only see the results, not the process. Such tools cannot help you understand AI itself."
+            }
+        },
+        "dimension2": {
+            "title": "Can it produce usable outcomes?",
+            "content": "For example, if you create an automated weekly report writing tool that actually helps you write reports and saves work time, that's a skill with useful outcomes. But if you only generate something that looks nice but has no practical use, its usable value is relatively low."
+        },
+        "dimension3": {
+            "title": "Can it improve your transferable abilities?",
+            "intro": "Transferable abilities are abilities that remain useful to you even after you leave a specific skill or tool.",
+            "positive": {
+                "title": "Positive Example",
+                "content": "For instance, if you're a content creator who writes articles, adjusts formatting, and publishes to platforms daily. One day you break down the entire workflow and turn it into an automated tool. In this process, you train your ability to structure and organize complex things, as well as engineering implementation skills - these are transferable abilities."
+            },
+            "negative": {
+                "title": "Negative Example",
+                "content": "Conversely, if you only learn the interface operation techniques of a specific product, this skill might become useless once you leave that product, providing limited improvement to transferable abilities."
+            }
+        },
+        "conclusion": "In summary, the more of these three perspectives an AI skill meets, the higher its learning value; conversely, the lower.",
+        "footer": "Thank you for reading"
+    },
+    "evaluator": {
+        "title": "Try Evaluating an AI Skill",
+        "inputLabel": "Enter the AI skill you want to evaluate",
+        "inputPlaceholder": "e.g.: Prompt Engineering, RAG, Agent...",
+        "yes": "Yes",
+        "partial": "Partial",
+        "no": "No",
+        "resultLabel": "Overall Evaluation",
+        "thisSkill": "This skill",
+        "hint": "Please rate the above three dimensions",
+        "result": {
+            "high": "High learning value",
+            "medium": "Medium learning value",
+            "low": "Low learning value"
+        }
+    }
+}
