@@ -14,15 +14,30 @@ interface ChatDialogProps {
 export default function ChatDialog({ isOpen, onClose }: ChatDialogProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [])
 
+  // 检测用户是否手动滚动离开了底部
+  const handleScroll = useCallback(() => {
+    const container = messagesContainerRef.current
+    if (!container) return
+
+    // 如果用户滚动到距离底部 50px 以内，认为在底部
+    const isAtBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 50
+    setShouldAutoScroll(isAtBottom)
+  }, [])
+
+  // 只有当 shouldAutoScroll 为 true 时才自动滚动
   useEffect(() => {
-    scrollToBottom()
-  }, [messages, scrollToBottom])
+    if (shouldAutoScroll) {
+      scrollToBottom()
+    }
+  }, [messages, shouldAutoScroll, scrollToBottom])
 
   const handleSend = async (content: string) => {
     const userMessage: Message = {
@@ -33,6 +48,8 @@ export default function ChatDialog({ isOpen, onClose }: ChatDialogProps) {
 
     setMessages((prev) => [...prev, userMessage])
     setIsLoading(true)
+    // 用户发送新消息时，自动滚动到底部
+    setShouldAutoScroll(true)
 
     const assistantId = (Date.now() + 1).toString()
     let sources: Source[] = []
@@ -170,7 +187,11 @@ export default function ChatDialog({ isOpen, onClose }: ChatDialogProps) {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4">
+            <div
+              ref={messagesContainerRef}
+              onScroll={handleScroll}
+              className="flex-1 overflow-y-auto p-4"
+            >
               {messages.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
                   <div className="mb-4 rounded-full bg-neutral-100 p-4 dark:bg-neutral-800">

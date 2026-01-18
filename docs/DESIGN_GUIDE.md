@@ -6,11 +6,6 @@
 
 **首页保持一致** - 虽然每篇文章有独特的设计风格，但在首页展示时需保持基本的视觉一致性，确保良好的浏览体验。
 
-**首页卡片规范**：
-- **高度**：统一使用 `h-[200px]`（Hero 组件在 `inHome={true}` 模式下）
-- **宽度**：默认 `w-full`，由首页网格控制
-- **可点击**：必须用 `<Link>` 包裹，支持点击跳转到文章详情页
-
 ## 四个设计原则
 
 ### 1. 风格跟随内容
@@ -116,5 +111,4 @@
 ## 相关文档
 
 - [ARCHITECTURE.md](./ARCHITECTURE.md) - 技术架构
-- [ARTICLE_CREATION.md](./ARTICLE_CREATION.md) - 完整创作流程
-- [CLAUDE.md](../CLAUDE.md) - AI 协作入口
+- [CLAUDE.md](../CLAUDE.md) - 项目快速参考

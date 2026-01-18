@@ -6,7 +6,7 @@ import { routing } from '@/i18n/routing'
 import { Locale } from '@/i18n/config'
 import NavigationProgress from '@/app/components/common/NavigationProgress'
 import SwipeBack from '@/app/components/common/SwipeBack'
-import RagChat from '@/app/components/rag-chat'
+import RagChat from '@/app/components/features/rag-chat'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {

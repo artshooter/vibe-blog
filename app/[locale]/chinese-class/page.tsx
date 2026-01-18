@@ -1,4 +1,4 @@
-import Content from '@/app/components/chinese-class/Content'
+import Content from '@/app/components/articles/chinese-class/Content'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {

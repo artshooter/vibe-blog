@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * 自动扫描 app/components 下的所有文章文件夹
+ * 自动扫描 app/components/articles 下的所有文章文件夹
  * 并更新 app/lib/articles-loader.ts 中的 ARTICLE_MODULES 列表
  *
  * 使用方法：
@@ -16,7 +16,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const COMPONENTS_DIR = path.join(__dirname, '../app/components')
+const COMPONENTS_DIR = path.join(__dirname, '../app/components/articles')
 const LOADER_FILE = path.join(__dirname, '../app/lib/articles-loader.ts')
 
 function getArticleFolders() {
@@ -26,8 +26,8 @@ function getArticleFolders() {
     .filter((dirent) => {
       if (!dirent.isDirectory()) return false
 
-      // 排除通用组件文件夹
-      if (['common', 'types.ts'].includes(dirent.name)) return false
+      // 排除隐藏文件夹
+      if (dirent.name.startsWith('.')) return false
 
       // 检查是否有 index.tsx 或 index.ts
       const indexPath = path.join(COMPONENTS_DIR, dirent.name, 'index.tsx')
@@ -43,7 +43,7 @@ function generateLoaderContent(articleNames) {
 
   return `/**
  * 文章自动加载模块
- * 约定：所有文章组件在 app/components/[article-name]/index.ts 中导出 Article 对象
+ * 约定：所有文章组件在 app/components/articles/[article-name]/index.ts 中导出 Article 对象
  * 命名规范：导出名称 = [articleName]Article（例如：worldWarOneArticle、mnistNeuralNetworkArticle）
  *
  * ⚠️ 警告：此文件由 scripts/generate-articles-list.js 自动生成
@@ -77,7 +77,7 @@ export async function getAllPublishedArticles(): Promise<Article[]> {
       const exportName = \`\${camelCaseName}Article\`
 
       // 动态导入文章组件（使用相对路径确保服务器端正确解析）
-      const module = await import(\`../components/\${moduleName}\`)
+      const module = await import(\`../components/articles/\${moduleName}\`)
 
       if (module[exportName]) {
         const article: Article = module[exportName]
@@ -87,7 +87,7 @@ export async function getAllPublishedArticles(): Promise<Article[]> {
           articles.push(article)
         }
       } else {
-        console.warn(\`[Article Loader] 未找到导出 '\${exportName}' 在 app/components/\${moduleName}\`)
+        console.warn(\`[Article Loader] 未找到导出 '\${exportName}' 在 app/components/articles/\${moduleName}\`)
       }
     } catch (error) {
       console.error(\`[Article Loader] 加载文章 '\${moduleName}' 失败:\`, error)

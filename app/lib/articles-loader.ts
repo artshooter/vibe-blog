@@ -1,6 +1,6 @@
 /**
  * 文章自动加载模块
- * 约定：所有文章组件在 app/components/[article-name]/index.ts 中导出 Article 对象
+ * 约定：所有文章组件在 app/components/articles/[article-name]/index.ts 中导出 Article 对象
  * 命名规范：导出名称 = [articleName]Article（例如：worldWarOneArticle、mnistNeuralNetworkArticle）
  *
  * ⚠️ 警告：此文件由 scripts/generate-articles-list.js 自动生成
@@ -15,7 +15,6 @@ const ARTICLE_MODULES = [
   'chinese-class',
   'mnist-neural-network',
   'ordinary-person-2025',
-  'rag-chat',
   'three-ways-to-evaluate-ai-skills',
   'world-war-one',
 ]
@@ -39,7 +38,7 @@ export async function getAllPublishedArticles(): Promise<Article[]> {
       const exportName = `${camelCaseName}Article`
 
       // 动态导入文章组件（使用相对路径确保服务器端正确解析）
-      const module = await import(`../components/${moduleName}`)
+      const module = await import(`../components/articles/${moduleName}`)
 
       if (module[exportName]) {
         const article: Article = module[exportName]
@@ -49,7 +48,7 @@ export async function getAllPublishedArticles(): Promise<Article[]> {
           articles.push(article)
         }
       } else {
-        console.warn(`[Article Loader] 未找到导出 '${exportName}' 在 app/components/${moduleName}`)
+        console.warn(`[Article Loader] 未找到导出 '${exportName}' 在 app/components/articles/${moduleName}`)
       }
     } catch (error) {
       console.error(`[Article Loader] 加载文章 '${moduleName}' 失败:`, error)

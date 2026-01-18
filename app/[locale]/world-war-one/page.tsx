@@ -1,4 +1,4 @@
-import Content from '@/app/components/world-war-one/Content'
+import Content from '@/app/components/articles/world-war-one/Content'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {

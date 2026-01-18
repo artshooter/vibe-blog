@@ -3,11 +3,11 @@ import path from 'path'
 import type { ArticleMeta, ArticleSource } from './types'
 
 const ROOT_DIR = path.resolve(__dirname, '../../')
-const COMPONENTS_DIR = path.join(ROOT_DIR, 'app/components')
+const COMPONENTS_DIR = path.join(ROOT_DIR, 'app/components/articles')
 const LOCALE_DIR = path.join(ROOT_DIR, 'app/[locale]')
 
-// Folders that are not articles
-const EXCLUDED_FOLDERS = ['common']
+// Folders that are not articles (articles/ directory only contains articles now)
+const EXCLUDED_FOLDERS: string[] = []
 
 function kebabToCamel(str: string): string {
   // Handle both letters and numbers after hyphen

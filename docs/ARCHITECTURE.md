@@ -31,16 +31,27 @@ app/
 ├── components/
 │   ├── types.ts                    # Article 类型定义
 │   ├── common/                     # 通用组件
-│   └── [article-name]/             # 文章内部组件
-│       ├── index.tsx               # 文章元数据 + 组件导出
-│       ├── Hero.tsx                # 首页卡片（支持 inHome 模式）
-│       ├── Content.tsx             # 文章主体内容
-│       └── *.tsx                   # 其他自定义组件
+│   ├── articles/                   # 文章组件
+│   │   └── [article-name]/
+│   │       ├── index.ts            # 文章元数据 + 组件导出
+│   │       ├── Hero.tsx            # 首页卡片（支持 inHome 模式）
+│   │       ├── Content.tsx         # 文章主体内容
+│   │       └── *.tsx               # 其他自定义组件
+│   └── features/                   # 功能组件
+│       └── rag-chat/               # RAG 问答组件
+│
+├── lib/
+│   └── rag/                        # RAG 运行时逻辑
+│
+├── api/
+│   └── rag/                        # RAG API 端点
 
 docs/                                # 项目文档
 ├── ARCHITECTURE.md                 # 技术架构
-├── DESIGN_GUIDE.md                 # 设计规范
-└── ARTICLE_CREATION.md             # 创作流程
+└── DESIGN_GUIDE.md                 # 设计规范
+
+scripts/
+└── vectors/                        # 向量数据库构建脚本
 
 i18n/                                # 多语言配置
 messages/                            # 翻译文件（zh/en）
@@ -69,18 +80,18 @@ middleware.ts                        # 语言检测
 - **实现**：直接 import Content 组件
 
 ```tsx
-import Content from '@/app/components/[article-name]/Content'
+import Content from '@/app/components/articles/[article-name]/Content'
 
 export default function ArticlePage() {
   return <Content />
 }
 ```
 
-### components/[article-name]/（必需）
+### components/articles/[article-name]/（必需）
 
-- **位置**：`app/components/[article-name]/`
+- **位置**：`app/components/articles/[article-name]/`
 - **必需文件**：
-  - `index.tsx` - 导出 Article 对象（meta + 组件）
+  - `index.ts` - 导出 Article 对象（meta + 组件）
   - `Hero.tsx` - 首页卡片，支持 `inHome?: boolean`
   - `Content.tsx` - 文章主体内容
 - **其他组件**：根据设计需求自由添加
@@ -93,6 +104,17 @@ export default function ArticlePage() {
 - 配置文件：`i18n/config.ts`（定义 locales: ['zh', 'en']）
 - 翻译文件：`messages/zh/` 和 `messages/en/`
 - 自动检测：`middleware.ts` 负责语言重定向
+
+---
+
+## RAG 问答系统
+
+基于文章内容的向量检索问答：
+
+- **构建时**：`pnpm vectors:build` 扫描文章内容，生成向量索引
+- **运行时**：`app/lib/rag/` 处理查询，检索相关内容
+- **API**：`POST /api/rag` 接收问题，返回答案
+- **UI**：`app/components/features/rag-chat/` 提供聊天界面
 
 ---
 
@@ -109,12 +131,11 @@ export default function ArticlePage() {
 
 ### 完全自由
 
-架构只约束必要的结构（Cover.tsx、page.tsx、design.md），文章内容完全自由发挥。每篇文章都是独特的设计作品。
+架构只约束必要的结构（Hero.tsx、page.tsx、design.md），文章内容完全自由发挥。每篇文章都是独特的设计作品。
 
 ---
 
 ## 相关文档
 
 - [DESIGN_GUIDE.md](./DESIGN_GUIDE.md) - 设计规范与创意来源
-- [ARTICLE_CREATION.md](./ARTICLE_CREATION.md) - 文章创作流程
-- [CLAUDE.md](../CLAUDE.md) - AI 协作入口
+- [CLAUDE.md](../CLAUDE.md) - 项目快速参考

@@ -27,6 +27,10 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    // 如果正在使用 IME 输入法（如拼音），不要发送消息
+    if (e.nativeEvent.isComposing) {
+      return
+    }
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSubmit()

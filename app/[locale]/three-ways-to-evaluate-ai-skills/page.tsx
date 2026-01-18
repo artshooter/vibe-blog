@@ -1,4 +1,4 @@
-import Content from '@/app/components/three-ways-to-evaluate-ai-skills/Content'
+import Content from '@/app/components/articles/three-ways-to-evaluate-ai-skills/Content'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {

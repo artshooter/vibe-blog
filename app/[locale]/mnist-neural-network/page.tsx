@@ -1,4 +1,4 @@
-import Content from '@/app/components/mnist-neural-network/Content'
+import Content from '@/app/components/articles/mnist-neural-network/Content'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {

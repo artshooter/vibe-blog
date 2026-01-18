@@ -1,4 +1,4 @@
-import Content from '@/app/components/ordinary-person-2025/Content'
+import Content from '@/app/components/articles/ordinary-person-2025/Content'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {

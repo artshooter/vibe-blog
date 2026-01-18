@@ -26,8 +26,8 @@ export default function SkillEvaluator() {
     setDimensions(newDimensions)
   }
 
-  const calculateScore = () => {
-    const scores = dimensions.map(d => {
+  const calculateScore = (): number => {
+    const scores: number[] = dimensions.map(d => {
       if (d.rating === 'yes') return 2
       if (d.rating === 'partial') return 1
       return 0
