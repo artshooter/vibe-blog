@@ -142,13 +142,13 @@ export default function ChatDialog({ isOpen, onClose }: ChatDialogProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop for mobile */}
+          {/* Backdrop - click to close */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-black/10 backdrop-blur-[2px] md:bg-transparent md:backdrop-blur-none"
           />
 
           {/* Dialog */}
