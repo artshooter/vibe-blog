@@ -68,6 +68,12 @@ jobs:
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1
+        env:
+          EMBEDDING_BASE_URL: ${{ secrets.EMBEDDING_BASE_URL }}
+          EMBEDDING_MODEL: ${{ secrets.EMBEDDING_MODEL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: deploy
@@ -75,5 +81,19 @@ jobs:
           script: |
             mkdir -p ~/vibe-blog
             cd ~/vibe-blog
+
+            # Create .env file with API credentials from GitHub Secrets
+            cat > .env << 'ENVEOF'
+            EMBEDDING_BASE_URL=$EMBEDDING_BASE_URL
+            EMBEDDING_MODEL=$EMBEDDING_MODEL
+            LLM_API_KEY=$LLM_API_KEY
+            LLM_BASE_URL=$LLM_BASE_URL
+            LLM_MODEL=$LLM_MODEL
+            ENVEOF
+
+            # Set proper permissions
+            chmod 600 .env
+
+            # Deploy
             docker compose pull
             docker compose up -d
