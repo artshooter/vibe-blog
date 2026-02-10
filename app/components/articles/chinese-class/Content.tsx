@@ -4,16 +4,16 @@ import { useTranslations } from 'next-intl'
 import { motion } from 'framer-motion'
 import BackButton from '@/app/components/common/BackButton'
 import Hero from './Hero'
-import GameUseCases from './GameUseCases'
-import ToolComparison from './ToolComparison'
-import ExpandableCard from './ExpandableCard'
+import GameUseCases from './GameUseCases.tsx'
+import ToolComparison from './ToolComparison.tsx'
+import ExpandableCard from './ExpandableCard.tsx'
 
 export default function Content() {
     const t = useTranslations('chinese-class')
 
     const sectionVariants = {
         hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
     }
 
     return (
