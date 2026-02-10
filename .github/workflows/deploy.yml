@@ -34,7 +34,8 @@ jobs:
         run: pnpm run build
 
       - name: Build vector database for RAG
-        run: pnpm run vectors:build
+        run: pnpm run vectors:build || echo "⚠️  向量库构建失败，跳过（需要本地配置.env后手动构建）"
+        continue-on-error: true
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
