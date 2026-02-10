@@ -4,6 +4,12 @@ services:
     environment:
       - NODE_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
+      # RAG API Configuration (update with your actual values)
+      - EMBEDDING_BASE_URL=https://api.siliconflow.cn/v1/embeddings
+      - EMBEDDING_MODEL=BAAI/bge-large-zh-v1.5
+      - LLM_API_KEY=your_api_key_here
+      - LLM_BASE_URL=https://api.siliconflow.cn/v1
+      - LLM_MODEL=Pro/zai-org/GLM-4.7
     restart: unless-stopped
     container_name: vibe-blog
     volumes:
