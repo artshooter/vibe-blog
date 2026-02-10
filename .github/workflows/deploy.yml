@@ -34,7 +34,13 @@ jobs:
         run: pnpm run build
 
       - name: Build vector database for RAG
-        run: pnpm run vectors:build || echo "⚠️  向量库构建失败，跳过（需要本地配置.env后手动构建）"
+        env:
+          EMBEDDING_BASE_URL: ${{ secrets.EMBEDDING_BASE_URL }}
+          EMBEDDING_MODEL: ${{ secrets.EMBEDDING_MODEL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: pnpm run vectors:build || echo "⚠️  向量库构建失败（检查GitHub Secrets配置）"
         continue-on-error: true
 
       - name: Log in to GHCR
