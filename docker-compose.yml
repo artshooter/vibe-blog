@@ -1,0 +1,33 @@
+services:
+  vibe-blog:
+    image: ghcr.io/artshooter/vibe-blog:latest
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+    container_name: vibe-blog
+    volumes:
+      - /home/db/transformers-cache:/app/node_modules/@xenova/transformers/.cache
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fs http://localhost:3000 || exit 1" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+    networks:
+      - traefik-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vibe-blog.rule=Host(`vibe-blog.ashooter.com`)"
+      - "traefik.http.services.vibe-blog.loadbalancer.server.port=3000"
+
+networks:
+  traefik-net:
+    external: true
