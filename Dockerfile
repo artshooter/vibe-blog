@@ -78,6 +78,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # 复制国际化相关文件（修复404问题）
 COPY --from=builder --chown=nextjs:nodejs /app/messages ./messages
 
+# 复制向量数据库（RAG 功能）
+COPY --from=builder --chown=nextjs:nodejs /app/data ./data
+
 USER nextjs
 
 EXPOSE 3000
