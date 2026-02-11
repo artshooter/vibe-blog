@@ -16,9 +16,11 @@
   },
   "packageManager": "pnpm@10.22.0",
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.8.1",
     "@tailwindcss/typography": "^0.5.19",
     "framer-motion": "^12.23.26",
     "katex": "^0.16.27",
+    "negotiator": "^1.0.0",
     "next": "^16.1.1",
     "next-intl": "^4.6.1",
     "react": "^19.2.3",

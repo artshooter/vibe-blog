@@ -17,8 +17,9 @@ export async function embedQueries(texts: string[]): Promise<number[][]> {
 
   if (!response.ok) {
     const errorBody = await response.text()
-    const error = new Error(`Embedding API error: ${response.status} - ${errorBody}`)
+    const error = new Error(`Embedding API error: ${response.status} - ${errorBody}`) as Error & { statusCode: number }
     error.name = 'EmbeddingAPIError'
+    error.statusCode = response.status
     throw error
   }
 

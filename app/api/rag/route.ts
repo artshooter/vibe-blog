@@ -116,10 +116,18 @@ export async function POST(request: NextRequest) {
 
     // Embedding API 失败时返回友好提示
     if (error instanceof Error && error.name === 'EmbeddingAPIError') {
-      return Response.json(
-        { error: '第三方 API 限流，请稍后再试' },
-        { status: 429 }
-      )
+      const statusCode = (error as Error & { statusCode?: number }).statusCode ?? 0
+      let message: string
+      if (statusCode === 429) {
+        message = '第三方 API 限流，请稍后再试'
+      } else if (statusCode === 401 || statusCode === 403) {
+        message = 'Embedding API 认证失败，请检查 API Key'
+      } else if (statusCode >= 500) {
+        message = `Embedding 服务异常 (${statusCode})，请稍后再试`
+      } else {
+        message = `Embedding API 错误 (${statusCode})`
+      }
+      return Response.json({ error: message }, { status: statusCode === 429 ? 429 : 502 })
     }
 
     const message = error instanceof Error ? error.message : 'Internal server error'
