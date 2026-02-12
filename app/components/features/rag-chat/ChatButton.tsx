@@ -14,7 +14,7 @@ export default function ChatButton({ onClick, isOpen }: ChatButtonProps) {
       className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-900 text-white shadow-lg transition-colors hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      aria-label={isOpen ? '关闭对话' : '与博客对话'}
+      aria-label={isOpen ? '关闭对话' : '与ArtShooter Bot对话'}
     >
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"

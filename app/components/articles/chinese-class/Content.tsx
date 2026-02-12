@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl'
 import { motion } from 'framer-motion'
 import BackButton from '@/app/components/common/BackButton'
 import Hero from './Hero'
-import GameUseCases from './GameUseCases'
-import ToolComparison from './ToolComparison'
-import ExpandableCard from './ExpandableCard'
+import GameUseCases from './GameUseCases.tsx'
+import ToolComparison from './ToolComparison.tsx'
+import ExpandableCard from './ExpandableCard.tsx'
 
 export default function Content() {
     const t = useTranslations('chinese-class')
